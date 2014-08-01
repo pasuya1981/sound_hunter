@@ -4,4 +4,4 @@
 
 _italic text test_
 
-*bold text text_
+*bold text text*
