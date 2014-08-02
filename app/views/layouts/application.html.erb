@@ -26,11 +26,15 @@
       <ul class="nav_links" style="margin-right:59px;">
       	<li>link2</li>
       	<li>link3</li>
-      	<li><a href="<%= login_path %>">登入</a> </li>
+      	<li><%= link_to '登入', login_path %></li>
       </ul>
     </div>
   </div>
 </header>
+
+<div class="notification">
+  <%= render "shared/flash_messages" %>
+</div>
 
 
 <div class="main_content">
@@ -52,8 +56,6 @@
   	<% end %>
   </div>
 </footer>
-
-
 
 </body>
 </html>

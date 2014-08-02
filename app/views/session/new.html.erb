@@ -2,9 +2,9 @@
   登入到 <%= image_tag('https://pbs.twimg.com/profile_images/328513862/sc-logo_bigger.png', size: "50x50") %>
 </h4>
 
-<%= simple_form_for(@user , url: { controller: 'session', action: 'create' } , 
+<%= simple_form_for(@user , url: { controller: 'session', action: 'create' },
                             html: { class: 'form-horizontal' }) do |f| %>
 <%= f.input :email, placeholder: 'your@email.com', label: '電子郵件'%>
 <%= f.input :password, label: '密碼' %>
-<%= f.button :submit %>
+<%= f.button :submit, '登入到8traks' %>
 <% end %>
