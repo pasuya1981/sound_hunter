@@ -1,13 +1,28 @@
 source 'https://rubygems.org'
 
-gem 'soundcloud'
-gem 'devise'
+ruby '2.1.1'
+
+gem 'nokogiri'
+
+gem 'soundcloud' # https://github.com/soundcloud/soundcloud-ruby
+
+group :development do
+  gem 'simple_form', '>= 3.1.0.rc1'
+end
+
+group :test do
+  gem 'capybara', '>= 2.4.1'
+end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>=3.0.2'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 
@@ -37,7 +52,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'

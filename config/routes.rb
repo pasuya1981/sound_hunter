@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+
+  match ":controller(/:action(/:id))", via: [:get, :post, :delete]
+  get '/home', to: 'home#welcome', as: :home
+  get '/login', to: 'session#new', as: :login
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
