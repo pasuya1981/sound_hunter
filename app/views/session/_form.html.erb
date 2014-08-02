@@ -1,5 +1,19 @@
-<%= simple_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
-  <%= f.input :email, label: '郵件地址', placeholder: '1234@5678.com' %>
+<h4 class='pull-center'>
+  <%= link_to( image_tag('http://8tracks.imgix.net/avatars/007/888/920/38789.original.png?fm=jpg&q=65&sharp=15&vib=10&w=75&h=75&fit=crop&dpr=3', size: "50x50"), "http://8tracks.com/") + ' 以8tracks的帳號登入' %>
+</h4>
+<% button_name = '登入' %>
+<%= simple_form_for(@user, url: { controller: 'session', action: 'create_8_tracks_ac' },
+                            html: { class: 'form-horizontal' }) do |f| %>
+  <% if controller.action_name =~ /sign_up/ %>
+    <% button_name = '建立帳號' %>
+    <%= f.input :username, label: '帳號名稱' %>
+  <% end %>
+
+  <%= f.input :email, placeholder: 'someone@domain.com', label: '電郵地址'%>
   <%= f.input :password, label: '密碼' %>
-  <%= f.button :submit, '登入到' %>
+  <%= f.button :submit, button_name %>  
+
+  <% unless user_logged_in? %>
+    <%= link_to '免費申請8-tracks帳號', {action: 'sign_up'}, class: 'pull-right' %>
+  <% end %>
 <% end %>

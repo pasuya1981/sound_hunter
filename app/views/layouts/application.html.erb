@@ -14,19 +14,24 @@
     <div class="col-md-6 col-lg-6 col-sm-6">
 
       <ul class="nav_links">
+      <% glyph_size = '150%' %>
       	<li><span class="banner_title"><%= link_to 'Sound Hunter', home_path %></span></li>
-      	<li>link2</li>
-      	<li>link3</li>
-      	<li>link4</li>
+      	<li><span class="glyphicon glyphicon-circle-arrow-right" style="font-size: <%= glyph_size %>;"></span></li>
+      	<li><span class="glyphicon glyphicon-circle-arrow-left" style="font-size: <%= glyph_size %>;"></span></li>
+      	<li><span class="glyphicon glyphicon-circle-arrow-up" style="font-size: <%= glyph_size %>;"></span></li>
       </ul>
 
     </div>
 
     <div class="col-md-6 col-lg-6 col-sm-6">
       <ul class="nav_links" style="margin-right:59px;">
-      	<li>link2</li>
-      	<li>link3</li>
-      	<li><%= link_to '登入', login_path %></li>
+      	<li><li><span class="glyphicon glyphicon-save" style="font-size: <%= glyph_size %>;"></span></li></li>
+      	<li><li><span class="glyphicon glyphicon-thumbs-up" style="font-size: <%= glyph_size %>;"></span></li></li>
+        <% if user_logged_in? %>
+      	  <li><%= link_to '登出', { controller: 'session', action: 'logout' } %></li>
+        <% else %>
+          <li><%= link_to '登入', login_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -38,13 +43,14 @@
 
 
 <div class="main_content">
-
-<div class="row">
-  <div class="col-md-4 col-lg-4 col-sm-4"></div>
-  <div class="col-md-8 col-lg-8 col-sm-8">
-    <!-- Before yield -->
-    <%= yield %>	
-    <!-- After yield -->
+  <div class="row">
+    <div class="col-md-3 col-lg-3 col-sm-3"></div>
+    <div class="col-md-5 col-lg-5 col-sm-5">
+      <!-- Before yield -->
+      <%= yield %>	
+      <!-- After yield -->
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-4"></div>
   </div>
 </div>
 
