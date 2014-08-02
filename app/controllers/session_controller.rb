@@ -55,7 +55,7 @@ class SessionController < ApplicationController
 
     def get_8_tracks_user_token(account_name, password)
       base_uri = URI("https://8tracks.com/sessions.xml")
-      res = Net::HTTP.post_form( base_uri, login: account_name], 
+      res = Net::HTTP.post_form( base_uri, login: account_name, 
                                            password: password,
                                            api_version: '3',
                                            api_key: EIGHT_TRACK_API_KEY )

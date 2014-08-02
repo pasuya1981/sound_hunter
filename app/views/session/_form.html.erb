@@ -1,0 +1,5 @@
+<%= simple_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.input :email, label: '郵件地址', placeholder: '1234@5678.com' %>
+  <%= f.input :password, label: '密碼' %>
+  <%= f.input :submit, '登入' %>
+<% end %>
