@@ -89,7 +89,7 @@ class SessionController < ApplicationController
           redirect_to signup_path
         end
       else # fail to create 8tracks user account 
-        
+        # TODO: handle "200 OK" response
         flash[:alert] = "8tracks 帳號未能建立成功, server response:#{response_status}"
         redirect_to signup_path
       end
