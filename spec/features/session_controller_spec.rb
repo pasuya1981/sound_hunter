@@ -21,7 +21,8 @@ describe SessionController do
     end
 
     it "get error press button" do
-      click_button("登入到8traks")
+      click_button("登入")
+      expect(page).to have_content('success')
     end
   end
 end	

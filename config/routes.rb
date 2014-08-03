@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
 
   match ":controller(/:action(/:id))", via: [:get, :post, :delete]
-  get '/login', to: 'session#new', as: :login
+  get '/login', to: 'session#new', as: 'login'
+  get '/signup', to: 'session#signup', as: 'signup'
   root to: 'home#welcome', as: 'home'
 
   # The priority is based upon order of creation: first created -> highest priority.

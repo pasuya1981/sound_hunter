@@ -16,8 +16,11 @@ ActiveRecord::Schema.define(version: 20140801095844) do
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "email"
-    t.string   "password"
-    t.string   "user_token"
+    t.string   "password_digest"
+    t.string   "tracks_user_token"
+    t.integer  "tracks_user_id"
+    t.string   "tracks_user_web_path"
+    t.string   "tracks_user_avatar_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -14,10 +14,16 @@ module ApplicationHelper
   end
 
   def user_logged_in?
-  	session[:user_token].present?
+    session[:user_token].present?
   end
 
   def clear_user_token
-  	session[:user_token] = nil
+    session[:user_token] = nil
+  end
+
+  def dynamic_action_name
+    action_name = controller.action_name
+    return 'create' if action_name =~ /new/i
+    return 'create_8_tracks_ac' if action_name =~ /signup/i
   end
 end
