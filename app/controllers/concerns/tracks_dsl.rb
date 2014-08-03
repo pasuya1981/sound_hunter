@@ -32,12 +32,13 @@ module TracksDsl
       tracks_user_web_path = xml.css('web-path').first.content.to_s.prepend(%q(https://8tracks.com))
       tracks_user_token = xml.css('user-token').first.content
       tracks_user_avatar_url = parse_img_url_from( xml.css('sq56').first.content )
-      yield(tracks_user_id, tracks_user_name, tracks_user_web_path, tracks_user_token, tracks_user_avatar_url) if block_given?
+      yield(response_status, tracks_user_id, tracks_user_name, tracks_user_web_path, tracks_user_token, tracks_user_avatar_url) if block_given?
       return
     else
       # TODO: faile to create new user flow.
       # Maybe could have create Custom Error Message
-      raise "User created Fail"
+      raise response.body
+      yield response_status
     end
   end   # this ensures user has account on 8 tracks (  or just get bad http response )
 

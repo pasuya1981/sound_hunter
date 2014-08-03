@@ -1,15 +1,7 @@
 
 
 
-
-
-
-def search_method_for(obj, keyword)
-  array = []
-  regexp = Regexp.new keyword, true #
-  puts regexp
-  obj.methods.map { |m| array << m if m.to_s =~ regexp}
-  puts array
+if [1,2].each {|e| return true if e == 3 }
+  puts 'hi'
+	
 end
-
-search_method_for 'asdf', 'gSUb'

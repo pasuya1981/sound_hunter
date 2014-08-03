@@ -67,7 +67,33 @@ class SessionController < ApplicationController
     username = user_params[:username]
     email = user_params[:email]
     password = user_params[:password]
-    
+
+    signup_user_to_8tracks(username, email, password) do | response_status,
+                                                           tracks_user_id, 
+                                                           tracks_user_name, 
+                                                           tracks_user_web_path, 
+                                                           tracks_user_token, 
+                                                           tracks_user_avatar_url |
+      if tracks_user_token.present? # 8tracks user created successfully.
+        user = User.new(username: tracks_user_name, 
+                        tracks_user_id: tracks_user_id,
+                        email: email, 
+                        tracks_user_token: tracks_user_token, 
+                        tracks_user_web_path: tracks_user_web_path, 
+                        tracks_user_avatar_url: tracks_user_avatar_url)
+        if user.save # user save successfully
+          user_session_setup(user.username, user.tracks_user_token, user.tracks_user_avatar_url)
+          redirect_to(home_path)
+        else
+          flash[:alert] = "資料庫帳號建立失敗: #{response_status}"
+          redirect_to signup_path
+        end
+      else # fail to create 8tracks user account 
+        
+        flash[:alert] = "8tracks 帳號未能建立成功, server response:#{response_status}"
+        redirect_to signup_path
+      end
+    end
     
     # if created a new user successfully
 
