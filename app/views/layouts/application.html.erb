@@ -5,35 +5,12 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= render 'layouts/bootstrap_load' %>
+  <%= render 'layouts/bootstrap_3_CDN_load' %>
 </head>
 <body>
 
 <header>
-  <div class="row">
-    <div class="col-md-6 col-lg-6 col-sm-6">
-
-      <ul class="nav_links">
-      	<li><span class="banner_title"><%= link_to 'Sound Hunter', home_path %></span></li>
-      	<li><span class="glyphicon glyphicon-circle-arrow-right font_size_enlarge"></span></li>
-      	<li><span class="glyphicon glyphicon-circle-arrow-left font_size_enlarge"></span></li>
-      	<li><span class="glyphicon glyphicon-circle-arrow-up font_size_enlarge"></span></li>
-      </ul>
-
-    </div>
-
-    <div class="col-md-6 col-lg-6 col-sm-6">
-      <ul class="nav_links" style="margin-right:59px;">
-      	<li><li><span class="glyphicon glyphicon-save font_size_enlarge"></span></li></li>
-      	<li><li><span class="glyphicon glyphicon-thumbs-up font_size_enlarge"></span></li></li>
-        <% if user_logged_in? %>
-      	  <li><%= link_to '登出', { controller: 'session', action: 'logout' } %></li>
-        <% else %>
-          <li><%= link_to( content_tag(:span,'', class: "glyphicon glyphicon-user font_size_enlarge" ) + ' 登入', login_path ) %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
+  <%= render 'layouts/header' %>
 </header>
 
 <div class="notification">

@@ -1,3 +1,5 @@
+
+# Let views-module-methods visible to controller side ( default: invisible )
 include ApplicationHelper
 
 class ApplicationController < ActionController::Base

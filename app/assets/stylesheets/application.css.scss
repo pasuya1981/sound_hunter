@@ -18,15 +18,18 @@
 
 html {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  .main_content {
+    
+  }
 }
 
 header {
   background-color: black;
-  padding: 10px 10px 1px 20px;
+  padding: 10px 10px 5px 20px;
   box-shadow: 4px 4px 10px grey;
 }
 
-ul.nav_links {
+.nav_links {
   height: 40px;
   display: table-cell;
   vertical-align: middle;
@@ -40,14 +43,15 @@ ul.nav_links {
   	  cursor: pointer;
   	  color: white;
   	  text-decoration: none;
+
+      /* transition initial value */
   	  opacity: 0.75;
-  	  /* transition code begin */
+  	  /* transition state setup */
       transition: opacity .25s ease-in-out;
       -moz-transition: opacity .25s ease-in-out;
       -webkit-transition: opacity .25s ease-in-out;
-
       &:hover {
-      	opacity: 1;
+      	opacity: 1; /* transition ending value */
       }
   	}
   }
@@ -55,6 +59,13 @@ ul.nav_links {
 
 .font_size_enlarge {
   font-size: 150%;
+}
+
+.fake_link {
+  color: LightBlue;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .banner_title {

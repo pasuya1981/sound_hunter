@@ -1,0 +1,42 @@
+<!-- Button trigger modal -->
+<span class="pull-right font_size_enlarge fake_link" data-toggle="modal" data-target="#myModal">
+  免費申請8tracks帳號
+</span>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Grid Logic Begin... -->
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <%= simple_form_for(User.new, url: {controller: :session, action: :create }, html: { class: 'form-horizontal' }) do |f| %>
+            <%= f.input :username, lable: 'Name' %>
+            <%= f.input :email, lable: '郵件' %>
+            <%= f.input :password, label: '密碼' %>
+            <%= f.input :password_confirmation, lable: '密碼確認' %>
+            <%= f.button :submit,'Test Btn', class: "btn btn-default", html: { 'data-dismiss' => 'modal' } %>
+          <% end %>
+          </div>
+          <div class="col-md-2"></div>
+          <!-- ...Grid Logic Finish -->
+        </div>
+          
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

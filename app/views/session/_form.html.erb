@@ -11,7 +11,10 @@
   <%= f.input :password, label: '密碼' %>
   <%= f.button :submit, @submit_btn_name %>  
 
-  <% unless user_logged_in? %>
-    <%= link_to '免費申請8-tracks帳號', {action: 'signup'}, class: 'pull-right' %>
+  <% unless user_logged_in?  %>
+    <% unless controller.action_name =~ /signup/i %>
+      <%= link_to "免費申請8tracks帳號", signup_path, class: 'pull-right' %>
+    <% end %>
   <% end %>
 <% end %>
+
