@@ -1,8 +1,6 @@
 class SessionController < ApplicationController
 
-  include TracksDsl # concern module
 
-  
 
   def new
     @user = User.new
