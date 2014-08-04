@@ -3,18 +3,14 @@ source 'https://rubygems.org'
 ruby '2.1.1'
 
 gem 'nokogiri'
+gem 'simple_form', '>= 3.1.0.rc1'
 
-gem 'soundcloud' # https://github.com/soundcloud/soundcloud-ruby
-
-group :development, :test do
-  # gems for layout
-  gem 'simple_form', '>= 3.1.0.rc1'
-  
+group :development, :test do  
   # gems for debug
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
-
+  gem 'mysql2'
   # gems for testing
   gem 'rspec-rails', '>=3.0.2'
   gem 'capybara', '>= 2.4.1'
@@ -28,8 +24,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
-# Use mysql as the database for Active Record
-gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
