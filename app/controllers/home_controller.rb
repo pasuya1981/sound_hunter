@@ -5,6 +5,7 @@ class HomeController < ApplicationController
 
   def welcome
   	init_trend_tag_session
+    @tags_ary = session[:trend_tags].shuffle
   end
 
   private
