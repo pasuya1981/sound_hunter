@@ -17,7 +17,7 @@
 class User < ActiveRecord::Base
 
   has_secure_password
-  validates_presence_of :password, message: '不能為空白'
+  validates_presence_of :password
   validates_presence_of :email
   validates_presence_of :tracks_user_token
   validates_uniqueness_of :email

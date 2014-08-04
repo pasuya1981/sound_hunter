@@ -25,14 +25,19 @@ class SessionController < ApplicationController
       user_session_setup_for(user)
       redirect_to home_path
     else # no user in DB
-      user_info_hash = log_user_to_8tracks(email, password)
+      user_info_hash = log_user_to_8tracks(email, user_params[:password])
+      user_info_hash[:tracks_user_password] = user_params[:password]
       user = new_user_from(user_info_hash)
+
       if user.save
         user_session_setup_for(user)
-        redirect_to(home_path, notice: "你好, #{tracks_user_name.capitalize}")
-      elsif tracks_user_token.nil? # if get nil token, just render 'new'
-        @user = User.new
-        render 'new'
+        redirect_to home_path
+      elsif user.errors.any?# if get nil token, just render 'new'
+        flash[:info] = user.errors.full_messages.join(', ')
+        redirect_to login_path
+      else
+        flash[:warning] = "無法處理的問題"
+        redirect_to login_path
       end
     end
   end
@@ -66,30 +71,32 @@ class SessionController < ApplicationController
     password = user_params[:password]
 
     user_info_hash = signup_user_to_8tracks(username, email, password)
-    if user_info_hash && user_info_hash[:error].nil? # 8tracks user signup successfully.
+
+    # 8tracks user signup successfully
+    if user_info_hash && user_info_hash[:error].nil? 
+      user_info_hash[:tracks_user_password] = user_params[:password]
       user = new_user_from(user_info_hash)
-      if user.save # user save successfully
+      # user save successfully
+      if user.save 
         user_session_setup_for(user)
         redirect_to(home_path)
-      else
-        user_session_setup_for user
-        flash[:success] = "該帳號#{user.username}已申請過並已直接登入系統"
-        redirect_to home_path
+      # user already exist
+      elsif User.exists?(username: user.username, email: user.email) 
+        user_session_setup_for(user)
+        redirect_to(home_path)
+      # DB fails to save user
+      else 
+        redirect_to signup_path
       end
+    # 8tracks returns error for user creation
     elsif user_info_hash[:error]
       flash[:warning] = "8tracks帳號申請錯誤: #{user_info_hash[:error]}"
       redirect_to signup_path
+    # no idea what is the error
     else
-      raise "Unkown issues...."
+      flash[:danger] = "不知明的錯誤....#{user_info_hash}"
+      redirect_to signup_path
     end
-    # TODO: if created a new user successfully
-
-      # redirect to home_path
-
-      # elsif fail to signup a new user
-
-      # render 'signup'
-    # end
   end
 
   def edit
@@ -117,6 +124,11 @@ class SessionController < ApplicationController
       error = { errors: [] }
       error[:errors] << 'Email格式錯誤' unless user_params[:email].to_s =~ EMAIL_REGEXP
       error[:errors] << "密碼需包含一數字一字母，字數介於4-8之間" unless user_params[:password] =~ PASSWORD_REGEXP
+      if User.exists?(email: user_params[:email])
+        error[:errors] << "密碼錯誤" unless User.find_by(email: user_params[:email]).authenticate(user_params[:password])
+      else
+        error[:errors] << "無此帳號" unless User.exists?(email: user_params[:email])
+      end
       return error if error[:errors].any?
       return nil
     end
@@ -125,6 +137,7 @@ class SessionController < ApplicationController
       User.new(username:               user_info_hash[:tracks_user_name], 
                tracks_user_id:         user_info_hash[:tracks_user_id],
                email:                  user_info_hash[:tracks_user_email],
+               password:               user_info_hash[:tracks_user_password],
                tracks_user_token:      user_info_hash[:tracks_user_token], 
                tracks_user_web_path:   user_info_hash[:tracks_user_web_path], 
                tracks_user_avatar_url: user_info_hash[:tracks_user_avatar_url])
