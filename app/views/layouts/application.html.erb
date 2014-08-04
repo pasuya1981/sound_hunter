@@ -17,15 +17,15 @@
   <%= render "shared/flash_messages" %>
 </div>
 
-<div class="main_content container-fixed">
+<div class="container-fixed top_level_container">
   <div class="row">
-    <div class="col-xs-3"><%= render "layouts/left_panel" %></div>
-    <div class="col-xs-6">
+    <div class="left_container col-md-3"><%= render "layouts/left_panel" %></div>
+    <div class="main_container col-md-6">
       <!-- Before yield -->
       <%= yield %>	
       <!-- After yield -->
     </div>
-    <div class="col-xs-3"></div>
+    <div class="right_container col-md-3">right_container col-md-3</div>
   </div>
 </div>
 
