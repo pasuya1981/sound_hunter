@@ -28,8 +28,9 @@ module TracksDsl
     if response_status =~ /200 ok/i
       user_info = parse_user_info_from(xml)
     elsif response_status =~ /422 Unprocessable Entity/i
-      raise response.body
       return nil
+    else
+      raise "Unkown Error...#{response_status}"
     end
   end
 

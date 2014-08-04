@@ -10,21 +10,25 @@ class SessionController < ApplicationController
   end
 
   def create
-    # find user from db
-    error_hash = parse_user_params
-    if error_hash
-      flash[:warning] = error_hash[:errors].join(', ')
+    email = user_params[:email]
+    user = User.find_by(email: email)
+     
+    unless make_sure_user_params_are_all_present
+      flash[:info] = "帳號或密碼不能為空白"
       redirect_to login_path
       return
     end
-
-    email = user_params[:email]
-    user = User.find_by(email: email)
     
     if user # user is in DB already
+      if !user.authenticate(user_params[:password])
+        flash[:info] = "密碼錯誤"
+        redirect_to login_path
+        return
+      end
       user_session_setup_for(user)
       redirect_to home_path
     else # no user in DB
+
       user_info_hash = log_user_to_8tracks(email, user_params[:password])
       user_info_hash[:tracks_user_password] = user_params[:password]
       user = new_user_from(user_info_hash)
@@ -120,6 +124,12 @@ class SessionController < ApplicationController
   # between 4 to 8 characters
   PASSWORD_REGEXP = /^(?=.*\d)(?=.*[a-zA-Z]).{4,8}$/
 
+    def make_sure_user_params_are_all_present
+      return false if user_params[:email].size < 1 || user_params[:password].size < 1
+      return true
+    end
+
+    # TODO: this method is not used.
     def parse_user_params
       error = { errors: [] }
       error[:errors] << 'Email格式錯誤' unless user_params[:email].to_s =~ EMAIL_REGEXP
