@@ -30,6 +30,12 @@ class SessionController < ApplicationController
     else # no user in DB
 
       user_info_hash = log_user_to_8tracks(email, user_params[:password])
+      # no account on 8tracks server
+      if user_info_hash.nil?
+        flash[:info] = "無此帳號"
+        redirect_to login_path
+        return
+      end
       user_info_hash[:tracks_user_password] = user_params[:password]
       user = new_user_from(user_info_hash)
 
@@ -129,7 +135,7 @@ class SessionController < ApplicationController
       return true
     end
 
-    # TODO: this method is not used.
+    # TODO: this method is not used. Should I delete this method?
     def parse_user_params
       error = { errors: [] }
       error[:errors] << 'Email格式錯誤' unless user_params[:email].to_s =~ EMAIL_REGEXP
