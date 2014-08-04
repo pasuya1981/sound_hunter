@@ -24,5 +24,11 @@ describe SessionController do
       click_button("登入")
       expect(page).to have_content('success')
     end
+
+    it "try signup" do
+      visit signup_path
+      click_button "建立帳號"
+      expect(page).to have_content("建立帳號")
+    end
   end
 end	

@@ -7,10 +7,10 @@ module ApplicationHelper
 # <div class="alert alert-danger" role="alert">...</div>
 
   def bootstrap_class_for flash_type
-  	{ success: 'alert-success', 
-      error: 'alert-error', 
-      alert: 'alert-block', 
-      notice: 'alert-info' }[flash_type] || 'alert-info'
+  	style = { success: 'alert-success', 
+              info:    'alert-info', 
+              warning: 'alert-warning', 
+              danger:  'alert-danger' }[flash_type.to_sym] || 'alert-info'
   end
 
   def get_user_token
@@ -48,9 +48,9 @@ module ApplicationHelper
     return 'create_eight_tracks_account' if action_name =~ /signup/i
   end
 
-  def user_session_setup(username, user_token, user_avatar_url)
-    session[:username] = username
-    session[:user_token] = user_token
-    session[:avatar_url] = user_avatar_url 
+  def user_session_setup_for(user_model_instance)
+    session[:username]   = user_model_instance.username
+    session[:user_token] = user_model_instance.tracks_user_token
+    session[:avatar_url] = user_model_instance.tracks_user_avatar_url
   end
 end

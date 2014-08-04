@@ -1,7 +1,5 @@
+require 'json'
+require 'rails'
 
-
-
-if [1,2].each {|e| return true if e == 3 }
-  puts 'hi'
-	
-end
+hash =  { hi: 'hi', goodbye: 'goodbye' }
+puts hash.to_xml

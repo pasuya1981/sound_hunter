@@ -1,7 +1,8 @@
 class SessionController < ApplicationController
+
   include TracksDsl # concern module
 
-  # layout 'form'
+  
 
   def new
     @user = User.new
@@ -10,32 +11,28 @@ class SessionController < ApplicationController
 
   def create
     # find user from db
+    error_hash = parse_user_params
+    if error_hash
+      flash[:warning] = error_hash[:errors].join(', ')
+      redirect_to login_path
+      return
+    end
+
     email = user_params[:email]
-    password = user_params[:password]
     user = User.find_by(email: email)
     
-    # if find user, check session[:user_token] and redirect to home_path
-    if user
-      user_session_setup(user.username, user.tracks_user_token, user.tracks_user_avatar_url)
+    if user # user is in DB already
+      user_session_setup_for(user)
       redirect_to home_path
-    else # can't find user from DB, try log in onto 8tracks
-      log_user_to_8tracks(email, password) do |tracks_user_id, tracks_user_name, tracks_user_web_path, tracks_user_token, avatar_url|
-
-        if tracks_user_token && tracks_user_id && tracks_user_web_path && avatar_url # if get user-token, save the user to db with the token
-          user = User.create!(username: tracks_user_name, 
-                              email: user_params[:email], 
-                              password: user_params[:password],
-                              tracks_user_id: tracks_user_id,
-                              tracks_user_web_path: tracks_user_web_path,
-                              tracks_user_token: tracks_user_token,
-                              tracks_user_avatar_url: avatar_url)  
-          # store useful info in session
-          user_session_setup(tracks_user_name, tracks_user_token, avatar_url)
-          redirect_to(home_path, notice: "你好, #{tracks_user_name.capitalize}")
-        elsif tracks_user_token.nil? # if get nil token, just render 'new'
-          @user = User.new
-          render 'new'
-        end
+    else # no user in DB
+      user_info_hash = log_user_to_8tracks(email, password)
+      user = new_user_from(user_info_hash)
+      if user.save
+        user_session_setup_for(user)
+        redirect_to(home_path, notice: "你好, #{tracks_user_name.capitalize}")
+      elsif tracks_user_token.nil? # if get nil token, just render 'new'
+        @user = User.new
+        render 'new'
       end
     end
   end
@@ -57,52 +54,41 @@ class SessionController < ApplicationController
     redirect_to login_path
   end
 
-  def signup # render form, POST session#create_eight_tracks_account
+  # render 'form'. POST to session#create_eight_tracks_account
+  def signup
     @user = User.new
     @submit_btn_name = "建立帳號"
   end
 
   def create_eight_tracks_account
-    # TODO: use DSL method 'signup_user_to_8tracks' to run the flow
     username = user_params[:username]
     email = user_params[:email]
     password = user_params[:password]
 
-    signup_user_to_8tracks(username, email, password) do | response_status,
-                                                           tracks_user_id, 
-                                                           tracks_user_name, 
-                                                           tracks_user_web_path, 
-                                                           tracks_user_token, 
-                                                           tracks_user_avatar_url |
-      if tracks_user_token.present? # 8tracks user created successfully.
-        user = User.new(username: tracks_user_name, 
-                        tracks_user_id: tracks_user_id,
-                        email: email, 
-                        tracks_user_token: tracks_user_token, 
-                        tracks_user_web_path: tracks_user_web_path, 
-                        tracks_user_avatar_url: tracks_user_avatar_url)
-        if user.save # user save successfully
-          user_session_setup(user.username, user.tracks_user_token, user.tracks_user_avatar_url)
-          redirect_to(home_path)
-        else
-          flash[:alert] = "資料庫帳號建立失敗: #{response_status}"
-          redirect_to signup_path
-        end
-      else # fail to create 8tracks user account 
-        # TODO: handle "200 OK" response
-        flash[:alert] = "8tracks 帳號未能建立成功, server response:#{response_status}"
-        redirect_to signup_path
+    user_info_hash = signup_user_to_8tracks(username, email, password)
+    if user_info_hash && user_info_hash[:error].nil? # 8tracks user signup successfully.
+      user = new_user_from(user_info_hash)
+      if user.save # user save successfully
+        user_session_setup_for(user)
+        redirect_to(home_path)
+      else
+        user_session_setup_for user
+        flash[:success] = "該帳號#{user.username}已申請過並已直接登入系統"
+        redirect_to home_path
       end
+    elsif user_info_hash[:error]
+      flash[:warning] = "8tracks帳號申請錯誤: #{user_info_hash[:error]}"
+      redirect_to signup_path
+    else
+      raise "Unkown issues...."
     end
-    
-    # if created a new user successfully
+    # TODO: if created a new user successfully
 
       # redirect to home_path
 
-    # elsif fail to signup a new user
+      # elsif fail to signup a new user
 
       # render 'signup'
-
     # end
   end
 
@@ -120,16 +106,34 @@ class SessionController < ApplicationController
 
 
   private
+  EMAIL_REGEXP = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/
+
+  # Check for text string to have atleast one Numeric 
+  # and one Character and the  length of text string to be 
+  # between 4 to 8 characters
+  PASSWORD_REGEXP = /^(?=.*\d)(?=.*[a-zA-Z]).{4,8}$/
+
+    def parse_user_params
+      error = { errors: [] }
+      error[:errors] << 'Email格式錯誤' unless user_params[:email].to_s =~ EMAIL_REGEXP
+      error[:errors] << "密碼需包含一數字一字母，字數介於4-8之間" unless user_params[:password] =~ PASSWORD_REGEXP
+      return error if error[:errors].any?
+      return nil
+    end
+
+    def new_user_from(user_info_hash)
+      User.new(username:               user_info_hash[:tracks_user_name], 
+               tracks_user_id:         user_info_hash[:tracks_user_id],
+               email:                  user_info_hash[:tracks_user_email],
+               tracks_user_token:      user_info_hash[:tracks_user_token], 
+               tracks_user_web_path:   user_info_hash[:tracks_user_web_path], 
+               tracks_user_avatar_url: user_info_hash[:tracks_user_avatar_url])
+    end
 
     def fetch_user_from_db
       user_id = session[:user_id]
       return User.find(user_id) if User.ids.include?(user_id)
       return nil
-    end
-
-    def create_temp_new_user
-      user_token = log_user_to_8tracks( user_params[:email], user_params[:password] )
-      return user = User.new(user_params) if user_token && ( user.tracks_user_token = user_token )
     end
 
     def user_params

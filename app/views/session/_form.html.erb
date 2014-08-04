@@ -1,7 +1,7 @@
 <h4 class='pull-center'>
-  <%= link_to( image_tag('http://8tracks.imgix.net/avatars/007/888/920/38789.original.png?fm=jpg&q=65&sharp=15&vib=10&w=75&h=75&fit=crop&dpr=3', size: "50x50"), "http://8tracks.com/") + ' 以8tracks的帳號登入' %>
+  <%= link_to( image_tag('http://8tracks.imgix.net/avatars/007/888/920/38789.original.png?fm=jpg&q=65&sharp=15&vib=10&w=75&h=75&fit=crop&dpr=3', size: "50x50"), "http://8tracks.com/", target: '_blank') + ' 以8tracks的帳號登入' %>
 </h4>
-<%= simple_form_for(@user, url: { controller: 'session', action: dynamic_action_name },
+<%= simple_form_for(@user || User.new, url: { controller: 'session', action: dynamic_action_name },
                             html: { class: 'form-horizontal' }) do |f| %>
   <% if controller.action_name =~ /signup/ %>
     <%= f.input :username, label: '帳號名稱' %>
