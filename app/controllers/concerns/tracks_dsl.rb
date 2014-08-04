@@ -52,24 +52,23 @@ module TracksDsl
     end
   end
 
-  def currently_trending_tags
+  def get_currently_trending_tags
     base_url = "http://8tracks.com/tags.xml?api_key=#{EIGHT_TRACK_API_KEY}"
     response_body = open(base_url).read
     xml = Nokogiri::XML(response_body)
     res_status = xml.css('status').first.content
 
     if res_status =~ /200 OK/i
-      tags = []
+      tags_ary = []
       xml.css('tag').count.times do |n|
         children = xml.css('tag')[n-1].children
         tag_name = children.css('name').first.content
         tagging_count = children.css('cool-taggings-count').first.content
-        tags << { name: tag_name, taggin_count: tagging_count }
+        tags_ary << { tag_name: tag_name, taggin_count: tagging_count }
       end
-      tags
+      tags_ary
     else
-      flash[:warning] = "Server bad response: #{res_status}"
-      redirect_to home_path
+      raise "Server bad response: #{res_status}"
     end 
   end
   private

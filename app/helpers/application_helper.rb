@@ -53,18 +53,22 @@ module ApplicationHelper
     session[:avatar_url] = user_model_instance.tracks_user_avatar_url
   end
 
-  def random_label_for(text)
-
-  style = ['Defaut', 'Primary', 'success', 'info', 'warning', 'danger'][rand(0..5)]
-  content_tag('span', text, class: "label label-#{style}")
-
-# Bootstrap 3.0 label examples
-# <span class="label label-default">Default</span>
-# <span class="label label-primary">Primary</span>
-# <span class="label label-success">Success</span>
-# <span class="label label-info">Info</span>
-# <span class="label label-warning">Warning</span>
-# <span class="label label-danger">Danger</span>
-    
+  # Bootstrap 3.0 style label
+  def random_label_for(tag_hash)
+    name = tag_hash['tag_name'] 
+    taggin_count = parse_tag_count_to_int tag_hash['taggin_count']
+    h_size = parse_count_to_size taggin_count
+    rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
+    inner_content = content_tag('span', name + " #{taggin_count.to_s}", class: "label label-#{rand_style}")  
+    content_tag("h#{h_size}", inner_content, class: "display-in-line tags")
   end
+
+  private
+    def parse_tag_count_to_int(tag_string)
+      tag_string.gsub(/\+/i, '').gsub(/,/,'').to_i
+    end
+
+    def parse_count_to_size(taggin_count)
+      h_size =  taggin_count > 50000 ? 3 : taggin_count > 10000 ? 4 : 5
+    end
 end

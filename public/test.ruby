@@ -1,13 +1,8 @@
-def t1
-  if true
-  	puts 'return point'
-  	return
-  end
-end
+taggin_count = 20000
+h_size = taggin_count > 50000 ? 3 : taggin_count > 10000 ? 4 : 5
+puts h_size
 
-def t2
-  t1
-  puts 'hi'
-end
+puts "72,000+".gsub(/\+/i, '').gsub(/,/,'')
 
-t2
+puts "72,000+".to_i
+

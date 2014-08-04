@@ -19,7 +19,17 @@
 html {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   .main_content {
-    
+    padding: 10px;
+    padding-top: 2em;
+  }
+}
+
+/* for those trending tags */
+.tags {
+  margin-right: 0.1em;
+  line-height: 1.8em;
+  .label {
+    border-radius: 10px;
   }
 }
 
@@ -57,10 +67,6 @@ header {
   }
 }
 
-.font_size_enlarge {
-  font-size: 150%;
-}
-
 .fake_link {
   color: LightBlue;
   &:hover {
@@ -68,16 +74,22 @@ header {
   }
 }
 
-.banner_title {
-  font-size: 22px;
-}
-
-.main_content {
-  padding: 10px;
-}
+/* display format modify */
 
 .pull-center {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
+}
+
+.display-in-line {
+  display: inline;
+}
+
+.font_size_enlarge {
+  font-size: 150%;
+}
+
+.banner_title {
+  font-size: 22px;
 }
