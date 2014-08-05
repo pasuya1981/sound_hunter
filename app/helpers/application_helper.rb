@@ -55,9 +55,14 @@ module ApplicationHelper
 
   # Bootstrap 3.0 style label
   def random_label_for(tag_hash)
-    name = tag_hash[:tag_name] 
-    taggin_count = parse_tag_count_to_int(tag_hash[:taggin_count])
-    h_size = parse_count_to_size taggin_count
+    name = tag_hash[:tag_name]
+    if name.nil?
+      name = tag_hash['tag_name']
+      taggin_count = parse_tag_count_to_int(tag_hash['taggin_count'])
+    else
+      taggin_count = parse_tag_count_to_int(tag_hash[:taggin_count])
+    end
+    h_size = map_count_to_size taggin_count
     rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
     inner_content = content_tag('span', name + " #{taggin_count.to_s}", class: "label label-#{rand_style}")  
     content_tag("h#{h_size}", inner_content, class: "display-in-line tags")
@@ -68,7 +73,7 @@ module ApplicationHelper
       tag_string.gsub(/\+/i, '').gsub(/,/,'').to_i
     end
 
-    def parse_count_to_size(taggin_count)
+    def map_count_to_size(taggin_count)
       h_size =  taggin_count > 50000 ? 3 : taggin_count > 10000 ? 4 : 5
     end
 end
