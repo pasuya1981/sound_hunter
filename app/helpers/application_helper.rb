@@ -64,7 +64,7 @@ module ApplicationHelper
     end
     h_size = map_count_to_size taggin_count
     rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
-    inner_content = content_tag('span', name + " #{taggin_count.to_s}", class: "label label-#{rand_style}")  
+    inner_content = content_tag('span', name, class: "label label-#{rand_style}")  
     content_tag("h#{h_size}", inner_content, class: "display-in-line tags")
   end
 
