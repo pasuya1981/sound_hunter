@@ -55,8 +55,8 @@ module ApplicationHelper
 
   # Bootstrap 3.0 style label
   def random_label_for(tag_hash)
-    name = tag_hash['tag_name'] 
-    taggin_count = parse_tag_count_to_int tag_hash['taggin_count']
+    name = tag_hash[:tag_name] 
+    taggin_count = parse_tag_count_to_int(tag_hash[:taggin_count])
     h_size = parse_count_to_size taggin_count
     rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
     inner_content = content_tag('span', name + " #{taggin_count.to_s}", class: "label label-#{rand_style}")  
