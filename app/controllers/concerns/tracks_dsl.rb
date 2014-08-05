@@ -2,6 +2,7 @@ module TracksDsl
   extend ActiveSupport::Concern
   require 'nokogiri'
   require 'open-uri'
+  
 
 # SoundCloud credientials
 #   CLIENT_ID = '90dc4f7f5b8f96149559894d9b7c2068'
@@ -18,13 +19,14 @@ module TracksDsl
 
   def log_user_to_8tracks(email, password)
     # HTTP post requst flow
-    base_uri = URI("https://8tracks.com/sessions.xml")
+    base_uri = URI("https://8tracks.com/sessions.xml") # parse URI for later POST action
     response = Net::HTTP.post_form( base_uri, login: email, 
                                               password: password,
                                               api_version: '3',
                                               api_key: EIGHT_TRACK_API_KEY )
     xml = Nokogiri::XML(response.body)
     response_status = xml.css('status').first.content
+
     if response_status =~ /200 ok/i
       user_info = parse_user_info_from(xml)
     elsif response_status =~ /422 Unprocessable Entity/i
@@ -80,19 +82,12 @@ module TracksDsl
       parse_hash[:tracks_user_web_path]   = xml.css('web-path').first.content.to_s.prepend(%q(https://8tracks.com))
       parse_hash[:tracks_user_token]      = xml.css('user-token').first.content
       parse_hash[:tracks_user_avatar_url] = parse_img_url_from( xml.css('sq56').first.content)
-
-      validate_hash_value parse_hash
+      parse_hash.each { |k,v| raise "Empty value" if v.nil? || v.to_s.size < 1  }
       parse_hash      
     end
 
     def parse_img_url_from(base_url)
       # http://path/to/imamge_file.jpg?arg1=value1&arg2=value2 => http://path/to/imamge_file.jpg?
       base_url.gsub(/\?.*\z/, '?')
-    end
-
-    def validate_hash_value(hash)
-      empty_value_keys = []
-      hash.each { |key, value| empty_value_keys << key if value.nil? }
-      raise "Nil value for key: #{empty_value_keys}" if empty_value_keys.any?
     end
 end
