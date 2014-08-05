@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   private
 
     def init_trend_tag_session
-      reset_tags_session if session[:trend_tags].nil? || session[:trending_tags_created_at] < Time.now.weeks_ago(1)
+      reset_tags_session if session[:trend_tags].nil? || session[:trending_tags_created_at] < 1.days.ago
     end
 
     def reset_tags_session
