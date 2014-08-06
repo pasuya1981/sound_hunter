@@ -1,0 +1,30 @@
+<response>
+  <set>
+    <at-beginning>true</at-beginning>
+    <at-end>false</at-end>
+    <at-last-track>false</at-last-track>
+    <skip-allowed>true</skip-allowed>
+    <track>
+      <buy-link>http://smarturl.it/LetTheNight</buy-link>
+      <buy-icon>http://8tracks.com/assets/buy/buy.png</buy-icon>
+      <buy-text>Buy</buy-text>
+      <track-file-stream-url>https://api.soundcloud.com/tracks/139116878/stream?client_id=3904229f42df3999df223f6ebf39a8fe</track-file-stream-url>
+      <stream-source>ext_sc</stream-source>
+      <user-id>1</user-id>
+      <full-length>true</full-length>
+      <faved-by-current-user>false</faved-by-current-user>
+      <id>27965626</id>
+      <name>Let The Night</name>
+      <performer>Dirty Vegas</performer>
+      <release-name>Uploaded by dirtyvegas</release-name>
+      <url>http://8tracks.com/tracks/27965626</url>
+      <year nil="true"/>
+      <uid>sc-139116878</uid>
+    </track>
+  </set>
+  <status>200 OK</status>
+  <errors nil="true"/>
+  <notices></notices>
+  <logged-in>false</logged-in>
+  <api-version>3</api-version>
+</response>
