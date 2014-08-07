@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     
   end
@@ -15,7 +16,7 @@ class HomeController < ApplicationController
     end
 
     def reset_tags_session
-      session[:trend_tags] = get_currently_trending_tags
+      session[:trend_tags] = get_trend_tags
       session[:trending_tags_created_at] = Time.now
     end
 end

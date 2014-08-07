@@ -1,7 +1,6 @@
 
 # Let views-module-methods visible to controller side ( default: invisible )
 include ApplicationHelper
-include TracksDsl # concern module
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

@@ -1,0 +1,51 @@
+"Node now is at mixes...."
+"Node now is at tags-list...."
+"Node now is at artist-name...."
+"Node now is at smart-type...."
+"Node now is at sort...."
+"Node now is at html-name...."
+"Node now is at description...."
+"Node now is at pagination...."
+"Node now is at relative-name...."
+"Node now is at relative-short-name...."
+"Node now is at smart-id...."
+"Node now is at path...."
+"Node now is at name...."
+"Node now is at web-path...."
+<response>
+  <mix-set>
+    <mixes>
+      <mix>...</mix>
+    </mixes>
+    <tags-list>
+      <tags-list>night</tags-list>
+      <tags-list>reading</tags-list>
+    </tags-list>
+    <artist-name nil="true"/>
+    <smart-type>tags</smart-type>
+    <sort>hot</sort>
+    <html-name>Night + reading</html-name>
+    <description nil="true"/>
+    <pagination>
+      <current-page>1</current-page>
+      <per-page>12</per-page>
+      <offset-by>0</offset-by>
+      <next-page>2</next-page>
+      <previous-page nil="true"/>
+      <total-entries>34</total-entries>
+      <total-pages>3</total-pages>
+      <next-page-path>/mix_sets/tags:night+reading?page=2&amp;per_page=12</next-page-path>
+    </pagination>
+    <relative-name>Night + reading</relative-name>
+    <relative-short-name>Night + reading</relative-short-name>
+    <smart-id>tags:night+reading</smart-id>
+    <path>/mix_sets/tags:night+reading</path>
+    <name>Night + reading</name>
+    <web-path>/explore/night+reading/hot</web-path>
+  </mix-set>
+  <status>200 OK</status>
+  <errors nil="true"/>
+  <notices nil="true"/>
+  <logged-in>false</logged-in>
+  <api-version>3</api-version>
+</response>

@@ -1,17 +1,6 @@
-module MixModule
-
-  class Mixset
-    attr_reader :name
-
-    def initialize(name)
-      @name = name
-    end
-  end
+def test(arg, options)
+	p arg
+	p options
 end
 
-include MixModule
-set = Mixset.new('Michael Jackson')
-p set.name
-
-
-
+test('hihi', id: 87, text: 'god', really: 'really')
