@@ -24,7 +24,7 @@ class EightTracksParser
     end
   end
   
-  # TODO: play the mix?
+  # TODO: get mix detail and play the mix
   def get_mix_details_for_play(play_token, mix_id)
     base_uri = "http://8tracks.com/sets/#{play_token}/play.xml?mix_id=#{mix_id}&api_version=3&api_key=#{api_key}&"
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
@@ -82,14 +82,6 @@ class EightTracksParser
       end
       collection = tags.collect {|tag| tag[:name]}
       p collection
-    end
-  end
-
-  def get_trend_mixes
-    base_uri = "http://8tracks.com/mix_sets/all.xml?include=mixes?api_key=#{api_key}"
-    uri_to_nokogiri_xml(base_uri) do |res_status, nokogiri_xml|
-      raise nokogiri_xml.to_xml
-      # TODO: Return array of mix class objs
     end
   end
 
