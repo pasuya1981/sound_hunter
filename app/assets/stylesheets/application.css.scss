@@ -46,14 +46,13 @@ html {
   }
   .main_container { 
     .search_result {
-      .panel-body img {
-        opacity: 1; 
-        transition: opacity .25s ease-in-out;
-        -moz-transition: opacity .25s ease-in-out; 
-        -webkit-transition: opacity .25s ease-in-out;
-
-        &:hover {
-          opacity: .7;
+      .content-exchange-box {
+        .visible {
+        }
+        .hidden-content {
+          height: 200px;
+          width: 200px;
+          background: LightPink;
         }
       }
       span {

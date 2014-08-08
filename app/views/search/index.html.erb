@@ -10,10 +10,16 @@
     <% duration = previe_hash[:duration] %>
     <% tracks_count = previe_hash[:tracks_count] %>
     <% cover_urls = previe_hash[:cover_urls] %>
-    <div class="panel <%= cycle("panel-default", "panel panel-primary", "panel panel-success", "panel panel-info", "panel panel-warning", "panel panel-danger") %>">
+    <div class="panel <%= cycle("panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger") %>">
       <div class="panel-heading"><h3><%= description.truncate(35) %></h3></div>
       <div class="panel-body">
-        <%= image_tag(cover_urls, class: 'img-rounded') %>
+
+        <% # TODO: hide and show content %>
+        <div class="content-exchange-box">
+          <%= image_tag(cover_urls, class: 'img-rounded visible', size: '200x200') %>
+          <div class="hidden-content">This is hidden content</div>
+        </div>
+       
       </div>
     <div class="panel-footer">
       <span>長度:<%= duration %></span><span>收錄曲目:<%= tracks_count %></span>

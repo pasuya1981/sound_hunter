@@ -15,4 +15,16 @@
 //= require turbolinks
 //= require_tree .
 
+$(document).ready(function() {
+	$("div.hidden-content").hide();
+	$("img.visible").hover(function() {
+		// body...
+		$(this).hide();
+		$(this).parent().find('div.hidden-content').show();
+	});
+	$("div.hidden-content").mouseleave(function() {
+		$(this).hide();
+		$(this).parent().find('img.visible').show();
+	});
+});
 
