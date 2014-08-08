@@ -1,0 +1,8 @@
+<% if user_logged_in? %>
+  <% # user login logic %>
+  <%= link_to('登出', logout_path, role: "menuitem", tabindex: "-1") %>
+
+<% else %>
+  <% # user NOT login logic %>
+  <%= link_to('登入',  login_path, role: "menuitem", tabindex: "-1") %>
+<% end %>
