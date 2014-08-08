@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
 
   def index
+    raise request
     keyword = params[:keyword]
     keyword = params[:keyword][:words] unless keyword.kind_of?(String)
     word_in_ary = keyword.strip.split

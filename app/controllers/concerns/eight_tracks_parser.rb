@@ -67,7 +67,6 @@ module EightTracksParser
   end
 
   def get_trend_tags
-    puts "Updating trend tags......".red
     base_url = "http://8tracks.com/tags.xml?api_key=#{api_key}"
     response_body = open(base_url).read
     xml = Nokogiri::XML(response_body)
