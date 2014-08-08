@@ -1,0 +1,7 @@
+
+<% # TODO: do the search action %>
+
+<%= simple_form_for(:keyword, url: {controller: :home, action: :search} , html: { class: "navbar-form navbar-left", role: "search" }, method: :get) do |f| %>
+  <%= f.input :words, label: false, placeholder: '關鍵字' %>
+  <%= f.button :submit, "搜尋" %>
+<% end %>

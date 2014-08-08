@@ -1,6 +1,8 @@
 
-# Let views-module-methods visible to controller side ( default: invisible )
+# Let views-helpers available to controller
 include ApplicationHelper
+include EightTracksDSL
+
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

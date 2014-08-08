@@ -133,7 +133,7 @@ class SessionController < ApplicationController
       return true
     end
 
-    # TODO: this method is not used. Should I delete this method?
+    # This method is abandoned.
     def parse_user_params
       error = { errors: [] }
       error[:errors] << 'Email格式錯誤' unless user_params[:email].to_s =~ EMAIL_REGEXP

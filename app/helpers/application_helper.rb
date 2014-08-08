@@ -64,8 +64,38 @@ module ApplicationHelper
     end
     h_size = map_count_to_size taggin_count
     rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
-    inner_content = content_tag('span', name, class: "label label-#{rand_style}")  
+    inner_content = content_tag('span', tag_translate(name), class: "label label-#{rand_style}")  
     content_tag("h#{h_size}", inner_content, class: "display-in-line tags")
+  end
+
+  def tag_translate(name)
+    name_in_sym = name.downcase.to_sym
+    { :"hip hop" => "嘻哈", 
+      :"alternative rock" => "另類搖滾",
+      :fun => "好玩",
+      :electronic => "電音",
+      :punk => "龐客",
+      :instrumental => "樂器",
+      :"indie rock" => "獨立搖滾",
+      :mashup => "混搭",
+      :acoustic => "原聲",
+      :love => "愛情",
+      :christmas => "聖誕",
+      :country => "鄉村",
+      :happy => "快樂",
+      :weed => "雜草",
+      :chill => "冷靜",
+      :classical => "古典",
+      :soundtrack => "配樂",
+      :jazz => "爵士",
+      :piano => "鋼琴",
+      :sex => "性愛",
+      :party => "派對",
+      :relax => "放輕鬆",
+      :workout => "健身",
+      :"90s" => "八零年代",
+      :morning => "早上好",
+      :study => "用功學習" }[name_in_sym] || name
   end
 
   private
