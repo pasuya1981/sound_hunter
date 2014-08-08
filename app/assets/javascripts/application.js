@@ -17,6 +17,7 @@
 
 $(document).ready(function() {
 	$("div.hidden-content").hide();
+	$("img.visible").show();
 	$("img.visible").hover(function() {
 		// body...
 		$(this).hide();

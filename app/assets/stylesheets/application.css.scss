@@ -47,12 +47,19 @@ html {
   .main_container { 
     .search_result {
       .content-exchange-box {
+        float: left;
+        margin: 0.7em;
+        height: 200px;
+        width: 200px;
+        position: relative;
         .visible {
+          position: absolute;
         }
         .hidden-content {
           height: 200px;
           width: 200px;
           background: LightPink;
+          position: absolute;
         }
       }
       span {
