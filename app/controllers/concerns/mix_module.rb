@@ -15,7 +15,7 @@ module MixModule
     end 
   end
 
-  class User
+  class TracksUser
     attr_accessor :info
     def initialize
       @info = {}

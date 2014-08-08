@@ -1,0 +1,25 @@
+<h5>搜尋結果</h5>
+<ul class="pager">
+  <li class="previous"><a href="#">&larr; Older</a></li>
+  <li class="next"><a href="#">Newer &rarr;</a></li>
+</ul>
+<hr>
+
+<div class="search_result">
+  <% @mixes.each do |mix| %>
+    <% previe_hash = mix.info[:preview] %>
+    <% description = previe_hash[:description] %>
+    <% duration = previe_hash[:duration] %>
+    <% tracks_count = previe_hash[:tracks_count] %>
+    <% cover_urls = previe_hash[:cover_urls] %>
+    <div class="panel <%= cycle("panel-default", "panel panel-primary", "panel panel-success", "panel panel-info", "panel panel-warning", "panel panel-danger") %>">
+      <div class="panel-heading"><h3><%= description %></h3></div>
+      <div class="panel-body">
+        <%= image_tag(cover_urls, class: 'img-thumbnail') %>
+      </div>
+    <div class="panel-footer">
+      <span>長度:<%= duration %></span><span>收錄曲目:<%= tracks_count %></span>
+    </div>
+    </div>
+  <% end %>
+</div>

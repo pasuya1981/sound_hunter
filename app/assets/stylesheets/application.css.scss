@@ -19,12 +19,39 @@
 html { 
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
   background: #fff;
+
+  body {
+    font-family: Microsoft JhengHei, sans-serif;
+    h1,h2,h3,h4,h5,h6 {
+      color: DarkGray;
+    }
+  }
 }
 
 .top_level_container {
   padding: 2em;
-  .left_container { }
-  .main_container { padding-top: 2em; }
+  hr {
+      border-color: LightGray;
+      margin: 0;
+      margin-bottom: 1.2em;
+    }
+
+  .left_container {
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    
+  }
+  .main_container { 
+    .search_result {
+      span {
+        margin-left: 1.5em;
+        border-right: 1px solid LightGray;
+      }
+    }
+   }
   .right_container { padding-top: 2em; }
 }
 

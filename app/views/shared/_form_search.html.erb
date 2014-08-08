@@ -1,7 +1,7 @@
 
-<% # TODO: do the search action %>
+<% # TODO: wire the search action to search controller %>
 
-<%= simple_form_for(:keyword, url: {controller: :home, action: :search} , html: { class: "navbar-form navbar-left", role: "search" }, method: :get) do |f| %>
+<%= simple_form_for(:keyword, url: search_path , html: { class: "navbar-form navbar-left", role: "search" }, method: :get) do |f| %>
   <%= f.input :words, label: false, placeholder: '關鍵字' %>
   <%= f.button :submit, "搜尋" %>
 <% end %>

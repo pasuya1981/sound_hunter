@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/login', to: 'session#new', as: :login
   get '/signup', to: 'session#signup', as: :signup
   get '/logout', to: 'session#logout', as: :logout
+  get '/search', to: 'search#index', as: :search
   root to: 'home#welcome', as: 'home'
 
   # The priority is based upon order of creation: first created -> highest priority.

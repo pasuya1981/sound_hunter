@@ -1,7 +1,7 @@
 
 # Let views-helpers available to controller
 include ApplicationHelper
-include EightTracksDSL
+include EightTracksParser
 
 
 class ApplicationController < ActionController::Base

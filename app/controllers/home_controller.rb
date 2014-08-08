@@ -12,15 +12,11 @@ class HomeController < ApplicationController
   private
 
   def init_trend_tag_session
-    reset_tags_session if session[:trend_tags].nil? || session[:trending_tags_created_at] < 1.minutes.ago
+    reset_tags_session if session[:trend_tags].nil? || session[:trending_tags_created_at] < 1.days.ago
   end
 
   def reset_tags_session
-    session[:trend_tags] = EightTracksParser.new(api_key).get_trend_tags
+    session[:trend_tags] = EightTracksParser.get_trend_tags
     session[:trending_tags_created_at] = Time.now
-  end
-
-  def api_key
-  "2b312afc2b28ba56a745c53b49f9288c05f20150"
   end
 end
