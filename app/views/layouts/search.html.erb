@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SoundHunter</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/bootstrap_3_CDN_load' %>
+</head>
+<body>
+
+<header>
+  <%= render 'layouts/header' %>
+</header>
+
+<div class="notification">
+  <%= render "shared/flash_messages" %>
+</div>
+
+<div class="top_level_container container-fixed">
+  <div class="row">
+    <div class="main_container col-md-9">
+      <!-- Before yield -->
+      <%= yield %>	
+      <!-- After yield -->
+    </div>
+    <div class="right_container col-md-3">right_container col-md-3</div>
+  </div>
+</div>
+
+<footer>
+  <hr />
+  <div class="debug_area">
+  	<% if Rails.env == 'development' %>
+  	  <%= debug(params) %>
+  	<% end %>
+  </div>
+</footer>
+
+</body>
+</html>

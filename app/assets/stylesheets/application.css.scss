@@ -46,6 +46,16 @@ html {
   }
   .main_container { 
     .search_result {
+      .panel-body img {
+        opacity: 1; 
+        transition: opacity .25s ease-in-out;
+        -moz-transition: opacity .25s ease-in-out; 
+        -webkit-transition: opacity .25s ease-in-out;
+
+        &:hover {
+          opacity: .7;
+        }
+      }
       span {
         margin-left: 1.5em;
         border-right: 1px solid LightGray;

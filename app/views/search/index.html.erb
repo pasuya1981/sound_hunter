@@ -11,7 +11,7 @@
     <% tracks_count = previe_hash[:tracks_count] %>
     <% cover_urls = previe_hash[:cover_urls] %>
     <div class="panel <%= cycle("panel-default", "panel panel-primary", "panel panel-success", "panel panel-info", "panel panel-warning", "panel panel-danger") %>">
-      <div class="panel-heading"><h3><%= description %></h3></div>
+      <div class="panel-heading"><h3><%= description.truncate(35) %></h3></div>
       <div class="panel-body">
         <%= image_tag(cover_urls, class: 'img-rounded') %>
       </div>
