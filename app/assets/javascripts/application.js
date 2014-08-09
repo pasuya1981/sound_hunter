@@ -16,9 +16,7 @@
 //= require_tree .
 
 $(document).ready(function(){
-
-  $("input.btn-search-submit").addClass('disabled')
-
+  $("input.btn-search-submit").addClass('disabled');
   $(".search_input").change(function() {
     if($(this).val() < 1) {
       $("input.btn-search-submit").addClass('disabled');
@@ -27,6 +25,3 @@ $(document).ready(function(){
     }
   });
 });
-
-
-
