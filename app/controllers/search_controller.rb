@@ -9,6 +9,11 @@ class SearchController < ApplicationController
     smart_type_in_sym = parse_smart_type smart_type
     sort_type_in_sym = parse_sort_type sort_type
     keyword = keyword_params[:words]
+    unless keyword.present?
+      render :index
+      return
+    end
+
     remember_search_action smart_type, sort_type
     word_in_ary = keyword.strip.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
@@ -23,6 +28,14 @@ class SearchController < ApplicationController
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
     render 'index' 
+  end
+
+  def query_next_page
+    next_page_path = params[:next_page_path]
+    return unless next_page_path.present?
+    mix_set_search_result = EightTracksParser.query_next_page next_page_path
+    init_view_data_with mix_set_search_result
+    render :index
   end
 
   private
@@ -45,6 +58,8 @@ class SearchController < ApplicationController
     @next_page = page_info[:next_page]
     @previous_page = page_info[:previous_page]
     @total_entries = page_info[:total_entries]
+    @next_page_path = page_info[:next_page_path] if page_info[:next_page_path].present? # /mix_sets/tags:rock+indie?page=2&per_page=12
+    @previous_page_path = @next_page_path.gsub(/\?page=\d/, "?page=#{@current_page.to_i - 1}") if @current_page.to_i > 1
   end
 
   def init_trend_tag_session

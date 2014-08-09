@@ -4,6 +4,6 @@
 <%= simple_form_for(:keyword, url: search_path , html: { class: "navbar-form navbar-left", role: "search" }, method: :get) do |f| %>
   <%= f.input :smart_type, collection: ['標籤','歌手', '關鍵字'], selected: session[:smart_type_remember] , label: false %>
   <%= f.input :sort, collection: ['最新', '熱門'], selected: session[:sort_type_remember], label: false %>
-  <%= f.input :words, label: false %>
-  <%= f.button :submit, '搜尋', class: 'test' %>
+  <%= f.input :words, label: false, input_html: { class: "search_input" } %>
+  <%= f.button :submit, '搜尋', class: 'btn-search-submit ' %>
 <% end %>

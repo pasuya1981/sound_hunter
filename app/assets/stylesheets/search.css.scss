@@ -1,3 +1,94 @@
 // Place all the styles related to the search controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.main_container { 
+
+    .search_result {
+      .content-exchange-box {
+
+        
+        float: left;
+        margin: 1em;
+        height: 180px;
+        width: 180px;
+        position: relative;
+
+        &:hover {
+          z-index: 9;
+          
+        }
+
+        .visible {
+          height: 180px;
+          width: 180px;
+          position: absolute;
+          z-index: 1;
+        }
+
+        .hidden-content {
+          height: 180px;
+          width: 180px;
+          opacity: 0;
+          background-color: white;
+          position: absolute;
+          z-index: 2;
+          border-radius: 5px;
+          clear: both;
+
+          transition: opacity .25s ease-in-out;
+          -moz-transition: opacity .25s ease-in-out;
+          -webkit-transition: opacity .25s ease-in-out;
+          &:hover {
+            opacity: .9;
+          }
+
+          .play-btn {
+            font-size: 3em;
+            position: absolute;
+            right: 10px;
+            bottom: -5px;
+            color: LightPink;
+
+            transform:rotate(0deg);
+            -ms-transform:rotate(0deg); /* IE 9 */
+            -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */
+
+            transition:         color .25s ease-in-out;
+            -moz-transition:    color .25s ease-in-out;
+            -webkit-transition: color .25s ease-in-out;
+
+            transition:         transform .25s linear;
+            -moz-transition:    transform .25s linear;
+            -webkit-transition: transform .25s linear;
+
+            &:hover {
+              color: LightBlue;
+              cursor: pointer;
+              transform:rotate(120deg);
+              -ms-transform:rotate(120deg); /* IE 9 */
+              -webkit-transform:rotate(120deg); /* Opera, Chrome, and Safari */
+            }
+          }
+
+          .tags-list-cache {
+            margin: .5em;
+            .label {
+              border-radius: 5px;
+            }
+          }
+
+          .play-counts {
+            margin: .5em;
+          }
+
+          .like-counts {
+            margin: .5em;
+            span {
+              font-size: 1.4em;
+            }
+          }
+        }
+      }
+    }
+  }

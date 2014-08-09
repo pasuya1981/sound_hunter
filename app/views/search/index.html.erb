@@ -1,6 +1,10 @@
 <ul class="pager">
-  <li class="previous"><a href="#">&larr; Older</a></li>
-  <li class="next"><a href="#">Newer &rarr;</a></li>
+  <% if @previous_page_path %>
+    <li class="previous"><%= link_to("上一頁", "/search/query_next_page?next_page_path=#{@previous_page_path}") %></li>
+  <% end %>
+  <% if @next_page_path %>
+    <li class="next"><%= link_to("下一頁", "/search/query_next_page?next_page_path=#{@next_page_path}" ) %></li>
+  <% end %>
 </ul>
 
 <% # panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger" %>
@@ -10,15 +14,32 @@
   
     <div class="search_result">
       <% @mixes.each do |mix| %>
-        <% previe_hash = mix.info[:preview] %>
-        <% duration = previe_hash[:duration] %>
-        <% tracks_count = previe_hash[:tracks_count] %>
-        <% cover_urls = previe_hash[:cover_urls] %>
+        <% previe_hash   = mix.info[:preview] %>
+        <% duration      = previe_hash[:duration] %>
+        <% tracks_count  = previe_hash[:tracks_count] %>
+        <% cover_urls    = previe_hash[:cover_urls] %>
+
+        <% tags_list     = previe_hash[:tag_list_cache].split.map {|tag| tag.gsub(/,|\./, '').gsub(/#/, '')} %>
+        <% play_counts   = previe_hash[:plays_count] %>
+        <% likes_count   = previe_hash[:likes_count] %>
 
         <% # TODO: hide and show content %>
         <div class="content-exchange-box">
           <%= image_tag(cover_urls, class: 'img-rounded visible', size: '200x200') %>
           <div class="hidden-content">
+            
+            <div class="tags-list-cache">
+              <% tags_list.each do |tag| %>
+                <span class="label label-default"><%= tag %></span>
+              <% end %>
+            </div>
+            <div class="play-counts">
+              <span><%= number_with_delimiter(play_counts) %> 播放次數</span>
+            </div>
+            <div class="like-counts">
+              <%= number_with_delimiter(likes_count) %> <span class="glyphicon glyphicon-heart" style="color:red;"></span>
+            </div>
+
             <div class="play-btn"><span class="glyphicon glyphicon-play"></span></div>
           </div>
         </div>

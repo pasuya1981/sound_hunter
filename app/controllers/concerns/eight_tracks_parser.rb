@@ -30,6 +30,18 @@ module EightTracksParser
     end
   end
 
+  def query_next_page(query_str) # "/mix_sets/tags:rock+indie?page=2&per_page=12"
+    query_head = query_str.gsub(/\?.*/, '')
+    query_rear = query_str.gsub(/.*\?/,'')
+    query_str  = query_head << ".xml" << "?" << get_include_query_str << "&" << query_rear
+    base_uri   = "http://8tracks.com" << query_str << "&api_version=3&api_key=#{api_key}"
+    uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
+      validate_status_and_nokogiri_xml(status, nokogiri_xml)
+      mix_set = create_mix_set_model_from nokogiri_xml
+      return mix_set
+    end
+  end
+
   def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: :popular})
     # Error Catch flow
     base_uri = "http://8tracks.com/mix_sets/"
@@ -52,15 +64,15 @@ module EightTracksParser
         base_uri << url_safe_key_str
       end
     end
-    include_query = "include=mixes_details+details+pagination+relative_name" # include Doc: http://8tracks.com/developers/includes
+    include_query = get_include_query_str  # include Doc: http://8tracks.com/developers/includes
     base_uri = base_uri + ":" + parames[:sort].to_s
     base_uri << ".xml?"
     base_uri = base_uri + include_query
     base_uri << "&api_key=#{api_key}&api_version=3"
+
     # Connect to 8tracks server
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
-      raise "Nokogiri XML can't be nil" if nokogiri_xml.nil?
-      raise "Response is not ok -- #{status}\n#{nokogiri_xml.to_xml}" unless status =~ /200 ok/i
+      validate_status_and_nokogiri_xml(status, nokogiri_xml)
       mix_set = create_mix_set_model_from(nokogiri_xml)
       return mix_set
     end
@@ -175,6 +187,15 @@ module EightTracksParser
 
   private
 
+  def validate_status_and_nokogiri_xml(status, nokogiri_xml)
+    raise "Nokogiri XML can't be nil" if nokogiri_xml.nil?
+    raise "Response is not ok -- #{status}\n#{nokogiri_xml.to_xml}" unless status =~ /200 ok/i
+  end
+
+  def get_include_query_str
+    "include=mixes_details+details+pagination+relative_name"
+  end
+
   def api_key
     "2b312afc2b28ba56a745c53b49f9288c05f20150"
   end
@@ -209,7 +230,7 @@ module EightTracksParser
       base_uri = URI::escape base_uri
       response = open(base_uri).read
       xml = Nokogiri::XML(response)
-      status = xml.css('status').first.content
+      status = xml.css('status').first.content 
       yield(status, xml) if block_given?  
   end
 

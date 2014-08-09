@@ -35,12 +35,13 @@
       :first_published_at_timestamp=>"1407013309"}}, 
 
       :tags_list => ["indie", "rock"], 
-      :pagination => { :current_page=>"1", 
-      				   :per_page=>"12", 
-      				   :offset_by=>"0", 
-      				   :next_page=>"2", 
-      				   :previous_page=>"", 
-      				   :total_entries=>"23085", 
-      				   :total_pages=>"1924", 
-      				   :next_page_path=>"/mix_sets/tags:rock+indie?page=2&per_page=12"}}
+
+  :pagination => { :current_page=>"1", 
+     :per_page=>"12", 
+     :offset_by=>"0", 
+     :next_page=>"2", 
+     :previous_page=>"", 
+     :total_entries=>"23085", 
+     :total_pages=>"1924", 
+     :next_page_path=>"/mix_sets/tags:rock+indie?page=2&per_page=12"}}
 

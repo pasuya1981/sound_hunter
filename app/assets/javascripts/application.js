@@ -15,6 +15,33 @@
 //= require turbolinks
 //= require_tree .
 
+$(document).ready(function() {
+
+  if($(".search_input").val().length < 1){
+  	$(".btn-search-submit").addClass('disabled');
+  }
+
+  $(".search_input").keyup(function(){
+  	/* Act on the event */
+  	if($(this).val().length < 1) {
+  	  $(".btn-search-submit").addClass('disabled');
+  	} else  {
+  	  $(".btn-search-submit").removeClass('disabled');
+  	}
+  });
+
+  $(".search_input").mouseleave(function(){
+    /* Act on the event */
+    if($(this).val().length < 1) {
+      $(".btn-search-submit").addClass('disabled');
+    } else  {
+      $(".btn-search-submit").removeClass('disabled');
+    }
+  });
+});
+
+
+
 //  $(document).ready(function() {
 //    $("div.hidden-content").hide();
 //    $("img.visible").show();

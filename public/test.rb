@@ -1,8 +1,1 @@
-def what(type)
-  sym = :fuck if type == '111'
-  sym = :you if type == '222'
-  sym
-end
-
-sym = what '111'
-p sym
+p "/mix_sets/tags:rock+indie?page=2&per_page=12".gsub(/\?page=\d/, '?page=3')

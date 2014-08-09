@@ -28,144 +28,96 @@ html {
 
     header {
       .navbar {
-        opacity: .9;
+        /* opacity: .9; */
       }
     }
-  }
-}
 
-.top_level_container {
-  padding: 2em;
-  margin-top: 3em;
-  hr {
-      border-color: LightGray;
-      margin: 0;
-      margin-bottom: 1.2em;
-    }
+    .top_level_container {
+      padding: 2em;
+      margin-top: 3em;
+      hr {
+          border-color: LightGray;
+          margin: 0;
+          margin-bottom: 1.2em;
+        }    
 
-  .left_container { }
-  .main_container { 
-
-    .search_result {
-      .content-exchange-box {
-        float: left;
-        margin: 1em;
-        height: 200px;
-        width: 200px;
-        position: relative;
-
-        .visible {
-          position: absolute;
-          z-index: 1;
+      .left_container { }
+      
+      .right_container { 
+        padding-top: 2em;
+        #hot-tags {
+          a {
+            text-decoration: none;
+            color: white;
+          }
         }
+      }
+    }    
 
-        .hidden-content {
-          height: 200px;
-          width: 200px;
-          opacity: 0;
-          background-color: white;
-          position: absolute;
-          z-index: 2;
-          border-radius: 5px;
-          clear: both;
+    /* for those trending tags */
+    .tags {
+      margin-right: 0.1em;
+      line-height: 1.8em;
+      .label {
+        border-radius: 10px;
+      }
+    }    
+    
+    
 
+    .nav_links {
+      height: 40px;
+      display: table-cell;
+      vertical-align: middle;
+      color: white;
+      font-size: 17px;
+      li {
+        display: inline;
+        padding-right: 25px;    
+
+        a {
+          cursor: pointer;
+          color: white;
+          text-decoration: none;    
+
+          /* transition initial value */
+          opacity: 0.75;
+          /* transition state setup */
           transition: opacity .25s ease-in-out;
           -moz-transition: opacity .25s ease-in-out;
           -webkit-transition: opacity .25s ease-in-out;
           &:hover {
-            opacity: .9;
-          }
-
-          .play-btn {
-            font-size: 3em;
-            position: absolute;
-            right: 2px;
-            bottom: 2px;
-            color: LightPink;
-
-            transition: color .25s ease-in-out;
-            &:hover {
-              color: LightBlue;
-            }
+            opacity: 1; /* transition ending value */
           }
         }
       }
-    }
-  }
-  .right_container { 
-    padding-top: 2em;
-    #hot-tags {
-      a {
-        text-decoration: none;
-        color: white;
-      }
-      
-    }
-  }
-}
+    }    
 
-/* for those trending tags */
-.tags {
-  margin-right: 0.1em;
-  line-height: 1.8em;
-  .label {
-    border-radius: 10px;
-  }
-}
-
-
-
-.nav_links {
-  height: 40px;
-  display: table-cell;
-  vertical-align: middle;
-  color: white;
-  font-size: 17px;
-  li {
-    display: inline;
-  	padding-right: 25px;
-
-  	a {
-  	  cursor: pointer;
-  	  color: white;
-  	  text-decoration: none;
-
-      /* transition initial value */
-  	  opacity: 0.75;
-  	  /* transition state setup */
-      transition: opacity .25s ease-in-out;
-      -moz-transition: opacity .25s ease-in-out;
-      -webkit-transition: opacity .25s ease-in-out;
+    .fake_link {
+      color: LightBlue;
       &:hover {
-      	opacity: 1; /* transition ending value */
+        cursor: pointer;
       }
-  	}
+    }    
+
+    /* display format modify */    
+
+    .pull-center {
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+    }    
+
+    .display-in-line {
+      display: inline;
+    }    
+
+    .font_size_enlarge {
+      font-size: 150%;
+    }    
+
+    .banner_title {
+      font-size: 22px;
+    }
   }
-}
-
-.fake_link {
-  color: LightBlue;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-/* display format modify */
-
-.pull-center {
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-}
-
-.display-in-line {
-  display: inline;
-}
-
-.font_size_enlarge {
-  font-size: 150%;
-}
-
-.banner_title {
-  font-size: 22px;
 }
