@@ -17,48 +17,18 @@
 
 $(document).ready(function() {
 
-  if($(".search_input").val().length < 1){
-  	$(".btn-search-submit").addClass('disabled');
-  }
+  $("input.btn-search-submit").addClass('disabled')
 
-  $(".search_input").keyup(function(){
-  	/* Act on the event */
-  	if($(this).val().length < 1) {
-  	  $(".btn-search-submit").addClass('disabled');
-  	} else  {
-  	  $(".btn-search-submit").removeClass('disabled');
-  	}
-  });
-
-  $(".search_input").mouseleave(function(){
-    /* Act on the event */
-    if($(this).val().length < 1) {
-      $(".btn-search-submit").addClass('disabled');
-    } else  {
-      $(".btn-search-submit").removeClass('disabled');
+  $(".search_input").change(function() {
+    if($(this).val() < 1) {
+      $("input.btn-search-submit").addClass('disabled');
+    } else {
+      $("input.btn-search-submit").removeClass('disabled');
     }
   });
 });
 
-
-
 //  $(document).ready(function() {
-//    $("div.hidden-content").hide();
-//    $("img.visible").show();
-//    $("img.visible").hover(function() {
-//    	// body...
-//    	$(this).hide();
-//    	$(this).parent().find('div.hidden-content').show();
-//    });  
-//    $("div.hidden-content").mouseleave(function() {
-//    	$(this).hide();
-//    	$(this).parent().find('img.visible').show();
-//    });  
-//    $("div.hidden-content").mouseout(function() {
-//    	$(this).hide();
-//    	$(this).parent().find('img.visible').show();
-//    });
-
 //  $(document).scroll(function(event) {
 //  	/* Act on the event */
 //  	if ($(window).scrollTop() + $(window).height() == $(document).height()) {

@@ -10,8 +10,7 @@ class SearchController < ApplicationController
     sort_type_in_sym = parse_sort_type sort_type
     keyword = keyword_params[:words]
     unless keyword.present?
-      render :index
-      return
+      redirect_to home_path; return; 
     end
 
     remember_search_action smart_type, sort_type
