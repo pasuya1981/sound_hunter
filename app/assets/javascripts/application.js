@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).ready(function(){
 
   $("input.btn-search-submit").addClass('disabled')
 
@@ -27,16 +27,6 @@ $(document).ready(function() {
     }
   });
 });
-
-//  $(document).ready(function() {
-//  $(document).scroll(function(event) {
-//  	/* Act on the event */
-//  	if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-//  	  $('html, body').animate({scrollTop:0},600);
-//  	  //alert($(window).height());
-//  	};
-//  });
-//});
 
 
 
