@@ -1,0 +1,12 @@
+<div id="hot-tags">
+  <% unless controller.controller_name == 'session' %>  
+
+    <h5>熱門標纖</h5>
+    <hr>
+    <% @tags_ary ||= session[:trend_tags].shuffle %>
+    <% @tags_ary.each do |tag_hash| %>
+      <%= random_label_for(tag_hash) %>
+    <% end %> 
+     
+  <% end %>
+</div>

@@ -15,17 +15,31 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
-	$("div.hidden-content").hide();
-	$("img.visible").show();
-	$("img.visible").hover(function() {
-		// body...
-		$(this).hide();
-		$(this).parent().find('div.hidden-content').show();
-	});
-	$("div.hidden-content").mouseleave(function() {
-		$(this).hide();
-		$(this).parent().find('img.visible').show();
-	});
+//  $(document).ready(function() {
+//    $("div.hidden-content").hide();
+//    $("img.visible").show();
+//    $("img.visible").hover(function() {
+//    	// body...
+//    	$(this).hide();
+//    	$(this).parent().find('div.hidden-content').show();
+//    });  
+//    $("div.hidden-content").mouseleave(function() {
+//    	$(this).hide();
+//    	$(this).parent().find('img.visible').show();
+//    });  
+//    $("div.hidden-content").mouseout(function() {
+//    	$(this).hide();
+//    	$(this).parent().find('img.visible').show();
+//    });
+
+//  $(document).scroll(function(event) {
+//  	/* Act on the event */
+//  	if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+//  	  $('html, body').animate({scrollTop:0},600);
+//  	  //alert($(window).height());
+//  	};
+//  });
 });
+
+
 

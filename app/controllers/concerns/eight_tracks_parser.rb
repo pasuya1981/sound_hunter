@@ -3,7 +3,7 @@ module EightTracksParser
   require 'open-uri'
   require 'nokogiri'
   require 'net/http'
-  require 'mix_module'
+  #require 'mix_module'
   include MixModule
 
   # See document online http://8tracks.com/developers/smart_ids
@@ -30,7 +30,7 @@ module EightTracksParser
     end
   end
 
-  def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: 'hot'})
+  def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: :popular})
     # Error Catch flow
     base_uri = "http://8tracks.com/mix_sets/"
     validate_arguments(type, parames)
@@ -198,9 +198,10 @@ module EightTracksParser
       else
         raise "Can't search Type -#{type.to_s}- using user id-#{parames[:user_id]}-" unless parames[:user_id].nil?
       end
-      if parames[:keyword]
-        raise "Too much paramster: #{parames}" if type != :tags && parames[:keyword].count > 1
-      end
+      # -- This check seems to cause troble. --
+      #if parames[:keyword]
+      #  raise "Too much paramster: #{parames}" if type != :tags && parames[:keyword].count > 1
+      #end
       raise "Smart Type parameter must be presented" unless type 
   end
 

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/signup', to: 'session#signup', as: :signup
   get '/logout', to: 'session#logout', as: :logout
   get '/search', to: 'search#index', as: :search
+  get '/hot_tags_search', to: 'search#hot_tags_search', as: :hot_tags_search
   root to: 'home#welcome', as: 'home'
 
   # The priority is based upon order of creation: first created -> highest priority.
