@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class MixesController < ApplicationController
   before_action :init_trend_tag_session
   layout 'search'
 
@@ -17,6 +17,35 @@ class SearchController < ApplicationController
     word_in_ary = keyword.strip.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
+  end
+
+  def show
+    # TODO: Render a Mix
+    mix_id = params[:mix_id]
+    mix = get_mix_by(mix_id)
+    info_hash = mix.info
+    @mix_description = info_hash[:description]
+    @mix_likes_count = info_hash[:likes_count]
+    @mix_duration = info_hash[:duration]
+    @mix_tracks_count = info_hash[:tracks_count]
+    @mix_nsfw = info_hash[:nsfw]
+    @mix_artists = []; info_hash[:artists].each { |k, artist| @mix_artists << artist };
+    @mix_liked_by_current_user = info_hash[:liked_by_current_user]
+    @mix_name = info_hash[:name]
+    @mix_cover_url = info_hash[:cover_urls][:sq500]
+    @plays_count = info_hash[:plays_count]
+    @tag_list_cache = info_hash[:tag_list_cache].split
+    @first_published_at = info_hash[:first_published_at]
+
+    user_hash = info_hash[:user]
+    @user_id = user_hash[:id]
+    @user_login = user_hash[:login]
+    @user_path = user_hash[:path]
+    @user_web_path = user_hash[:web_path]
+    @user_avatar = user_hash[:avatar_urls][:sq100]
+    @user_followed_by_current_user = user_hash[:followed_by_current_user]
+    @location = user_hash[:location]
+    @member_since = user_hash[:member_since]
   end
 
   def hot_tags_search
@@ -38,6 +67,11 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def get_mix_by(mix_id)
+    # TODO: get mix model
+    mix = EightTracksParser.get_mix_preview_by(mix_id)
+  end
 
   def search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     mix_set_search_result = EightTracksParser.get_mix_set_by_smart_type(smart_type_in_sym, 

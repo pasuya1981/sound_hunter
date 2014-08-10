@@ -2,11 +2,12 @@ Rails.application.routes.draw do
 
 
   match ":controller(/:action(/:id))", via: [:get, :post, :delete]
+  get '/search',    to: 'mixes#index', as: :search
+  get '/next_page', to: 'mixes#query_next_page', as: :next_page
   get '/login', to: 'session#new', as: :login
   get '/signup', to: 'session#signup', as: :signup
   get '/logout', to: 'session#logout', as: :logout
-  get '/search', to: 'search#index', as: :search
-  get '/hot_tags_search', to: 'search#hot_tags_search', as: :hot_tags_search
+  get '/hot_tags_search', to: 'mixes#hot_tags_search', as: :hot_tags_search
   root to: 'home#welcome', as: 'home'
 
   # The priority is based upon order of creation: first created -> highest priority.

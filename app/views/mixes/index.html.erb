@@ -1,9 +1,9 @@
 <ul class="pager">
   <% if @previous_page_path %>
-    <li class="previous"><%= link_to("上一頁", "/search/query_next_page?next_page_path=#{@previous_page_path}") %></li>
+    <li class="previous"><%= link_to("上一頁", next_page_path(next_page_path: @previous_page_path)) %></li>
   <% end %>
   <% if @next_page_path %>
-    <li class="next"><%= link_to("下一頁", "/search/query_next_page?next_page_path=#{@next_page_path}" ) %></li>
+    <li class="next"><%= link_to("下一頁", next_page_path(next_page_path: @next_page_path)) %></li>
   <% end %>
 </ul>
 
@@ -22,8 +22,9 @@
         <% tags_list     = previe_hash[:tag_list_cache].split.map {|tag| tag.gsub(/,|\./, '').gsub(/#/, '')} %>
         <% play_counts   = previe_hash[:plays_count] %>
         <% likes_count   = previe_hash[:likes_count] %>
+        <% mix_id        = previe_hash[:id]  %>
 
-        <% # TODO: hide and show content %>
+        <% # Hide and show content %>
         <div class="content-exchange-box">
           <%= image_tag(cover_urls, class: 'img-rounded visible', size: '200x200') %>
           <div class="hidden-content">
@@ -40,19 +41,16 @@
               <%= number_with_delimiter(likes_count) %> <span class="glyphicon glyphicon-heart" style="color:red;"></span>
             </div>
 
-            <div class="play-btn"><span class="glyphicon glyphicon-play"></span></div>
+            <% # Link to Mix Show Page %>
+            <div class="play-btn">
+              <%= link_to( content_tag(:span, nil, class: "glyphicon glyphicon-play"), {controller: :mixes, action: :show, mix_id: mix_id } ) %>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
-
-
   </div>
   <div class="panel-footer">
     <span>Footer content</span>
   </div>
 </div>
-
-
-
-        

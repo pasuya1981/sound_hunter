@@ -4,6 +4,7 @@ module EightTracksParser
   require 'nokogiri'
   require 'net/http'
   #require 'mix_module'
+
   include MixModule
 
   # See document online http://8tracks.com/developers/smart_ids
@@ -13,6 +14,36 @@ module EightTracksParser
   SORTABLE_SMART_TYPE           = [:all , :artist     , :tags]
   SORTING_PARAMS                = [:hot , :recent     , :popular]
   SMART_TYPE_ALL = SMART_TYPE_FOR_EVERYONE + SMART_TYPE_FOR_LOGGED_IN_USER + SMART_TYPE_RESPOND_TO_USER_ID
+
+  def node_name_to_sym(node_name)
+    node_name.gsub(/-/, '_').to_sym
+  end
+
+  def get_mix_preview_by(mix_id)
+    raise "mix id is not form of number" unless mix_id.kind_of?(Fixnum) || mix_id.to_i.kind_of?(Fixnum)
+    base_uri = "http://8tracks.com/mixes/#{mix_id}.xml?api_version=3&api_key=#{api_key}"
+    noko_xml = nil
+    uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
+      noko_xml = nokogiri_xml
+    end
+    mix_info_hash = cursive_parse_xml_to_hash(noko_xml)
+    raise "Parsing XML seems got error" unless mix_info_hash[:response][:mix]
+    mix_info_hash = mix_info_hash[:response][:mix]
+    mix_obj = Mix.new(mix_info_hash)
+  end
+
+  def cursive_parse_xml_to_hash(nokogiri_xml)
+    info = {}
+    nokogiri_xml.xpath("./*").each do |node|
+      node_name_in_sym = node_name_to_sym(node.name)
+      if node.xpath("./*").count > 0
+        info[node_name_in_sym] = cursive_parse_xml_to_hash(node)
+      elsif node.xpath("./*").count == 0
+        info[node_name_in_sym] = node.content
+      end
+    end
+    info
+  end
 
   def get_play_token
     base_uri = "http://8tracks.com/sets/new.xml?api_version=3&api_key=#{api_key}"

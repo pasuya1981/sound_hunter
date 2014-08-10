@@ -44,26 +44,30 @@
           }
 
           .play-btn {
+
+            a {
+              color: LightPink;
+              transition:         color .25s linear;
+              -moz-transition:    color .25s linear;
+              -webkit-transition: color .25s linear;
+              &:hover {
+                color: LightBlue;
+              }
+            }
             font-size: 3em;
             position: absolute;
             right: 10px;
             bottom: -5px;
-            color: LightPink;
 
             transform:rotate(0deg);
             -ms-transform:rotate(0deg); /* IE 9 */
             -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */
-
-            transition:         color .25s ease-in-out;
-            -moz-transition:    color .25s ease-in-out;
-            -webkit-transition: color .25s ease-in-out;
-
+            
             transition:         transform .25s linear;
             -moz-transition:    transform .25s linear;
             -webkit-transition: transform .25s linear;
 
             &:hover {
-              color: LightBlue;
               cursor: pointer;
               transform:rotate(120deg);
               -ms-transform:rotate(120deg); /* IE 9 */

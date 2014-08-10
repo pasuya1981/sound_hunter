@@ -9,8 +9,9 @@ module MixModule
 
   class Mix
     attr_accessor :info
-    def initialize
-      @info={}
+    def initialize(*infos)
+      @info = infos[0] if infos[0].kind_of?(Hash)
+      @info = {} unless @info
       yield(self) if block_given?
     end 
   end
