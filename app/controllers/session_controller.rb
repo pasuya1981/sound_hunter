@@ -24,7 +24,13 @@ class SessionController < ApplicationController
         return
       end
       user_session_setup_for(user)
-      redirect_to home_path
+      return_to = session[:return_to_url]
+      if return_to.present?
+        session[:return_to_url] = nil
+        redirect_to return_to
+      else
+        redirect_to home_path
+      end
     else # no user in DB
 
       user_info_hash = log_user_to_8tracks(email, user_params[:password])
@@ -51,6 +57,7 @@ class SessionController < ApplicationController
   end
 
   def login
+    raise
     user_token = get_8_tracks_user_token(user_params[:email], user_params[:password])
     if user_token.present?
       session[:user_token] = user_token 
@@ -78,7 +85,7 @@ class SessionController < ApplicationController
     email = user_params[:email]
     password = user_params[:password]
 
-    user_info_hash = signup_user_to_8tracks(username, email, password)
+    user_info_hash = EightTracksParser.signup_user_to_8tracks(username, email, password)
 
     # 8tracks user signup successfully
     if user_info_hash && user_info_hash[:error].nil? 

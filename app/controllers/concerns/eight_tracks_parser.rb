@@ -19,9 +19,25 @@ module EightTracksParser
     node_name.gsub(/-/, '_').to_sym
   end
 
-  def get_mix_preview_by(mix_id)
+  def toggle_like_for_kind_and_id(kind, id, user_token) # kind = "mix" or "track", see DOC "http://8tracks.com/developers/api_v3#like"
+    kind = kind == 'mix' ? 'mixes' : 'tracks'
+    base_uri = "http://8tracks.com/#{kind}/#{id}/toggle_like.xml?api_version=3&api_key=#{api_key}&user_token=#{user_token}"
+    uri_to_nokogiri_xml base_uri do |status, nokogiri_xml|
+      return nokogiri_xml.css('liked-by-current-user').first.content =~ /200 ok/i
+      raise "Check status, it was not 200 OK"
+    end
+  end
+
+  def toggle_follow_user(id)
+    # TODO: write the function
+  end
+
+  def get_mix_preview_by(params={mix_id: nil, user_token: nil})
+    mix_id = params[:mix_id]
+    user_token = params[:user_token]
     raise "mix id is not form of number" unless mix_id.kind_of?(Fixnum) || mix_id.to_i.kind_of?(Fixnum)
     base_uri = "http://8tracks.com/mixes/#{mix_id}.xml?api_version=3&api_key=#{api_key}"
+    base_uri << "&user_token=#{user_token}" if user_token
     noko_xml = nil
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
       noko_xml = nokogiri_xml
@@ -127,6 +143,24 @@ module EightTracksParser
     else
       raise "Server bad response: #{res_status}"
     end 
+  end
+
+  def signup_user_to_8tracks(user_name, email, password)
+    base_uri = URI("https://8tracks.com/users.xml")
+    response = Net::HTTP.post_form( base_uri, api_version: '3',
+                                              api_key: EIGHT_TRACK_API_KEY,
+                                              "user[login]" => user_name,
+                                               "user[email]" => email,
+                                               "user[password]" => password,
+                                               "user[agree_to_terms]" => '1')
+    xml = Nokogiri::XML(response.body)
+    response_status = xml.css('status').first.content
+    if response_status.to_s =~ /201 created/i || response_status.to_s =~ /200 ok/i
+      user_info = parse_user_info_from(xml)
+    elsif response_status =~ /422 Unprocessable Entity/i
+      error_msg = xml.css('validation-errors').first.content
+      user_info = { error: error_msg }
+    end
   end
 
   def loggin(email, password)

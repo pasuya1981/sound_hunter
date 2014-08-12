@@ -20,8 +20,8 @@ class MixesController < ApplicationController
 
   def show
     # TODO: Render a Mix
-    mix_id = params[:mix_id]
-    mix = get_mix_by(mix_id)
+    @mix_id = params[:mix_id]
+    mix = get_mix_by(@mix_id)
     info_hash = mix.info
     @mix_description = info_hash[:description]
     @mix_likes_count = info_hash[:likes_count]
@@ -31,7 +31,7 @@ class MixesController < ApplicationController
     @mix_artists = [];
     info_hash[:artists].split.each { |artist| @mix_artists << artist } if info_hash[:artists].kind_of?(String)
     info_hash[:artists].each { |k, artist| @mix_artists << artist } if info_hash[:artists].kind_of?(Hash)
-    @mix_liked_by_current_user = info_hash[:liked_by_current_user]
+    @mix_liked_by_current_user = info_hash[:liked_by_current_user] == 'false' ? false : true
     @mix_name = info_hash[:name]
     @mix_cover_url = info_hash[:cover_urls][:sq500]
     @plays_count = info_hash[:plays_count]
@@ -71,8 +71,7 @@ class MixesController < ApplicationController
   private
 
   def get_mix_by(mix_id)
-    # TODO: get mix model
-    mix = EightTracksParser.get_mix_preview_by(mix_id)
+    mix = EightTracksParser.get_mix_preview_by(mix_id: mix_id, user_token: session[:user_token])
   end
 
   def search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
