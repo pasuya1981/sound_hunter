@@ -26,8 +26,10 @@
 
         <% # Hide and show content %>
         <div class="content-exchange-box">
-          <%= image_tag(cover_urls, class: 'img-rounded visible', size: '200x200') %>
+          <%= link_to(image_tag(cover_urls, class: 'img-rounded visible', size: '200x200'), '#') %>
           <div class="hidden-content">
+
+            <%= link_to(content_tag(:div, ''), {controller: :mixes, action: :show, mix_id: mix_id}, class: 'hidden-link') %>
             
             <div class="tags-list-cache">
               <% tags_list.each do |tag| %>
@@ -43,7 +45,7 @@
 
             <% # Link to Mix Show Page %>
             <div class="play-btn">
-              <%= link_to( content_tag(:span, nil, class: "glyphicon glyphicon-play"), {controller: :mixes, action: :show, mix_id: mix_id } ) %>
+              <a href="<%= home_path %>"><span class="glyphicon glyphicon-play"></span></a>
             </div>
           </div>
         </div>

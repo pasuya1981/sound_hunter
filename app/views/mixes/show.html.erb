@@ -2,16 +2,46 @@
 
   <table>
     <tr>
-      <td class="img-container"><%= image_tag(@mix_cover_url, class: "img-body", size: "400x400") %></td>
+      <td class="img-container"><%= image_tag(@mix_cover_url, class: "img-body", size: "521x521") %></td>
       <td class="glyphicon-container">
         <span class="glyphicon glyphicon-heart"></span>
         <span class="glyphicon glyphicon-plus"></span>
         <span class="glyphicon glyphicon-share"></span>
+        <div class="share-container">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </div>
       </td>
-      <td class="mix-dj-info">mix dj info</td>
+      <td class="mix-dj-info">
+        <table>
+          <tr>
+            <td rowspan="3"><%= image_tag(@user_avatar) %></td>
+            <td     id="dj-name"      ><%= @user_login.capitalize %></td>
+            <tr><td id="dj-location"  ><%= @user_location.capitalize %></td></tr>
+            <tr><td id="dj-follow-btn"><button>Follow</button></td></tr>
+          </tr>
+          <tr>
+          	<td id="commercial" colspan="2">廣告在這邊</td>
+          </tr>
+          <tr><td id="dj-mixes" colspan="2">DJ Mixes goes here...</td></tr>
+        </table>
+      </td>
     </tr>
+
     <tr>
-      <td colspan="3" class="mix-info">mix info</td>
+      <td colspan="3" class="mix-info">
+        <hr/>
+        標籤: <% @tag_list_cache.each do |tag| %>
+               <span><%= link_to(tag, hot_tags_search_path(keyword: tag)) %></span>
+             <% end %>
+        <br/>
+        類別: <% @mix_genres.each do |genre| %>
+        	   <span><%= link_to(genre, hot_tags_search_path(keyword: genre)) %></span>
+             <% end %>
+        <br/>
+        歌手: <% @mix_artists.each do |artist| %>
+        	   <%= link_to(artist, search_path('keyword' => {'smart_type' => 'artist', "sort" => "popular", "words" => artist })) %>
+        	 <% end %>
+      </td>
     </tr>
   </table>   
 </div>

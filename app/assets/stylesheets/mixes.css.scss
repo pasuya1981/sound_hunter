@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@mixin border-right($color) { border-right: solid 2px $color; }
+@import 'ui_elements';
 
 .main_container { 
 
@@ -25,29 +25,36 @@
         z-index: 1;
       }
       .hidden-content {
+
         height: 180px;
         width: 180px;
         opacity: 0;
         background-color: white;
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         border-radius: 5px;
         clear: both;
-        transition: opacity .25s ease-in-out;
-        -moz-transition: opacity .25s ease-in-out;
-        -webkit-transition: opacity .25s ease-in-out;
+        transition: opacity .1s ease-in-out;
+        -moz-transition: opacity .1s ease-in-out;
+        -webkit-transition: opacity .1s ease-in-out;
         &:hover {
           opacity: .9;
         }
+        .hidden-link {
+          height: 180px;
+          width: 180px;
+          position: absolute;
+          background-color: transparent;
+          z-index: 2;
+        }
         .play-btn {
+          z-index: 3;
           a {
             color: LightPink;
-            transition:         color .25s linear;
-            -moz-transition:    color .25s linear;
-            -webkit-transition: color .25s linear;
-            &:hover {
-              color: LightBlue;
-            }
+            transition:         color .1s ease-in-out;
+            -moz-transition:    color .1s ease-in-out;
+            -webkit-transition: color .1s ease-in-out;
+            &:hover { color: LightBlue; }
           }
           font-size: 3em;
           position: absolute;
@@ -57,9 +64,9 @@
           -ms-transform:rotate(0deg); /* IE 9 */
           -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */
           
-          transition:         transform .25s linear;
-          -moz-transition:    transform .25s linear;
-          -webkit-transition: transform .25s linear;
+          transition:         transform .25s ease-in-out;
+          -moz-transition:    transform .25s ease-in-out;
+          -webkit-transition: transform .25s ease-in-out;
           &:hover {
             cursor: pointer;
             transform:rotate(120deg);
@@ -87,9 +94,14 @@
   }
   table td {vertical-align: top;}
 
+  /* UI elements*/
+  .follow-btn {
+    
+  }
+
+  /* page css control */
   .mix-show-page {
-    margin-top: 30px;
-    .img-container {}
+    .img-container {vertical-align: bottom;}
 
     .glyphicon-container {
       position: relative;
@@ -105,6 +117,11 @@
       .glyphicon-heart {
         position: relative;
         right: 2px;
+      }
+      .share-container {
+        position: relative;
+        top: 80px;
+        height: 150px;
       }
     }
     .glyphicon-container::before {
@@ -129,14 +146,35 @@
     }
 
     .mix-dj-info {
-      padding-top: 10px;
+      min-width: 400px;      
+      padding-right: 10px;
       padding-left: 40px;
-      background-color: LightBlue;
+      #dj-name, #dj-location, #dj-follow-btn { padding-left: 15px; vertical-align: middle;}
+      #dj-name { font-size: 20px; font-weight: bold;}
+      #dj-location { font-size: 20px; color: DarkGray;}
+      #dj-follow-btn button { @include follow-btn(LightBlue); }
+
+      #commercial { 
+        width:250px; height:250px; padding-top:1.2em; 
+        background-color:blue; margin-top:20px;
+      }
+
+      #dj-mixes {
+        background-color: LightPink;
+        padding-top: 1.2em;
+        height: 171px;
+      }
     }
 
     .mix-info {
-      background-color: green;
+      color: #322D38;
+      hr {border-width: 2px; margin-top: 1em;}
       padding: 10px;
+      line-height: 2em;
+
+      span {
+        @include sm-tag;
+      }
     }
   }
 }
