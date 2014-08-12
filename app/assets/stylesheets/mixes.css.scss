@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin border-right($color) { border-right: solid 2px $color; }
+
 .main_container { 
 
     /* index page */
@@ -83,26 +85,58 @@
       }
     }
   }
+  table td {vertical-align: top;}
 
   .mix-show-page {
-    background-color: red;
+    margin-top: 30px;
+    .img-container {}
 
-    .img_container {
+    .glyphicon-container {
       position: relative;
-
-      .mg-body {
-
+      min-width: 100px;
+      text-align: center;
+      @include border-right(LightGray);
+      padding: 10px;
+      span {
+        display: block;
+        font-size: 35px;
+        line-height: 60px;
       }
-
-      .mix-play-btn {
-        color: DarkGray;
-        border: 1px solid LightGray;
-        border-radius: 20px;
-        font-size: 5em;
-        position: absolute;
-        bottom: 0.1em;
-        left: 6em;
+      .glyphicon-heart {
+        position: relative;
+        right: 2px;
       }
+    }
+    .glyphicon-container::before {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      left: 100px;
+      top: 50px;
+      border: 20px solid;
+      border-color: transparent transparent transparent LightGray;
+    }
+    .glyphicon-container::after {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      left: 98px;
+      top: 50px;
+      border: 20px solid;
+      border-color: transparent transparent transparent #FFF; 
+    }
+
+    .mix-dj-info {
+      padding-top: 10px;
+      padding-left: 40px;
+      background-color: LightBlue;
+    }
+
+    .mix-info {
+      background-color: green;
+      padding: 10px;
     }
   }
 }

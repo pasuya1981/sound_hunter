@@ -1,6 +1,6 @@
 class MixesController < ApplicationController
   before_action :init_trend_tag_session
-  layout 'search'
+  layout 'mixes'
 
   def index
     init_trend_tag_session
@@ -42,7 +42,7 @@ class MixesController < ApplicationController
     @user_login = user_hash[:login]
     @user_path = user_hash[:path]
     @user_web_path = user_hash[:web_path]
-    @user_avatar = user_hash[:avatar_urls][:sq100]
+    @user_avatar = user_hash[:avatar_urls][:max250]
     @user_followed_by_current_user = user_hash[:followed_by_current_user]
     @location = user_hash[:location]
     @member_since = user_hash[:member_since]

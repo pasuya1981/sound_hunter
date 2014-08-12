@@ -20,11 +20,16 @@ html {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; 
   background: #fff;
 
+  .clear {
+    clear: both;
+  }
+
   body {
     font-family: Microsoft JhengHei, sans-serif;
     h1,h2,h3,h4,h5,h6 {
-      color: DarkGray;
+      font-weight: bold;
     }
+
 
     header {
       .navbar {

@@ -1,15 +1,19 @@
-<h4>This is Mix Show Page</h4>
-
 <div class="mix-show-page">
 
-  <div class="img_container">
-    <div class="img-body"><%= image_tag(@mix_cover_url) %></div>
-    <div class="mix-play-btn"><span class="glyphicon glyphicon-play"></span></div>
-  </div>
-
-  <div class="mix-desc" >
-    mix description here.....
-  </div>
+  <table>
+    <tr>
+      <td class="img-container"><%= image_tag(@mix_cover_url, class: "img-body", size: "400x400") %></td>
+      <td class="glyphicon-container">
+        <span class="glyphicon glyphicon-heart"></span>
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="glyphicon glyphicon-share"></span>
+      </td>
+      <td class="mix-dj-info">mix dj info</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="mix-info">mix info</td>
+    </tr>
+  </table>   
 </div>
 
 
