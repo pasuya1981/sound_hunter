@@ -1,6 +1,4 @@
 
-<% # TODO: wire the search action to search controller %>
-
 <%= simple_form_for(:keyword, url: search_path , html: { class: "navbar-form navbar-left", role: "search" }, method: :get) do |f| %>
   <%= f.input :smart_type, collection: ['標籤','歌手', '關鍵字'], selected: session[:smart_type_remember] , label: false %>
   <%= f.input :sort, collection: ['最新', '熱門'], selected: session[:sort_type_remember], label: false %>

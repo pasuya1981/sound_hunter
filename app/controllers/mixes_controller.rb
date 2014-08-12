@@ -19,7 +19,7 @@ class MixesController < ApplicationController
   end
 
   def show
-    # TODO: Render a Mix
+    # Render Mix Preview
     @mix_id = params[:mix_id]
     mix = get_mix_by(@mix_id)
     info_hash = mix.info
