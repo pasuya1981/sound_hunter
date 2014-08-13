@@ -1,82 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <response>
-  <mix>
-    <description-html>&lt;p&gt;&lt;/p&gt;</description-html>
-    <likes-count>2</likes-count>
-    <certification nil="true"/>
-    <user>
-      <id>10438210</id>
-      <login>htfiona</login>
-      <path>/users/10438210</path>
-      <web-path>/htfiona</web-path>
-      <avatar-urls>
-        <sq56>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;w=56&amp;h=56&amp;fit=crop</sq56>
-        <sq72>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;w=72&amp;h=72&amp;fit=crop</sq72>
-        <sq100>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;w=100&amp;h=100&amp;fit=crop</sq100>
-        <max200>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;w=200&amp;h=200&amp;fit=max</max200>
-        <max250w>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;w=250&amp;h=250&amp;fit=max</max250w>
-        <original>http://8tracks.imgix.net/avatars/010/438/210/30825.original.jpg?fm=jpg&amp;q=65&amp;sharp=15&amp;vib=10&amp;</original>
-      </avatar-urls>
-      <followed-by-current-user>false</followed-by-current-user>
-      <location>Hong Kong</location>
-      <bio-html>&lt;p&gt;&lt;/p&gt;</bio-html>
-      <website/>
-      <website-trusted nil="true"/>
-      <designation nil="true"/>
-      <city nil="true"/>
-      <neighborhood nil="true"/>
-      <country>Hong Kong</country>
-      <member-since>Mar 2014</member-since>
-      <bio/>
-      <college-name nil="true"/>
-      <admin nil="true"/>
-      <moderator>false</moderator>
-      <state nil="true"/>
-      <zip-code/>
-    </user>
-    <duration>1827</duration>
-    <tracks-count>8</tracks-count>
-    <nsfw>false</nsfw>
-    <genres>
-      <genre>pop</genre>
-      <genre>indie</genre>
-      <genre>chinese</genre>
-      <genre>rock</genre>
-      <genre>alternative</genre>
-    </genres>
-    <artists>
-      <artist>GEM</artist>
-      <artist>Jayesslee</artist>
-    </artists>
-    <liked-by-current-user>false</liked-by-current-user>
-    <id>3742151</id>
-    <path>/mixes/3742151</path>
-    <web-path>/htfiona/tangle</web-path>
-    <name>Tangle</name>
-    <user-id>10438210</user-id>
-    <published>true</published>
-    <cover-urls>
-      <sq56>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=56&amp;h=56&amp;fit=crop</sq56>
-      <sq100>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=100&amp;h=100&amp;fit=crop</sq100>
-      <sq133>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=133&amp;h=133&amp;fit=crop</sq133>
-      <max133w>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=133&amp;fit=max</max133w>
-      <max200>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=200&amp;h=200&amp;fit=max</max200>
-      <sq250>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=250&amp;h=250&amp;fit=crop</sq250>
-      <sq500>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=500&amp;h=500&amp;fit=crop</sq500>
-      <max1024>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?fm=jpg&amp;q=65&amp;w=1024&amp;h=1024&amp;fit=max</max1024>
-      <original-imgix-url>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?q=65&amp;sharp=15&amp;vib=10&amp;fm=jpg&amp;fit=crop</original-imgix-url>
-      <original>http://8tracks.imgix.net/i/001/986/771/m222905777-6499.jpg?q=65&amp;sharp=15&amp;vib=10&amp;fm=jpg&amp;fit=crop</original>
-      <animated>false</animated>
-    </cover-urls>
-    <description/>
-    <plays-count>47</plays-count>
-    <tag-list-cache>consolation, mood, jayesslee</tag-list-cache>
-    <first-published-at>2014-03-30T14:54:07Z</first-published-at>
-    <first-published-at-timestamp>1396191247</first-published-at-timestamp>
-  </mix>
+  <set>
+    <at-beginning>true</at-beginning>
+    <at-end>false</at-end>
+    <at-last-track>false</at-last-track>
+    <skip-allowed>true</skip-allowed>
+    <track>
+      <buy-link>http://soundcloud.com/beljacksonunbreakable/michael-jackson-in-the-closet</buy-link>
+      <buy-icon>http://8tracks.com/assets/buy/soundcloud.png</buy-icon>
+      <buy-text>SoundCloud</buy-text>
+      <track-file-stream-url>https://api.soundcloud.com/tracks/19852298/stream?client_id=3904229f42df3999df223f6ebf39a8fe</track-file-stream-url>
+      <stream-source>ext_sc</stream-source>
+      <user-id>1</user-id>
+      <full-length>true</full-length>
+      <faved-by-current-user>false</faved-by-current-user>
+      <id>13608877</id>
+      <name>- In the Closet</name>
+      <performer>Bel'Jackson Unbreakable</performer>
+      <release-name>Uploaded by Bel'Jackson Unbreakable</release-name>
+      <url>http://8tracks.com/tracks/13608877</url>
+      <year nil="true"/>
+      <uid>sc-19852298</uid>
+    </track>
+  </set>
   <status>200 OK</status>
   <errors nil="true"/>
-  <notices nil="true"/>
+  <notices/>
   <logged-in>false</logged-in>
   <api-version>3</api-version>
 </response>

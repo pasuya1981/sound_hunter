@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :tracks_user_id
       t.string  :tracks_user_web_path
       t.string  :tracks_user_avatar_url
+      t.string  :tracks_user_play_token
 
       t.timestamps
     end

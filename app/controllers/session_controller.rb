@@ -33,7 +33,7 @@ class SessionController < ApplicationController
       end
     else # no user in DB
 
-      user_info_hash = log_user_to_8tracks(email, user_params[:password])
+      user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
       # no account on 8tracks server
       if user_info_hash.nil?
         flash[:info] = "無此帳號"
@@ -57,7 +57,6 @@ class SessionController < ApplicationController
   end
 
   def login
-    raise
     user_token = get_8_tracks_user_token(user_params[:email], user_params[:password])
     if user_token.present?
       session[:user_token] = user_token 
@@ -82,7 +81,7 @@ class SessionController < ApplicationController
 
   def create_eight_tracks_account
     username = user_params[:username]
-    email = user_params[:email]
+    email    = user_params[:email]
     password = user_params[:password]
 
     user_info_hash = EightTracksParser.signup_user_to_8tracks(username, email, password)

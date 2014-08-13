@@ -10,6 +10,7 @@
 #  tracks_user_id         :integer
 #  tracks_user_web_path   :string(255)
 #  tracks_user_avatar_url :string(255)
+#  tracks_user_play_token :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
 #

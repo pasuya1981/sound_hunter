@@ -101,8 +101,21 @@
 
   /* page css control */
   .mix-show-page {
-    .img-container {vertical-align: bottom;}
+    .img-container {
+      position: relative;
+      vertical-align: bottom;
 
+      a { color: white; 
+        &:hover { color: white; text-decoration: none; }
+      }
+
+      .play-btn-lg {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        @include play-btn-lg(LightGray);
+      }
+    }
     .glyphicon-container {
       position: relative;
       min-width: 100px;

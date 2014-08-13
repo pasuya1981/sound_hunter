@@ -2,7 +2,12 @@
 
   <table>
     <tr>
-      <td class="img-container"><%= image_tag(@mix_cover_url, class: "img-body", size: "521x521") %></td>
+      <td class="img-container">
+        <%= image_tag(@mix_cover_url, class: "img-body", size: "521x521") %>
+        <div class="play-btn-lg">
+          <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-play"), play_url(play: {mix_id: @mix_id})) %>
+        </div>
+      </td>
       <td class="glyphicon-container">
         <% like_color = @mix_liked_by_current_user ? 'LightPink' : 'DarkGray' %>
         <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-heart", style:"color:#{like_color}") , {controller: :favorite, action: :toggle_like, kind_and_id: { kind: :mix, id: @mix_id }}) %>

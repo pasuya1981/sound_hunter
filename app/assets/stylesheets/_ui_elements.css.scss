@@ -12,6 +12,21 @@
   font-weight: bold;
 }
 
+@mixin play-btn-lg($back-color) {
+  text-align: center;
+  color: white;
+  font-size: 80px;
+  background-color: black;
+  opacity: 0.5;
+  width: 100px;
+  height: 100px;
+  transition: opacity .1s ease-in-out;
+
+  
+
+  &:hover { opacity: .7; cursor: pointer; text-decoration: none; }
+}
+
 @mixin sm-tag {
   margin: .2em;
   padding: .3em;

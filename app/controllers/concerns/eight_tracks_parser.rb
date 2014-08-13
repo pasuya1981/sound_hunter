@@ -40,6 +40,7 @@ module EightTracksParser
     base_uri << "&user_token=#{user_token}" if user_token
     noko_xml = nil
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
+      validate_status_and_nokogiri_xml(status, nokogiri_xml)
       noko_xml = nokogiri_xml
     end
     mix_info_hash = cursive_parse_xml_to_hash(noko_xml)
@@ -61,6 +62,23 @@ module EightTracksParser
     info
   end
 
+  def log_user_to_8tracks(email, password)
+    uri = URI.parse("http://8tracks.com/sessions.xml")
+    response = Net::HTTP.post_form(uri, api_version: "3", 
+                                           api_key: api_key, 
+                                             login: email, 
+                                          password: password)
+    nokogiri_xml = Nokogiri::XML(response.body)
+    user_info = {}
+    user_info[:tracks_user_name] = nokogiri_xml.css('login').first.content
+    user_info[:tracks_user_id] = nokogiri_xml.css('id').first.content
+    user_info[:tracks_user_email] = nokogiri_xml.css('email').first.content
+    user_info[:tracks_user_token] = nokogiri_xml.css('user-token').first.content
+    user_info[:tracks_user_web_path] = nokogiri_xml.css('web-path').first.content
+    user_info[:tracks_user_avatar_url] = nokogiri_xml.css('avatar-urls max200').first.content
+    return user_info
+  end
+
   def get_play_token
     base_uri = "http://8tracks.com/sets/new.xml?api_version=3&api_key=#{api_key}"
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
@@ -69,9 +87,9 @@ module EightTracksParser
     end
   end
     
-  # TODO: play the mix?
-  def get_mix_details_for_play(play_token, mix_id)
-    base_uri = "http://8tracks.com/sets/#{play_token}/play.xml?mix_id=#{mix_id}&api_version=3&api_key=#{api_key}&"
+  # TODO: play the mix? Perhaps write a mix-player controller.
+  def get_mix_play_info(play_token, mix_id)
+    base_uri = "http://8tracks.com/sets/#{play_token}/play.xml?mix_id=#{mix_id}&api_version=3&api_key=#{api_key}"
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
       raise nokogiri_xml.to_xml
     end
@@ -148,7 +166,7 @@ module EightTracksParser
   def signup_user_to_8tracks(user_name, email, password)
     base_uri = URI("https://8tracks.com/users.xml")
     response = Net::HTTP.post_form( base_uri, api_version: '3',
-                                              api_key: EIGHT_TRACK_API_KEY,
+                                              api_key: api_key,
                                               "user[login]" => user_name,
                                                "user[email]" => email,
                                                "user[password]" => password,
@@ -292,11 +310,11 @@ module EightTracksParser
   end
 
   def uri_to_nokogiri_xml(base_uri)
-      base_uri = URI::escape base_uri
-      response = open(base_uri).read
-      xml = Nokogiri::XML(response)
-      status = xml.css('status').first.content 
-      yield(status, xml) if block_given?  
+    base_uri = URI::escape base_uri
+    response = open(base_uri).read
+    xml = Nokogiri::XML(response)
+    status = xml.css('status').first.content 
+    yield(status, xml) if block_given?  
   end
 
   def safe_url(string)
