@@ -1,6 +1,6 @@
 class SessionController < ApplicationController
 
-
+  layout 'mixes'
 
   def new
     @user = User.new

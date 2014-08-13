@@ -1,23 +1,25 @@
-<h4 class='pull-center'>
-  <%= link_to( image_tag("http://8tracks.imgix.net/avatars/007/888/920/38789.original.png?fm=jpg&q=65&sharp=15&vib=10&w=75&h=75&fit=crop&dpr=3", 
-                         size: "50x50"), "http://8tracks.com/", 
-                         target: '_blank') + ' 以8tracks的帳號登入' %>
-</h4>
+<div class="user_form">
+  <h4 class='pull-center'>
+    <%= link_to( image_tag("http://8tracks.imgix.net/avatars/007/888/920/38789.original.png?fm=jpg&q=65&sharp=15&vib=10&w=75&h=75&fit=crop&dpr=3", 
+                           size: "50x50"), "http://8tracks.com/", 
+                           target: '_blank') + ' 以8tracks的帳號登入' %>
+  </h4>  
 
-<%= simple_form_for(@user || User.new, url: { controller: 'session', action: dynamic_action_name },
-                            html: { class: 'form-horizontal' }) do |f| %>
-  <% if controller.action_name =~ /signup/ %>
-    <%= f.input :username, label: '帳號名稱' %>
-  <% end %>
+  <%= simple_form_for(@user || User.new, url: { controller: 'session', action: dynamic_action_name },
+                              html: { class: 'form-horizontal' }) do |f| %>
+    <% if controller.action_name =~ /signup/ %>
+      <%= f.input :username, label: '帳號名稱' %>
+    <% end %>  
 
-  <%= f.input :email, placeholder: 'someone@domain.com', label: '電郵地址'%>
-  <%= f.input :password, label: '密碼' %>
-  <%= f.button :submit, @submit_btn_name %>  
+    <%= f.input :email, placeholder: 'someone@domain.com', label: '電郵地址'%>
+    <%= f.input :password, label: '密碼' %>
+    <%= f.button :submit, @submit_btn_name %>    
 
-  <% unless user_logged_in?  %>
-    <% unless controller.action_name =~ /signup/i %>
-      <%= link_to "免費申請8tracks帳號", signup_path, class: 'pull-right' %>
+    <% unless user_logged_in?  %>
+      <% unless controller.action_name =~ /signup/i %>
+        <%= link_to "免費申請8tracks帳號", signup_path, class: 'pull-right' %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
 

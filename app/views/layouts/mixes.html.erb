@@ -13,28 +13,30 @@
   <%= render 'layouts/header' %>
 </header>
 
+
 <div class="notification">
   <%= render "shared/flash_messages" %>
-</div>
-
+</div>  
 <div class="top_level_container container-fixed">
   <div class="row">
     <div class="main_container col-md-12">
-      <!-- Before yield -->
-      <%= yield %>	
-      <!-- After yield -->
+      <div id="ajax-page-reloader">
+        <!-- Before yield -->
+        <%= yield %>  
+        <!-- After yield -->
+      </div>
     </div>
   </div>
-</div>
-
+</div>  
 <footer>
   <hr />
   <div class="debug_area">
-  	<% if Rails.env == 'development' %>
-  	  <%= debug(params) %>
-  	<% end %>
+    <% if Rails.env == 'development' %>
+      <%= debug(params) %>
+    <% end %>
   </div>
 </footer>
+
 
 <% # TODO: create a music player and use it with AJAX call %>
 <div id="music_player_container">

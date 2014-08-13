@@ -7,6 +7,9 @@ class HomeController < ApplicationController
   end
 
   def welcome
+    respond_to do |format|
+      format.js { }
+    end
   end
 
   private

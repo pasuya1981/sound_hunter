@@ -37,6 +37,19 @@ $(document).ready(function(){
   });
 });
 
+/* Update URL when doing Ajax request */
+if (history && history.pushState){
+  $(function(){
+   $('body').on('click', 'a', function(e){
+      $.getScript(this.href);
+      history.pushState(null, '', this.href);
+    });
+    $(window).bind("popstate", function(){
+      $.getScript(location.href);
+    });
+  });
+}
+
 // Triggered when page refreshed
 //$(window).load(function() {
 //	
