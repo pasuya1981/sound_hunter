@@ -91,7 +91,8 @@ module EightTracksParser
   def get_mix_play_info(play_token, mix_id)
     base_uri = "http://8tracks.com/sets/#{play_token}/play.xml?mix_id=#{mix_id}&api_version=3&api_key=#{api_key}"
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
-      raise nokogiri_xml.to_xml
+      mix_play_info_hash = cursive_parse_xml_to_hash(nokogiri_xml)
+      mix_play_info_hash = mix_play_info_hash[:response] if mix_play_info_hash[:response]
     end
   end
 

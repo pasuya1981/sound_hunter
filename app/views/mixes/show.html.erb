@@ -1,11 +1,16 @@
 <div class="mix-show-page">
-
   <table>
     <tr>
       <td class="img-container">
         <%= image_tag(@mix_cover_url, class: "img-body", size: "521x521") %>
         <div class="play-btn-lg">
-          <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-play"), play_url(play: {mix_id: @mix_id})) %>
+
+          <% # Play btn link %>
+          <%= link_to(content_tag(:span, 
+                                  nil, 
+                                  class: "glyphicon glyphicon-play"), 
+                      play_url(play: {mix_id: @mix_id}), 
+                      remote: true) %>
         </div>
       </td>
       <td class="glyphicon-container">
@@ -51,5 +56,3 @@
     </tr>
   </table>   
 </div>
-
-

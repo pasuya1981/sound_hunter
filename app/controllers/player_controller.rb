@@ -3,7 +3,11 @@ class PlayerController < ApplicationController
   def play
   	mix_id = play_params[:mix_id]
   	setup_session_play_token unless session[:play_token]
-  	EightTracksParser.get_mix_play_info(session[:play_token], mix_id)
+  	mix_play_info_hash = EightTracksParser.get_mix_play_info(session[:play_token], mix_id)
+
+  	respond_to do |format|
+  	  format.js
+  	end
   end
 
 

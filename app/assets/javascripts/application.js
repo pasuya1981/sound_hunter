@@ -25,3 +25,10 @@ $(document).ready(function(){
     }
   });
 });
+
+// Triggered when page refreshed
+$(window).load(function() {
+	// body...
+	
+});
+

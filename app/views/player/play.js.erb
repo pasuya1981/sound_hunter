@@ -1,0 +1,14 @@
+
+$("#music_player_container").slideToggle('fast', 'linear', function() {
+  // body...
+  
+  var player = $("#music_player");
+  var is_playing = player.attr('is-playing');
+  if( is_playing == "false"){
+  	player.attr('is-playing', 'true');
+  	alert("Player is playing now.");
+  } else if( is_playing == "true"){  
+    player.attr('is-playing', 'false');
+    alert("Player stops playing.");
+  }
+});

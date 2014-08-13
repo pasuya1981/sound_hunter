@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  layout 'mixes'
+
   def index
     
   end
