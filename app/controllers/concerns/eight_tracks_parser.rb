@@ -87,7 +87,6 @@ module EightTracksParser
     end
   end
     
-  # TODO: play the mix? Perhaps write a mix-player controller.
   def get_mix_play_info(play_token, mix_id)
     base_uri = "http://8tracks.com/sets/#{play_token}/play.xml?mix_id=#{mix_id}&api_version=3&api_key=#{api_key}"
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|

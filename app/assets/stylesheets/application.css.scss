@@ -39,13 +39,11 @@ html {
       bottom: 0px;
       left: 0px;
       #music_player {
+        background-color: LightPink;
+        width: 500px;
+        height: 50px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 15px;
-        background-color: LightPink;
-        min-width: 600px;
-        max-width: 600px;
-        height: 50px;
       }
     }
     header {

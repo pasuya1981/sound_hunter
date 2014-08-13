@@ -16,6 +16,7 @@
 //= require_tree .
 
 $(document).ready(function(){
+  /* Search form input control */
   $("input.btn-search-submit").addClass('disabled');
   $(".search_input").change(function() {
     if($(this).val() < 1) {
@@ -24,11 +25,21 @@ $(document).ready(function(){
       $("input.btn-search-submit").removeClass('disabled');
     }
   });
+
+  soundManager.setup({
+    url: '/path/to/swf-files/',
+    onready: function() {
+      alert("SM@ setup");
+    },
+    ontimeout: function() {
+      // Hrmm, SM2 could not start. Missing SWF? Flash blocked? Show an error, etc.?
+    }
+  });
 });
 
 // Triggered when page refreshed
-$(window).load(function() {
-	// body...
-	
-});
+//$(window).load(function() {
+//	
+//	
+//});
 
