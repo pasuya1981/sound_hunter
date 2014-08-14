@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get '/showmix', to: 'mixes#show', as: :show_mix
   get '/play(/:mix_id)', to: 'player#play', as: :play
 
   match ":controller(/:action(/:id))", via: [:get, :post, :delete]

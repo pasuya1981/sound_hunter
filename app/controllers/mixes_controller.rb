@@ -35,7 +35,7 @@ class MixesController < ApplicationController
     @mix_artists = [];
     info_hash[:artists].split.each { |artist| @mix_artists << artist } if info_hash[:artists].kind_of?(String)
     info_hash[:artists].each { |k, artist| @mix_artists << artist } if info_hash[:artists].kind_of?(Hash)
-    @mix_liked_by_current_user = info_hash[:liked_by_current_user] == 'false' ? false : true
+    @mix_liked_by_current_user = info_hash[:liked_by_current_user] == 'false' ? false : true 
     @mix_name = info_hash[:name]
     @mix_cover_url = info_hash[:cover_urls][:sq500]
     @plays_count = info_hash[:plays_count]

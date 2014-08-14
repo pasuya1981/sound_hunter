@@ -3,7 +3,7 @@
 <head>
   <title>SoundHunter</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true, :cache => true %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/bootstrap_3_CDN_load' %>
 </head>
@@ -29,21 +29,12 @@
   </div>
 </div>  
 <footer>
-  <hr />
-  <div class="debug_area">
-    <% if Rails.env == 'development' %>
-      <%= debug(params) %>
-    <% end %>
-  </div>
+  <%# render 'shared/debug' %>
 </footer>
 
 
 <% # TODO: create a music player and use it with AJAX call %>
-<div id="music_player_container">
-  <div id="music_player">
-    這是Music Player
-  </div>
-</div>
+<%= render 'shared/music_player' %>
 
 </body>
 </html>

@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require 'soundmanager2'
+// require_tree .
 
 $(document).ready(function(){
   /* Search form input control */
@@ -25,7 +26,13 @@ $(document).ready(function(){
       $("input.btn-search-submit").removeClass('disabled');
     }
   });
+
+  $("#music_player_container").hide(0,function() {
+    $("#music_player").attr('play-state', 'stop');
+  });
 });
+
+
 
 /* Update URL when doing Ajax request */
 if (history && history.pushState){
@@ -57,3 +64,9 @@ soundManager.setup({
     volume: 100,
   }
 });
+
+
+
+
+
+

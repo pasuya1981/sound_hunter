@@ -14,8 +14,13 @@
         </div>
       </td>
       <td class="glyphicon-container">
-        <% like_color = @mix_liked_by_current_user ? 'LightPink' : 'DarkGray' %>
-        <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-heart", style:"color:#{like_color}") , {controller: :favorite, action: :toggle_like, kind_and_id: { kind: :mix, id: @mix_id }}) %>
+        <% like_color = @mix_liked_by_current_user ? 'LightPink' : 'LightGray' %>
+
+        <% # TODO: Toggle Mix like and change the color of heart %>
+        <%= link_to(content_tag(:span, nil, id: "toggle-like-heart" ,class: "glyphicon glyphicon-heart", style:"color:#{like_color}"), 
+                    {controller: :favorite, action: :toggle_like, kind_and_id: { kind: :mix, id: @mix_id }},
+                    remote: true) %>
+
         <span class="glyphicon glyphicon-plus"></span>
         <span class="glyphicon glyphicon-share"></span>
         <div class="share-container">
@@ -56,3 +61,12 @@
     </tr>
   </table>   
 </div>
+
+<script>
+  $(".glyphicon-container").on('ajax:beforeSend', function(status, xhr, settings) {
+    xhr.abort(); // prevent AJAX twice request.
+  });
+  $(".play-btn-lg").on('ajax:beforeSend', function(status, xhr, settings) {
+    xhr.abort(); // prevent AJAX twice request.
+  });
+</script>

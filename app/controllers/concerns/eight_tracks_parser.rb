@@ -22,10 +22,13 @@ module EightTracksParser
   def toggle_like_for_kind_and_id(kind, id, user_token) # kind = "mix" or "track", see DOC "http://8tracks.com/developers/api_v3#like"
     kind = kind == 'mix' ? 'mixes' : 'tracks'
     base_uri = "http://8tracks.com/#{kind}/#{id}/toggle_like.xml?api_version=3&api_key=#{api_key}&user_token=#{user_token}"
+    liked_by_current_user = nil
     uri_to_nokogiri_xml base_uri do |status, nokogiri_xml|
-      return nokogiri_xml.css('liked-by-current-user').first.content =~ /200 ok/i
-      raise "Check status, it was not 200 OK"
+      raise "status error: #{status}" unless status =~ /200 ok/i
+      liked_by_current_user = nokogiri_xml.css('liked-by-current-user').first.content
     end
+    puts "Finish toggle like and result is #{liked_by_current_user}".red
+    return liked_by_current_user
   end
 
   def toggle_follow_user(id)

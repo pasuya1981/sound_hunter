@@ -8,8 +8,16 @@ class PlayerController < ApplicationController
     @track_name = mix_play_info_hash[:set][:track][:name]
   	respond_to do |format|
   	  format.js { @audio_stream_url }
-      format.html { redirect_to home_path }
+      #format.html { redirect_to home_path }
   	end
+  end
+
+  def pause
+    
+  end
+
+  def resume
+    
   end
 
 

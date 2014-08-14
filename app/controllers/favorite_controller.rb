@@ -6,17 +6,19 @@ class FavoriteController < ApplicationController
   end
 
   def toggle_like
+    puts "toggle like".red
+    # kind = mix or user or track.
     kind = kind_and_id_params[:kind]
     id = kind_and_id_params[:id]
-    toggle_like_for_kind_and_id(kind, id, session[:user_token])
+    EightTracksParser.toggle_like_for_kind_and_id(kind, id, session[:user_token])
+    respond_to do |format|
+      format.js { puts "resond to ajax".red }
+      format.html { redirect_to show_mix_path(mix_id: id) }
+    end
+    # redirect_to(controller: :mixes, action: :show, mix_id: id) if kind.to_sym == :mix
   end
 
   private
-
-  def toggle_like_for_kind_and_id(kind, id, user_token)
-    EightTracksParser.toggle_like_for_kind_and_id(kind, id, user_token)
-    redirect_to(controller: :mixes, action: :show, mix_id: id) if kind.to_sym == :mix
-  end
 
   def get_return_to_url
     @return_to_url = request.env["HTTP_REFERER"]

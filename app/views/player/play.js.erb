@@ -1,18 +1,38 @@
 
-<% # TODO: play the audio %>
+<% # Play the audio %>
+
+$("#play-btn").hide(0);
+$(".play-btn-lg").hide(0);
+// music player attr 'play-state' => playing || pause || resume || . . . . 
+$("#music_player").attr('play-state', 'playing');
+$("#music_player_container").slideDown(300,'swing',function() {
+  // Action after player control show up.
+});
+$("#pause-btn").on('click', function(){
+//  alert("You click the pause button!");
+  $(this).hide(0);
+  $("#play-btn").show(0);
+})
+$("#play-btn").on('click', function(){
+  $(this).hide(0);
+  $("#pause-btn").show(0);
+});
 
 function create_sm2_with_audio_url (audio_url) {
-	alert("Creating SoundManager obj!");
-	return soundManager.createSound({
-	  url: audio_url,
-	  id: 'mix',
-	  volume: 100,
-	  autoPlay: true
-	});
+//	alert("Creating SoundManager obj!");
+  return soundManager.createSound({
+    url: audio_url,
+    id: 'mix',
+    volume: 100,
+    autoPlay: true,
+    onfinish: function(){
+      // action after audio finish playing.
+    }
+  });
 }
 
 function delete_sm2_with_id (sm2_id) {
-  alert("Delete sm2 obj with id:" + " " + sm2_id );
+//  alert("Delete sm2 obj with id:" + " " + sm2_id );
   soundManager.destroySound(sm2_id);
 }
 
@@ -23,8 +43,3 @@ if (soundManager.getSoundById('mix')){
 } else {
   create_sm2_with_audio_url("<%= @audio_stream_url %>");
 }
-
-
-
-
-

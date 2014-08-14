@@ -1,0 +1,13 @@
+
+var heart_dom = $(".glyphicon-container span:first"); // get heart dom
+var current_heart_color_style = heart_dom.attr('style');
+var opposite_heart_color_style = "";
+var color_regular = /LightGray/i;
+if(color_regular.test(current_heart_color_style)) {
+  opposite_heart_color_style = 'color:LightPink';
+} else {
+	opposite_heart_color_style = 'color:LightGray';
+}
+//alert("Opposite color is: " + opposite_heart_color_style);
+//alert("Change haert color!");
+heart_dom.attr('style', opposite_heart_color_style);

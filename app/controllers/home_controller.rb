@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   def welcome
     respond_to do |format|
       format.html
-      format.js { }
+      format.js { puts "Responding to AJAX".red }
     end
   end
 

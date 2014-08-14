@@ -20,33 +20,21 @@ html {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif, "Microsoft JhengHei" ; 
   background: #fff;
 
+  /* hover to trigger bootstrap navbar menu dropdown */
+  ul.nav li.dropdown:hover > ul.dropdown-menu { display: block;}
+
   .clear { clear: both; }
 
   a:hover {text-decoration: none;}
 
   body {
     position: relative;
+    min-height: 900px;
     font-family: Microsoft JhengHei, sans-serif;
     h1,h2,h3,h4,h5,h6 {
       font-weight: bold;
     }
 
-    #music_player_container {
-      background-color: LightGray;
-      width: 100%;
-      height: 80px;
-      position: fixed;
-      z-index: 9;
-      bottom: 0px;
-      left: 0px;
-      #music_player {
-        background-color: LightPink;
-        width: 500px;
-        height: 50px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
     header {
       .navbar {
         /* opacity: .9; */
