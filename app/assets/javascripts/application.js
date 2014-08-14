@@ -42,7 +42,7 @@ if (history && history.pushState){
 
 /* Set up sound-manager */
 soundManager.setup({
-  url: './../swfs',
+  url: './',
   flashVersion: 9,
 
   preferFlash: false, // prefer 100% HTML5 mode, where both supported
@@ -54,7 +54,6 @@ soundManager.setup({
   },
   defaultOptions: {
     // set global default volume for all sound objects
-    volume: 100
+    volume: 100,
   }
 });
-

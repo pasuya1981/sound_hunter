@@ -1,8 +1,30 @@
 
 <% # TODO: play the audio %>
 
- soundManager.destroySound('mix');
- soundManager.createSound('mix', "<%= audio_stream_url %>").play();
+function create_sm2_with_audio_url (audio_url) {
+	alert("Creating SoundManager obj!");
+	return soundManager.createSound({
+	  url: audio_url,
+	  id: 'mix',
+	  volume: 100,
+	  autoPlay: true
+	});
+}
+
+function delete_sm2_with_id (sm2_id) {
+  alert("Delete sm2 obj with id:" + " " + sm2_id );
+  soundManager.destroySound(sm2_id);
+}
+
+// find old sm2 obj and destroy if
+if (soundManager.getSoundById('mix')){ 
+  delete_sm2_with_id('mix');
+  create_sm2_with_audio_url("<%= @audio_stream_url %>");
+} else {
+  create_sm2_with_audio_url("<%= @audio_stream_url %>");
+}
+
+
 
 
 
