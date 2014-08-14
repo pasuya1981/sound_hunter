@@ -1,10 +1,8 @@
 
-if (mySound == null) {
-  var mySound = soundManager.createSound({
-    id: 'aSound',
-    url: "<%= @audio_stream_url %>"
-  });
-  mySound.play();
-} else {
-  //alert("Music is playing already");
-}
+<% # TODO: play the audio %>
+
+ soundManager.destroySound('mix');
+ soundManager.createSound('mix', "<%= audio_stream_url %>").play();
+
+
+

@@ -25,16 +25,6 @@ $(document).ready(function(){
       $("input.btn-search-submit").removeClass('disabled');
     }
   });
-
-  soundManager.setup({
-    url: '/path/to/swf-files/',
-    onready: function() {
-      alert("SM@ setup");
-    },
-    ontimeout: function() {
-      // Hrmm, SM2 could not start. Missing SWF? Flash blocked? Show an error, etc.?
-    }
-  });
 });
 
 /* Update URL when doing Ajax request */
@@ -50,9 +40,21 @@ if (history && history.pushState){
   });
 }
 
-// Triggered when page refreshed
-//$(window).load(function() {
-//	
-//	
-//});
+/* Set up sound-manager */
+soundManager.setup({
+  url: './../swfs',
+  flashVersion: 9,
+
+  preferFlash: false, // prefer 100% HTML5 mode, where both supported
+  onready: function() {
+    // console.log('SM2 ready!');
+  },
+  ontimeout: function() {
+    // console.log('SM2 init failed!');
+  },
+  defaultOptions: {
+    // set global default volume for all sound objects
+    volume: 100
+  }
+});
 

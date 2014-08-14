@@ -5,8 +5,10 @@ class PlayerController < ApplicationController
   	setup_session_play_token unless session[:play_token]
   	mix_play_info_hash = EightTracksParser.get_mix_play_info(session[:play_token], mix_id)
     @audio_stream_url = mix_play_info_hash[:set][:track][:track_file_stream_url]
+    @track_name = mix_play_info_hash[:set][:track][:name]
   	respond_to do |format|
   	  format.js { @audio_stream_url }
+      format.html { redirect_to home_path }
   	end
   end
 

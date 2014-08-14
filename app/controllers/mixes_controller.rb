@@ -16,6 +16,10 @@ class MixesController < ApplicationController
     word_in_ary = keyword.strip.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -48,6 +52,11 @@ class MixesController < ApplicationController
     @user_followed_by_current_user = user_hash[:followed_by_current_user]
     @user_location = user_hash[:location]
     @member_since = user_hash[:member_since]
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def hot_tags_search
