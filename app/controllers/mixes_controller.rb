@@ -55,7 +55,7 @@ class MixesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js
+      format.js { @mix_id }
     end
   end
 

@@ -5,6 +5,10 @@ class SessionController < ApplicationController
   def new
     @user = User.new
     @submit_btn_name = "登入"
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
   def create
@@ -15,7 +19,8 @@ class SessionController < ApplicationController
 
       unless make_sure_user_params_are_all_present
         flash[:info] = "帳號或密碼不能為空白"
-        redirect_to login_path
+        format.html { redirect_to login_path } 
+        format.js { puts "AJAX in session#create, for 帳號或密碼不能為空白".red }
         return
       end
       
@@ -30,19 +35,26 @@ class SessionController < ApplicationController
         return_to = session[:return_to_url]
         if return_to.present?
           session[:return_to_url] = nil
-          # TODO: modify respond to position, line it up.
           format.html { redirect_to return_to }
-          format.js { puts "AJAX on session#create. Reason: User login succeed and has return-to-url.".red }
+          format.js do
+            puts "AJAX on session#create. Reason: User login succeed and has return-to-url.".red
+            @render_path = return_to
+          end
         else
-          redirect_to home_path
+          format.html { redirect_to home_path }
+          format.js do 
+            puts "AJAX on session#create. Reason: no return to link, go home path".red
+            @render_path = "home"
+          end
         end
-      else # no user in DB  
+      else # no user in DB, search from 8track server
 
         user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
         # no account on 8tracks server
         if user_info_hash.nil?
           flash[:info] = "無此帳號"
-          redirect_to login_path
+          format.html { redirect_to login_path } 
+          format.js { puts "AJAX on session#create. Reason: no account on 8tracks server".red }
           return
         end
         user_info_hash[:tracks_user_password] = user_params[:password]
@@ -50,13 +62,16 @@ class SessionController < ApplicationController
 
         if user.save
           user_session_setup_for(user)
-          redirect_to home_path
+          format.html { redirect_to home_path } 
+          format.js { puts "AJAX on session#create. Reason: successfully get a user info from 8tracks server and save it on DB".red }
         elsif user.errors.any?# if get nil token, just render 'new'
           flash[:info] = user.errors.full_messages.join(', ')
-          redirect_to login_path
+          format.html { redirect_to login_path }  
+          format.js { puts "AJAX on session#create. Reason: find a user from 8tracks server but can not save user to DB".red }
         else
           flash[:warning] = "無法處理的問題"
-          redirect_to login_path
+          format.html { redirect_to login_path } 
+          format.js { puts "AJAX on session#create. Reason: Unknown issue.".red }
         end
       end
     end
@@ -75,8 +90,12 @@ class SessionController < ApplicationController
   end
 
   def logout
+    puts "logging out".red
     clear_user_token
-    redirect_to login_path
+    respond_to do |format|
+      format.html { redirect_to login_path }
+      format.js
+    end
   end
 
   # render 'form'. POST to session#create_eight_tracks_account

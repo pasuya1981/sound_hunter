@@ -1,8 +1,15 @@
 <% if user_logged_in? %>
   <% # user login logic %>
-  <%= link_to('登出', logout_path, role: "menuitem", tabindex: "-1") %>
+  <%= link_to_unless_current('登出', logout_path, remote: true, role: "menuitem", tabindex: "-1", id: "logout_btn") %>
 
 <% else %>
   <% # user NOT login logic %>
-  <%= link_to('登入',  login_path, role: "menuitem", tabindex: "-1") %>
+  <%= link_to_unless_current('登入',  login_path, remote: true, role: "menuitem", tabindex: "-1") %>
 <% end %>
+
+<script>
+  $("#logout_btn").on('ajax:beforeSend', function(status, xhr, settings) {
+//  	alert("Detecting AJAX on Logout btn,");
+    xhr.abort(); // prevent AJAX twice request.
+  });
+</script>

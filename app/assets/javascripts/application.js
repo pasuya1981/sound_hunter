@@ -32,8 +32,6 @@ $(document).ready(function(){
   });
 });
 
-
-
 /* Update URL when doing Ajax request */
 if (history && history.pushState){
   $(function(){
