@@ -11,47 +11,53 @@ class SessionController < ApplicationController
     email = user_params[:email]
     user = User.find_by(email: email)
      
-    unless make_sure_user_params_are_all_present
-      flash[:info] = "帳號或密碼不能為空白"
-      redirect_to login_path
-      return
-    end
-    
-    if user # user is in DB already
-      if !user.authenticate(user_params[:password])
-        flash[:info] = "密碼錯誤"
+    respond_to do |format|
+
+      unless make_sure_user_params_are_all_present
+        flash[:info] = "帳號或密碼不能為空白"
         redirect_to login_path
         return
       end
-      user_session_setup_for(user)
-      return_to = session[:return_to_url]
-      if return_to.present?
-        session[:return_to_url] = nil
-        redirect_to return_to
-      else
-        redirect_to home_path
-      end
-    else # no user in DB
-
-      user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
-      # no account on 8tracks server
-      if user_info_hash.nil?
-        flash[:info] = "無此帳號"
-        redirect_to login_path
-        return
-      end
-      user_info_hash[:tracks_user_password] = user_params[:password]
-      user = new_user_from(user_info_hash)
-
-      if user.save
+      
+      if user # user is in DB already
+        if !user.authenticate(user_params[:password])
+          flash[:info] = "密碼錯誤"
+          format.html { redirect_to login_path }
+          format.js { puts "AJAX on session#create. Reason: 密碼錯誤".red }
+          return
+        end
         user_session_setup_for(user)
-        redirect_to home_path
-      elsif user.errors.any?# if get nil token, just render 'new'
-        flash[:info] = user.errors.full_messages.join(', ')
-        redirect_to login_path
-      else
-        flash[:warning] = "無法處理的問題"
-        redirect_to login_path
+        return_to = session[:return_to_url]
+        if return_to.present?
+          session[:return_to_url] = nil
+          # TODO: modify respond to position, line it up.
+          format.html { redirect_to return_to }
+          format.js { puts "AJAX on session#create. Reason: User login succeed and has return-to-url.".red }
+        else
+          redirect_to home_path
+        end
+      else # no user in DB  
+
+        user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
+        # no account on 8tracks server
+        if user_info_hash.nil?
+          flash[:info] = "無此帳號"
+          redirect_to login_path
+          return
+        end
+        user_info_hash[:tracks_user_password] = user_params[:password]
+        user = new_user_from(user_info_hash)  
+
+        if user.save
+          user_session_setup_for(user)
+          redirect_to home_path
+        elsif user.errors.any?# if get nil token, just render 'new'
+          flash[:info] = user.errors.full_messages.join(', ')
+          redirect_to login_path
+        else
+          flash[:warning] = "無法處理的問題"
+          redirect_to login_path
+        end
       end
     end
   end

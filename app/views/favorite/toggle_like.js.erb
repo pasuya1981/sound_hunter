@@ -1,13 +1,23 @@
+<% if @user_token.present? %>
+  var heart_dom = $(".glyphicon-container span:first");
+  var current_heart_color_style = heart_dom.attr('style');
+  var opposite_heart_color_style = "";
+  var color_regular = /LightGray/i;
+  function change_heart_color () {
+    if(color_regular.test(current_heart_color_style)) {
+      opposite_heart_color_style = 'color:LightPink';
+    } else {
+    	opposite_heart_color_style = 'color:LightGray';
+    }
+    heart_dom.attr('style', opposite_heart_color_style);
+  }
+  change_heart_color();
+<% else %>
+  alert("請先登入!");
+<% end %>
 
-var heart_dom = $(".glyphicon-container span:first"); // get heart dom
-var current_heart_color_style = heart_dom.attr('style');
-var opposite_heart_color_style = "";
-var color_regular = /LightGray/i;
-if(color_regular.test(current_heart_color_style)) {
-  opposite_heart_color_style = 'color:LightPink';
-} else {
-	opposite_heart_color_style = 'color:LightGray';
-}
-//alert("Opposite color is: " + opposite_heart_color_style);
-//alert("Change haert color!");
-heart_dom.attr('style', opposite_heart_color_style);
+
+
+
+
+

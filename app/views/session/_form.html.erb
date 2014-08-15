@@ -6,14 +6,15 @@
   </h4>  
 
   <%= simple_form_for(@user || User.new, url: { controller: 'session', action: dynamic_action_name },
-                              html: { class: 'form-horizontal' }) do |f| %>
+                                         html: { class: 'form-horizontal' }, 
+                                         remote: true) do |f| %>
     <% if controller.action_name =~ /signup/ %>
       <%= f.input :username, label: '帳號名稱' %>
     <% end %>  
 
     <%= f.input :email, placeholder: 'someone@domain.com', label: '電郵地址'%>
     <%= f.input :password, label: '密碼' %>
-    <%= f.button :submit, @submit_btn_name %>    
+    <%= f.button :submit, @submit_btn_name || submit_btn_name %>    
 
     <% unless user_logged_in?  %>
       <% unless controller.action_name =~ /signup/i %>

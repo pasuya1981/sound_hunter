@@ -1,19 +1,29 @@
 class FavoriteController < ApplicationController
-  before_action :get_return_to_url, :check_user_token
-
+  before_action :get_return_to_url
   def new
   	# favor_kind includes 'mix', 'track', 'user'
   end
 
   def toggle_like
-    puts "toggle like".red
-    # kind = mix or user or track.
-    kind = kind_and_id_params[:kind]
-    id = kind_and_id_params[:id]
-    EightTracksParser.toggle_like_for_kind_and_id(kind, id, session[:user_token])
+    # Check user token existence.
+    @user_token = session[:user_token]
+    if @user_token
+      puts "Toggle mix like in progress...".red
+      # kind = mix or user or track.
+      kind = kind_and_id_params[:kind]
+      id = kind_and_id_params[:id]
+      EightTracksParser.toggle_like_for_kind_and_id(kind, id, @user_token)
+    end
+    
     respond_to do |format|
-      format.js { puts "resond to ajax".red }
-      format.html { redirect_to show_mix_path(mix_id: id) }
+      if @user_token
+        format.html { redirect_to show_mix_path(mix_id: id) }
+        format.js { @user_token }
+      else
+        session[:return_to_url] = request.original_url
+        format.html { }
+        format.js { puts "AJAX: the user need to login to toggle like action!".blue }
+      end
     end
     # redirect_to(controller: :mixes, action: :show, mix_id: id) if kind.to_sym == :mix
   end
@@ -26,13 +36,5 @@ class FavoriteController < ApplicationController
 
   def kind_and_id_params
   	params.require(:kind_and_id).permit(:kind, :id)
-  end
-
-  def check_user_token
-    if session[:user_token].nil?
-      flash[:notice] = "請先登入"
-      session[:return_to_url] = request.original_url
-      redirect_to login_path
-    end
   end
 end

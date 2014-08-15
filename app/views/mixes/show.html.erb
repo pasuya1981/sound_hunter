@@ -16,7 +16,7 @@
       <td class="glyphicon-container">
         <% like_color = @mix_liked_by_current_user ? 'LightPink' : 'LightGray' %>
 
-        <% # TODO: Toggle Mix like and change the color of heart %>
+        <% # Toggle Mix like and change the color of heart %>
         <%= link_to(content_tag(:span, nil, id: "toggle-like-heart" ,class: "glyphicon glyphicon-heart", style:"color:#{like_color}"), 
                     {controller: :favorite, action: :toggle_like, kind_and_id: { kind: :mix, id: @mix_id }},
                     remote: true) %>
