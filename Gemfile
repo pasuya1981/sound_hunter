@@ -5,10 +5,10 @@ ruby '2.1.1'
 gem'jquery-ui-rails'
 gem 'nokogiri'
 gem 'simple_form', '>= 3.1.0.rc1'
+gem 'colorize'
 
 group :development, :test do  
   # gems for debug
-  gem 'colorize'
   gem 'quiet_assets'
   gem 'annotate'
   gem 'better_errors'
