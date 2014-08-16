@@ -1,12 +1,30 @@
 // Place all the styles related to the player controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+@mixin clean-background {
+  background: -moz-linear-gradient(
+    top,
+    transparent 0%,
+    transparent);
+  background: -webkit-gradient(
+    linear, left top, left bottom,
+    from(transparent),
+    to(transparent));
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border: 0px solid transparent;
+  -moz-box-shadow:
+    0px 0px 0px transparent,
+    inset 0px 0px 0px transparent;
+  -webkit-box-shadow:
+    0px 0px 0px transparent,
+    inset 0px 0px 0px transparent;
+  box-shadow:
+    0px 0px 0px transparent,
+    inset 0px 0px 0px transparent;
+}
 @mixin control-btn {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  color: #ffffff;
-  padding: 10px 20px;
   background: -moz-linear-gradient(
     top,
     #040405 0%,
@@ -28,9 +46,6 @@
   box-shadow:
     0px 0px 2px rgba(000,000,000,0.5),
     inset 0px 0px 1px rgba(255,255,255,0.3);
-  text-shadow:
-    0px -1px 0px rgba(000,000,000,1),
-    0px 1px 0px rgba(255,255,255,0.3);
 }
 @mixin dark-blue-box-shadow-bg {
   background: -moz-linear-gradient(
@@ -91,7 +106,7 @@
   #music_player {
     background-color: transparent;
     padding: 0px;
-    width: 70%;
+    width: 800px;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -121,10 +136,11 @@
         padding: 9px 10px 4px 10px;
         border: none;
       }
+      #youtube-trigger { width: 55px; font-size: 12px; }
       #mix-info-pane {
         span { z-index: 11;}
         text-align: left;
-        width: 500px;
+        width: 450px;
         font-size: 11px;
         line-height: 20px;
         font-family: 'menlo';
@@ -137,12 +153,35 @@
           left: 0px;
           opacity: 0.1;
           background-color: white;
-          width: 80%;
+          width: 0%;
           height: 100%;
           z-index: 10;
           padding: 0px;
           margin: 0px;
         }
+      }
+      #volumn-control {
+        position: relative;
+        left: 5px;
+        width: 50px;
+        @include clean-background;
+        .glyphicon-volume-up {
+          opacity: .5;
+        }
+        #hidden-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50px;
+          height: 52px;
+          @include control-btn;
+          display: none;
+        }
+      }
+      #user-set-info-action {
+        position: relative;
+        left: 10px;
+        width: 450px;
       }
     }
   }

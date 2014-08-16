@@ -71,10 +71,20 @@ function bind_control_action () {
     $(this).hide(0);
     $("#play-btn").show(0);
   })
+
   $("#play-btn").on('click', function(){
     sm2_perform_action('resume');
     $(this).hide(0);
     $("#pause-btn").show(0);
+  });
+  $("#volumn-control").hover(function() {
+    /* Stuff to do when the mouse enters the element */
+    $("#hidden-bg").fadeIn(200);
+    $(".glyphicon-volume-up").fadeTo(200, 1, 'linear');
+  }, function() {
+    /* Stuff to do when the mouse leaves the element */
+    $("#hidden-bg").delay(1000).fadeOut(200);
+    $(".glyphicon-volume-up").delay(1000).fadeTo(200, 0.5, 'linear');
   });
 }
 reveal_player_container();
