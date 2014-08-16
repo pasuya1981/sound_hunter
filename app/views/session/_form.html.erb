@@ -14,7 +14,7 @@
 
     <%= f.input :email, placeholder: 'someone@domain.com', label: '電郵地址'%>
     <%= f.input :password, label: '密碼' %>
-    <%= f.button :submit, @submit_btn_name || submit_btn_name %>    
+    <%= f.button :submit, @submit_btn_name || submit_btn_name %> 
 
     <% unless user_logged_in?  %>
       <% unless controller.action_name =~ /signup/i %>

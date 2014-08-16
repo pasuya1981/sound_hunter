@@ -1,4 +1,15 @@
 $("#ajax-page-reloader").html("<%= escape_javascript(render template: 'mixes/show.html.erb') %>");
+if ($("#music_player").attr('mix-id') != null) {
+}
+function hide_play_btn_lg_if_current () {
+//  alert("player currently play mix id: " + $("#music_player").attr('mix-id'));
+//  alert("Current pagw show mix with id: <%= @mix_id %>")
+  if ($("#music_player").attr('mix-id') == "<%= @mix_id %>") {
+    $("#play-btn-lg").hide(0);
+  }
+}
+hide_play_btn_lg_if_current();
+
 
 
 

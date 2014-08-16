@@ -27,11 +27,12 @@
         <% # Hide and show content %>
         <div class="content-exchange-box">
           <%= link_to(image_tag(cover_urls, class: 'img-rounded visible', size: '200x200'), '#') %>
-          <div class="hidden-content">
+          <div id="hidden-content-link-to-show-mix">
 
             <%= link_to(content_tag(:div, ''), 
                         {controller: :mixes, action: :show, mix_id: mix_id}, 
-                        class: 'hidden-link', 
+                        class: 'hidden-link',
+                        id: 'link-to-show-mix-page', 
                         remote: true) %>
             
             <div class="tags-list-cache">
@@ -59,3 +60,10 @@
     <span>Footer content</span>
   </div>
 </div>
+
+<script>
+  $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
+    // body...
+    xhr.abort();
+  });
+</script>

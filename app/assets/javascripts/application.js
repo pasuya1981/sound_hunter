@@ -17,6 +17,16 @@
 // require_tree .
 
 $(document).ready(function(){
+
+  $("#lean-overlay").hide(0);
+  $("#login_form").hide(0);
+
+  function modal_login_form () {
+    $("#login_form").fadeIn(500);
+    $("#lean-overlay").fadeIn(300);
+  }
+  
+
   /* Search form input control */
   $("input.btn-search-submit").addClass('disabled');
   $(".search_input").change(function() {

@@ -16,6 +16,10 @@ function hide_big_and_sm_play_btn () {
 }
 function reveal_player_container () {
   $("#music_player").attr('play-state', 'playing');
+  $("#track-name").html("<%= @track_info[:track_name] %>");
+  $("#performer").html("<%= @track_info[:performer] %>");
+  $("#album-name").html("專輯: <%= @track_info[:release_name] %>");
+  $("#year").html("年份: <%= @track_info[:year] %>");
   $("#music_player_container").slideDown(300,'swing',function() {
     // Action after player control show up.
   });
@@ -26,17 +30,26 @@ function create_sm2_with_audio_url (audio_url) {
     id: 'mix',
     volume: 100,
     autoPlay: true,
+    onload: function () {
+//      alert("SM2 onload event detected.");
+    },
+    whileloading: function () {
+//      alert('sound '+this.id+' loading, '+this.bytesLoaded+' of '+this.bytesTotal);
+    },
     onplay: function () {
       hide_big_and_sm_play_btn();
+      $("#music_player").attr('mix-id', "<%= @mix_id %>")
     },
     onfinish: function(){
       // TODO: call next track
       // curl http://8tracks.com/sets/111696185/next.json?mix_id=14
       $("#music_player_container").slideUp(300, 'swing'); // swing or linear
       $("#play-btn-lg").fadeIn(300);
+      $("#music_player").attr('play-state', 'stop');
     },
     whileplaying: function  () {
-      // soundManager._writeDebug('sound '+this.id+' playing, '+this.position+' of '+this.duration);
+      var progress = ( (parseInt(this.position) / parseInt(this.duration)) * 100 ).toString();
+      $("#duration-runner").css('width', progress + '%');
     },
     ontimeout: function(status){
       alert('SM2 failed to start. Flash missing, blocked or security error?');
@@ -64,12 +77,6 @@ function bind_control_action () {
     $("#pause-btn").show(0);
   });
 }
-function hide_play_btn_lg_if_current () { 
-  if ( soundManager.getSoundById('mix').url == "<%= @audio_stream_url %>" ) {
-    $("#play-btn-lg").hide(0);
-  }
-}
-hide_play_btn_lg_if_current();
 reveal_player_container();
 bind_control_action();
-delete_previous_sm2_and_create_new_one_fron_audio_stream_url("<%= @audio_stream_url %>");
+delete_previous_sm2_and_create_new_one_fron_audio_stream_url("<%= @track_info[:audio_stream_url] %>");

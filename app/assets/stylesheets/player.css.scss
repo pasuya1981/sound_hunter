@@ -3,30 +3,34 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @mixin control-btn {
-	background: -moz-linear-gradient(
-		top,
-		#4c5059 0%,
-		#2e303b);
-	background: -webkit-gradient(
-		linear, left top, left bottom,
-		from(#4c5059),
-		to(#2e303b));
-	-moz-border-radius: 1px;
-	-webkit-border-radius: 1px;
-	border-radius: 1px;
-	border: 0px solid #171517;
-	-moz-box-shadow:
-		1px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(000,000,000,0.6);
-	-webkit-box-shadow:
-		1px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(000,000,000,0.6);
-	box-shadow:
-		1px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(000,000,000,0.6);
-	/*text-shadow:
-		0px -1px 0px rgba(000,000,000,0.4),
-		0px 1px 0px rgba(255,255,255,0.3); */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 10px 20px;
+  background: -moz-linear-gradient(
+    top,
+    #040405 0%,
+    #222224);
+  background: -webkit-gradient(
+    linear, left top, left bottom,
+    from(#040405),
+    to(#222224));
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  border: 1px solid #000000;
+  -moz-box-shadow:
+    0px 0px 2px rgba(000,000,000,0.5),
+    inset 0px 0px 1px rgba(255,255,255,0.3);
+  -webkit-box-shadow:
+    0px 0px 2px rgba(000,000,000,0.5),
+    inset 0px 0px 1px rgba(255,255,255,0.3);
+  box-shadow:
+    0px 0px 2px rgba(000,000,000,0.5),
+    inset 0px 0px 1px rgba(255,255,255,0.3);
+  text-shadow:
+    0px -1px 0px rgba(000,000,000,1),
+    0px 1px 0px rgba(255,255,255,0.3);
 }
 @mixin dark-blue-box-shadow-bg {
   background: -moz-linear-gradient(
@@ -50,9 +54,6 @@
   box-shadow:
   	1px 1px 3px rgba(000,000,000,0.5),
   	inset 0px 0px 1px rgba(000,000,000,0.6);
-  text-shadow:
-  	0px -1px 0px rgba(000,000,000,0.4),
-  	0px 1px 0px rgba(255,255,255,0.3);
 }
 @mixin control-btn-hover {
   background: -moz-linear-gradient(
@@ -76,9 +77,6 @@
   box-shadow:
   	0px 1px 3px rgba(000,000,000,0.5),
   	inset 0px 0px 1px rgba(000,000,000,0.6);
-  /*text-shadow:
-  	0px -1px 0px rgba(000,000,000,0.4),
-  	0px 1px 0px rgba(255,255,255,0.3);*/
 }
 
 #music_player_container {
@@ -99,36 +97,51 @@
     margin-right: auto;
     color: white;
     #controls {
+      .control-btn:hover { cursor: pointer; }
       table { margin-top: 10px; }
       table .light-box {
       	position: absolute;
-      	width: 45px;
-      	height: 45px;
+      	width: 100%;
+      	height: 100%;
       	background-color: white;
       	opacity: 0;
       	top: 0px;
       	left: 0px;
-      	transition: opacity .2s linear;
-        -moz-transition: opacity .2s linear;
-        -webkit-transition: opacity .2s linear;
-      	&:hover {
-      	  opacity: .1;
-      	}
+      	transition: opacity .1s linear;
+        -moz-transition: opacity .1s linear;
+        -webkit-transition: opacity .1s linear;
+      	&:hover { opacity: .1; }
       }
       table td {
+        @include control-btn;
       	position: relative;
         vertical-align: middle;
         text-align: center;
-        @include control-btn;
         font-size: 25px;
         padding: 9px 10px 4px 10px;
         border: none;
-        &:hover:after {
+      }
+      #mix-info-pane {
+        span { z-index: 11;}
+        text-align: left;
+        width: 500px;
+        font-size: 11px;
+        line-height: 20px;
+        font-family: 'menlo';
+        color: #E3E3E3;
+        #performer { margin-left: 10px; }
+        #year { margin-left: 20px;}
+        #duration-runner {
           position: absolute;
-          content: '';
-          widows: 100%;
+          top: 0px;
+          left: 0px;
+          opacity: 0.1;
+          background-color: white;
+          width: 80%;
           height: 100%;
-          background: white;
+          z-index: 10;
+          padding: 0px;
+          margin: 0px;
         }
       }
     }
