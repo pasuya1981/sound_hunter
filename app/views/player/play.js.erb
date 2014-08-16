@@ -65,28 +65,55 @@ function delete_previous_sm2_and_create_new_one_fron_audio_stream_url (url) {
     create_sm2_with_audio_url(url);
   }
 }
+function init_slider () {
+  var slider = $("#volume-slider");
+  slider.slider({
+    orientation: 'vertical',
+    range: 'min',
+    min: 0,
+    max: 100,
+    value: 100,
+    slide: function (event, ui) {
+      soundManager.setVolume('mix', ui.value);
+      //$( "#amount" ).val( ui.value );
+    }
+    //soundManager.setVolume('mix', slider.slider('value'));
+    //$( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+  });
+  slider.fadeOut(0);
+}
 function bind_control_action () {
-  $("#pause-btn").on('click', function () {
+
+  var volume_slider    = $("#volume-slider"); 
+  var play_btn  = $("#play-btn");
+  var pause_btn = $("#pause-btn");
+  var hidden_bg = $("#hidden-bg");
+  var glyph_volume_icon = $(".glyphicon-volume-up");
+
+  pause_btn.on('click', function () {
     sm2_perform_action('pause');
     $(this).hide(0);
-    $("#play-btn").show(0);
+    play_btn.show(0);
   })
 
-  $("#play-btn").on('click', function(){
+  play_btn.on('click', function(){
     sm2_perform_action('resume');
     $(this).hide(0);
-    $("#pause-btn").show(0);
+    pause_btn.show(0);
   });
-  $("#volumn-control").hover(function() {
+  $("#volume-control").hover(function() {
     /* Stuff to do when the mouse enters the element */
-    $("#hidden-bg").fadeIn(200);
-    $(".glyphicon-volume-up").fadeTo(200, 1, 'linear');
+    hidden_bg.fadeIn(200);
+    glyph_volume_icon.fadeTo(200, 1, 'linear');
+    volume_slider.fadeIn(200);
   }, function() {
     /* Stuff to do when the mouse leaves the element */
-    $("#hidden-bg").delay(1000).fadeOut(200);
-    $(".glyphicon-volume-up").delay(1000).fadeTo(200, 0.5, 'linear');
+    hidden_bg.delay(1000).fadeOut(200);
+    glyph_volume_icon.delay(1000).fadeTo(200, 0.5, 'linear');
+    volume_slider.delay(1000).fadeOut(200);
   });
 }
+init_slider();
 reveal_player_container();
 bind_control_action();
 delete_previous_sm2_and_create_new_one_fron_audio_stream_url("<%= @track_info[:audio_stream_url] %>");

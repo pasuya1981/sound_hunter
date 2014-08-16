@@ -13,7 +13,12 @@
             <span id="album-name"></span><span id="year"></span>
             <div id="duration-runner"></div>
           </td>
-          <td id="volumn-control"><span id="hidden-bg"></span><span class="glyphicon glyphicon-volume-up"></span></td>
+          <td id="volume-control">
+            <span id="hidden-bg"></span>
+            <span class="glyphicon glyphicon-volume-up"></span>
+            <% # TODO: volumn slider %>
+            <div id="volume-slider"></div>
+          </td>
           <td id="user-set-info-action"></td>
       	</tr>
       </table>
@@ -22,7 +27,7 @@
 </div>
 <script>
   // Prevent AJAX from sending twice request.
-  $("#volumn-control").on('ajax:beforeSend', function (status, xhr, settions) {
+  $("#volume-control").on('ajax:beforeSend', function (status, xhr, settions) {
     xhr.abort();
   });
 </script>

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require 'soundmanager2'
 // require_tree .
@@ -37,6 +38,7 @@ $(document).ready(function(){
     }
   });
 
+// Comment out to normal.
   $("#music_player_container").hide(0,function() {
     $("#music_player").attr('play-state', 'stop');
   });

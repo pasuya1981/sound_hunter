@@ -160,7 +160,8 @@
           margin: 0px;
         }
       }
-      #volumn-control {
+      #volume-control {
+        cursor: pointer;
         position: relative;
         left: 5px;
         width: 50px;
@@ -176,6 +177,14 @@
           height: 52px;
           @include control-btn;
           display: none;
+        }
+        #volume-slider {
+          position: absolute;
+          top: -150px;
+          left: 0;
+          width: 45px; height: 150px;
+          .ui-slider-handle { display: none; }          
+          .ui-widget-content { border-color: red; background-color: red; }
         }
       }
       #user-set-info-action {
