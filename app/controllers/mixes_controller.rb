@@ -22,6 +22,18 @@ class MixesController < ApplicationController
     end
   end
 
+  def query_next_page
+    next_page_path = params[:next_page_path]
+    return unless next_page_path.present?
+    mix_set_search_result = EightTracksParser.query_next_page next_page_path
+    init_view_data_with mix_set_search_result
+    # render :index
+    respond_to do |format|
+      format.html { raise "Should respond to AJAX".red }
+      format.js 
+    end
+  end
+
   def show
     # Render Mix Preview
     @mix_id = params[:mix_id]
@@ -70,18 +82,6 @@ class MixesController < ApplicationController
     # render :index
   end
 
-  def query_next_page
-    next_page_path = params[:next_page_path]
-    return unless next_page_path.present?
-    mix_set_search_result = EightTracksParser.query_next_page next_page_path
-    init_view_data_with mix_set_search_result
-    # render :index
-    respond_to do |format|
-      format.html { raise "Should respond to AJAX".red }
-      format.js 
-    end
-  end
-
   private
 
   def get_mix_by(mix_id)
@@ -106,10 +106,10 @@ class MixesController < ApplicationController
     @next_page = page_info[:next_page]
     @previous_page = page_info[:previous_page]
     @total_entries = page_info[:total_entries]
-    p page_info
     @next_page_path = page_info[:next_page_path] if page_info[:next_page_path].present? # /mix_sets/tags:rock+indie?page=2&per_page=12
-    # TODO: fix the bug, gsub for nil class.
-    @previous_page_path = @next_page_path.gsub(/\?page=\d/, "?page=#{@current_page.to_i - 1}") if @current_page.to_i > 1
+    session[:mix_first_page_path] = @next_page_path.gsub(/\?page=\d/,'?page=1') if @current_page == '1' && @next_page_path.present?
+    @previous_page_path = session[:mix_first_page_path].gsub(/\?page=\d/,"?page=#{@previous_page}") if @previous_page.present?
+    #puts "Next page path: #{@next_page_path}. Previous page path: #{@previous_page_path}"
   end
 
   def init_trend_tag_session

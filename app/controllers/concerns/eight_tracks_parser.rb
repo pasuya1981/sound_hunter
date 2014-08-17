@@ -313,7 +313,11 @@ module EightTracksParser
   end
 
   def uri_to_nokogiri_xml(base_uri)
-    base_uri = URI::escape base_uri
+    #puts base_uri.red
+    unless base_uri =~ /&page=\d/i # this prevent double escaping
+      puts "escaping base uri...".blue
+      base_uri = URI::escape base_uri
+    end
     response = open(base_uri).read
     xml = Nokogiri::XML(response)
     status = xml.css('status').first.content 
@@ -321,10 +325,12 @@ module EightTracksParser
   end
 
   def safe_url(string)
-      pattern_hash = {/_/ => '__', /\s/ => '_', /\./ => '^'}
-      safe_str = string.clone # not to alter original string
-      pattern_hash.each {|pattern, replacement| safe_str.gsub!(pattern, replacement)}
-      safe_str
+      unless string =~ /\?page=\d/i
+        pattern_hash = {/_/ => '__', /\s/ => '_', /\./ => '^'}
+        safe_str = string.clone # not to alter original string
+        pattern_hash.each {|pattern, replacement| safe_str.gsub!(pattern, replacement)}
+        safe_str
+      end
   end
 
   def parse_user_info_from(xml, parse_hash={})

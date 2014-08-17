@@ -4,10 +4,14 @@
   <div class="panel-heading">
     <ul class="pager">
       <% if @previous_page_path %>
-        <li class="previous"><%= link_to("上一頁", next_page_path(next_page_path: @previous_page_path), remote: true) %></li>
+        <li class="previous"><%= link_to("上一頁", 
+                                         next_page_path(next_page_path: @previous_page_path), 
+                                         remote: true) %></li>
       <% end %>
       <% if @next_page_path %>
-        <li class="next"><%= link_to("下一頁", next_page_path(next_page_path: @next_page_path), remote: true) %></li>
+        <li class="next"><%= link_to("下一頁", 
+                                     next_page_path(next_page_path: @next_page_path), 
+                                     remote: true) %></li>
       <% end %>
     </ul>
   </div>
@@ -65,6 +69,9 @@
 <script>
   $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
     // body...
+    xhr.abort();
+  });
+  $(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
     xhr.abort();
   });
 </script>

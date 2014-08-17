@@ -28,3 +28,6 @@
   "logged_in": "false",
   "api_version": "3"
 }
+
+require 'json'
+p info
