@@ -67,7 +67,7 @@ class MixesController < ApplicationController
     word_in_ary = keyword.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
-    render 'index' 
+    # render :index
   end
 
   def query_next_page
@@ -75,7 +75,11 @@ class MixesController < ApplicationController
     return unless next_page_path.present?
     mix_set_search_result = EightTracksParser.query_next_page next_page_path
     init_view_data_with mix_set_search_result
-    render :index
+    # render :index
+    respond_to do |format|
+      format.html { raise "Should respond to AJAX".red }
+      format.js 
+    end
   end
 
   private
@@ -102,7 +106,9 @@ class MixesController < ApplicationController
     @next_page = page_info[:next_page]
     @previous_page = page_info[:previous_page]
     @total_entries = page_info[:total_entries]
+    p page_info
     @next_page_path = page_info[:next_page_path] if page_info[:next_page_path].present? # /mix_sets/tags:rock+indie?page=2&per_page=12
+    # TODO: fix the bug, gsub for nil class.
     @previous_page_path = @next_page_path.gsub(/\?page=\d/, "?page=#{@current_page.to_i - 1}") if @current_page.to_i > 1
   end
 

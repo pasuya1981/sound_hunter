@@ -1,15 +1,16 @@
-<ul class="pager">
-  <% if @previous_page_path %>
-    <li class="previous"><%= link_to("上一頁", next_page_path(next_page_path: @previous_page_path)) %></li>
-  <% end %>
-  <% if @next_page_path %>
-    <li class="next"><%= link_to("下一頁", next_page_path(next_page_path: @next_page_path)) %></li>
-  <% end %>
-</ul>
 
 <% # panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger" %>
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3>Mix Set Description</h3></div>
+  <div class="panel-heading">
+    <ul class="pager">
+      <% if @previous_page_path %>
+        <li class="previous"><%= link_to("上一頁", next_page_path(next_page_path: @previous_page_path), remote: true) %></li>
+      <% end %>
+      <% if @next_page_path %>
+        <li class="next"><%= link_to("下一頁", next_page_path(next_page_path: @next_page_path), remote: true) %></li>
+      <% end %>
+    </ul>
+  </div>
   <div class="panel-body">
   
     <div class="search_result">

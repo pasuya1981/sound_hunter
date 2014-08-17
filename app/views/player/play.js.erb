@@ -18,7 +18,7 @@ function reveal_player_container () {
   $("#music_player").attr('play-state', 'playing');
   $("#track-name").html("<%= @track_info[:track_name] %>");
   $("#performer").html("<%= @track_info[:performer] %>");
-  $("#album-name").html("專輯: <%= @track_info[:release_name] %>");
+  $("#album-name").html("專輯: <%= @track_info[:release_name].truncate(25) %>");
   $("#year").html("年份: <%= @track_info[:year] %>");
   $("#music_player_container").slideDown(300,'swing',function() {
     // Action after player control show up.
@@ -75,7 +75,7 @@ function init_slider () {
     value: 100,
     slide: function (event, ui) {
       soundManager.setVolume('mix', ui.value);
-      //$( "#amount" ).val( ui.value );
+      //$( "#amount" ).val( ui.value );  hint: #amount to be input 
     }
     //soundManager.setVolume('mix', slider.slider('value'));
     //$( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );

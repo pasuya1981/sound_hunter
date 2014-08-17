@@ -30,16 +30,7 @@ class PlayerController < ApplicationController
       format.html { redirect_to home_path }
   	end
   end
-
-  def pause
-    
-  end
-
-  def resume
-    
-  end
-
-
+  
   private 
 
   def play_params
