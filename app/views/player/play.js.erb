@@ -15,7 +15,7 @@ function play_token () {
 function query_track_and_play (mix_id, play_or_next) {
   if (play_or_next != 'play') {
     if (play_or_next != 'next') {
-      console.log("Argument error, play_or_next must be play or next");
+      throw "Argument error, play_or_next must be play or next";
     }
   }
   var mix_play_query_url = 
@@ -28,7 +28,7 @@ function query_track_and_play (mix_id, play_or_next) {
       //console.log("Receiving data: " + JSON.stringify(data, null, 4));
        $("#music_player").attr('current-mix-id', mix_id);// add mix-id to music_player for future reference.
        //console.log("Query track play info data: " + JSON.stringify(data, null, 4));
-      init_sm2_with_audio_url(data.set.track.track_file_stream_url);
+      init_sm2_with_audio_url_and_track_id(data.set.track.track_file_stream_url, data.set.track['id'], mix_id);
       update_player_track_info_pane_with_json_data(data);
     } else {
       alert('Query next track failed!');
@@ -62,7 +62,7 @@ function update_player_track_info_pane_with_json_data (json_data) {
     $("#user-set-info-action img").attr('src', cover_url_sq133);
   }
   // Update track info window.
-  $("#track-name").html(json_data.set.track['name'].substring(0,25)).css('text-transform', 'capitalize');
+  $("#track-name").html(json_data.set.track['name'].substring(0,25) || "未知").css('text-transform', 'capitalize');
   $("#performer").html( json_data.set.track.performer || "未知");
   $("#album-name").html("專輯: " + ( json_data.set.track.release_name || "未知"));
   $("#year").html("年份: " + (  json_data.set.track.year || "未知" ));
@@ -87,7 +87,7 @@ function update_player_track_info_pane_with_json_data (json_data) {
   buy_icon_table_cell.html(img_html);
   star_icon_table_cell.html(star_html);
 
-  // TODO: Bind track-toggle-lick action on star_icon_table_cell
+  // Bind track-toggle-lick action on star_icon_table_cell
   star_icon_table_cell.css('cursor', 'pointer');
   star_icon_table_cell.off('click'); // clean event if any.
 
@@ -95,7 +95,7 @@ function update_player_track_info_pane_with_json_data (json_data) {
     if (user_token()) {
       base_uri = "http://8tracks.com/tracks/" + track_id + "/toggle_fav.json?api_version=3&api_key=" + api_key() + "&user_token=" + user_token();
       $.get(base_uri, function (data, status) {
-        console.log("Toggle track like data: " + JSON.stringify(data, null, 2));
+        //console.log("Toggle track like data: " + JSON.stringify(data, null, 2));
         var favored_by_user = data.track.faved_by_current_user;
         var favor_star_html = 
         favored_by_user == true ? 
@@ -125,8 +125,8 @@ function update_player_track_info_pane_with_json_data (json_data) {
     });
   }
 }
-function init_sm2_with_audio_url (audio_url) {
-  console.log("Audio URL: " + audio_url);
+function init_sm2_with_audio_url_and_track_id (audio_url, track_id) {
+  //console.log("Audio URL: " + audio_url);
   init_volume_slider();
   soundManager.createSound({
     url: audio_url,
@@ -161,6 +161,15 @@ function init_sm2_with_audio_url (audio_url) {
       //alert('SM2 failed to start. Flash missing, blocked or security error?');
       alert('The status is ' + status.success + ', the error type is ' + status.error.type);
     }
+  });
+
+  // Report track after 30 seconds.
+  soundManager.clearOnPosition('mix', 30000);
+  soundManager.onPosition('mix', 30000, function (eventPosition) {
+    base_uri = "http://8tracks.com/sets/111696185/report.json?track_id=" + track_id + "&mix_id=<%= @mix_id %>&api_version=3&api_key=" + api_key();
+    $.get(base_uri, function (data, status) {
+      //console.log("Reporting result data: " + JSON.stringify(data, null, 2));
+    });
   });
 }
 function hide_music_player () {
@@ -245,7 +254,6 @@ function bind_control_action () {
       $("#play-btn-lg").hide(0);
     });
   });
-  // Doule Ajax request bug fix
 }
 delete_previous_and_create_new_sm2_from_mix_id("<%= @mix_id %>");
 bind_control_action();

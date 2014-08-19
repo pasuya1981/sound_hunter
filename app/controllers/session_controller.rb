@@ -18,17 +18,18 @@ class SessionController < ApplicationController
     respond_to do |format|
 
       unless make_sure_user_params_are_all_present
-        flash[:info] = "帳號或密碼不能為空白"
+        flash.now[:info] = "帳號或密碼不能為空白"
         format.html { redirect_to login_path } 
-        format.js { puts "AJAX in session#create, for 帳號或密碼不能為空白".red }
+        @error = "帳號或密碼不能為空白"
+        format.js {  @error }
         return
       end
       
       if user # user is in DB already
         if !user.authenticate(user_params[:password])
-          flash[:info] = "密碼錯誤"
+          @error = "密碼錯誤"
           format.html { redirect_to login_path }
-          format.js { puts "AJAX on session#create. Reason: 密碼錯誤".red }
+          format.js { @error }
           return
         end
         user_session_setup_for(user)
@@ -52,9 +53,9 @@ class SessionController < ApplicationController
         user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
         # no account on 8tracks server
         if user_info_hash.nil?
-          flash[:info] = "無此帳號"
+          @error = "無此帳號"
           format.html { redirect_to login_path } 
-          format.js { puts "AJAX on session#create. Reason: no account on 8tracks server".red }
+          format.js { @error }
           return
         end
         user_info_hash[:tracks_user_password] = user_params[:password]
@@ -65,13 +66,13 @@ class SessionController < ApplicationController
           format.html { redirect_to home_path } 
           format.js { puts "AJAX on session#create. Reason: successfully get a user info from 8tracks server and save it on DB".red }
         elsif user.errors.any?# if get nil token, just render 'new'
-          flash[:info] = user.errors.full_messages.join(', ')
+          @error = user.errors.full_messages.join(', ')
           format.html { redirect_to login_path }  
-          format.js { puts "AJAX on session#create. Reason: find a user from 8tracks server but can not save user to DB".red }
+          format.js { puts "AJAX on session#create. Reason: find a user from 8tracks server but can not save user to DB".red; @error }
         else
-          flash[:warning] = "無法處理的問題"
+          @error = "無法處理的問題"
           format.html { redirect_to login_path } 
-          format.js { puts "AJAX on session#create. Reason: Unknown issue.".red }
+          format.js { @error }
         end
       end
     end

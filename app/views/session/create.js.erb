@@ -1,6 +1,12 @@
-alert("成功登入");
-$("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
-$("#ajax-page-reloader").html("<%= escape_javascript(render(template: 'home/welcome.html.erb')) %>");
+<% if @error %>
+  alert("You have error here: " + "<%= @error %>");
+<% else %>
+  $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
+  $("#ajax-page-reloader").html("<%= escape_javascript(render(template: 'home/welcome.html.erb')) %>");
+<% end %>
+
+
+
 
 
 
