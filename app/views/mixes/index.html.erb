@@ -1,21 +1,21 @@
 
 <% # panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger" %>
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <ul class="pager">
+
+    <div class="pager">
       <% if @previous_page_path %>
-        <li class="previous"><%= link_to("上一頁", 
-                                         next_page_path(next_page_path: @previous_page_path), 
-                                         remote: true) %></li>
-      <% end %>
-      <% if @next_page_path %>
-        <li class="next"><%= link_to("下一頁", 
-                                     next_page_path(next_page_path: @next_page_path), 
-                                     remote: true) %></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="panel-body">
+      <li class="previous"><%= link_to("上一頁", 
+                                       next_page_path(next_page_path: @previous_page_path), 
+                                       remote: true) %></li>
+    <% end %>
+    <% if @next_page_path %>
+      <li class="next"><%= link_to("下一頁", 
+                                   next_page_path(next_page_path: @next_page_path), 
+                                   remote: true) %></li>
+    <% end %>
+    </div>
+    
+
+    <hr />
   
     <div class="search_result">
       <% @mixes.each do |mix| %>
@@ -59,11 +59,6 @@
           </div>
         </div>
       <% end %>
-    </div>
-  </div>
-  <div class="panel-footer">
-    <span>Footer content</span>
-  </div>
 </div>
 
 <script>

@@ -1,11 +1,15 @@
 function api_key () { return "2b312afc2b28ba56a745c53b49f9288c05f20150"; }
+function user_token() {
+  var user_token = "<%= session[:user_token] %>";
+  //console.log("User token: " + user_token);
+  return user_token;
+}
 function play_token () { 
   <% if @play_token.present? %>
     var play_token = "<%= @play_token %>";
-    console.log("Play token: " + play_token);
     return play_token;
   <% else %>
-    console.log("Play token is not presented!");
+    throw "Play token is not presented!";
   <% end %>
 }
 function query_track_and_play (mix_id, play_or_next) {
@@ -63,19 +67,43 @@ function update_player_track_info_pane_with_json_data (json_data) {
   $("#album-name").html("專輯: " + ( json_data.set.track.release_name || "未知"));
   $("#year").html("年份: " + (  json_data.set.track.year || "未知" ));
 
-  // TODO: Update Buy Icon and toggle-like track icon.
+  // Update Buy Icon and toggle-like track icon.
+  var track_id = json_data.set.track['id'];
   var buy_link = json_data.set.track.buy_link;
   var buy_icon = json_data.set.track.buy_icon;
   var buy_text = json_data.set.track.buy_text;
+  var favored_by_current_user = json_data.set.track.faved_by_current_user // true or fase, not string.
 
-  var img_html = "<img src='" + buy_icon +  "' />";
-  var star_html = "<span class='glyphicon glyphicon-star-empty'></span>"
-  
+  var img_html = "<a href='" + buy_link +  "' target='_blank'><img src='" + buy_icon +  "' /></a>";
+
+  var star_html = 
+  favored_by_current_user == true ? 
+  "<span class='glyphicon glyphicon-star'></span>" : 
+  "<span class='glyphicon glyphicon-star-empty'></span>";
+
   var buy_icon_table_cell  = $("#buy-icon-and-toggle-like-track-container #buy-icon");
   var star_icon_table_cell = $("#buy-icon-and-toggle-like-track-container #star-icon");
 
   buy_icon_table_cell.html(img_html);
   star_icon_table_cell.html(star_html);
+
+  // TODO: Bind track-toggle-lick action on star_icon_table_cell
+  star_icon_table_cell.css('cursor', 'pointer');
+  star_icon_table_cell.off('click'); // clean event if any.
+
+  star_icon_table_cell.on('click', function () {
+    if (user_token()) {
+      base_uri = "http://8tracks.com/tracks/" + track_id + "/toggle_fav.json?api_version=3&api_key=" + api_key() + "&user_token=" + user_token();
+      $.get(base_uri, function (data, status) {
+        console.log("Toggle track like data: " + JSON.stringify(data, null, 2));
+        var favored_by_user = data.track.faved_by_current_user;
+        var favor_star_html = 
+        favored_by_user == true ? 
+        "<span class='glyphicon glyphicon-star'></span>" : "<span class='glyphicon glyphicon-star-empty'></span>";
+        star_icon_table_cell.html(favor_star_html);
+      });
+    } else  alert("請先登入享有更多功能");
+  });
   
   // Update Mix info at right-hand side of pane.
   var mix_name, dj_name, cover_url_sq133;
