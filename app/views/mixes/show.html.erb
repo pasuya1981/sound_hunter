@@ -2,6 +2,9 @@
   <table>
     <tr>
       <td class="img-container">
+      <% if @mix_name.present? %>
+        <div id="mix-name-container"><span id="mix-name"><%= @mix_name %></span></div>
+      <% end %>
         <%= image_tag(@mix_cover_url, class: "img-body", size: "521x521") %>
         <div id="play-btn-lg">
 
@@ -47,15 +50,15 @@
       <td colspan="3" class="mix-info">
         <hr/>
         標籤: <% @tag_list_cache.each do |tag| %>
-               <span><%= link_to(tag, hot_tags_search_path(keyword: tag)) %></span>
+               <span><%= link_to(tag, hot_tags_search_path(keyword: tag), remote: true) %></span>
              <% end %>
         <br/>
         類別: <% @mix_genres.each do |genre| %>
-        	   <span><%= link_to(genre, hot_tags_search_path(keyword: genre)) %></span>
+        	   <span><%= link_to(genre, hot_tags_search_path(keyword: genre), remote: true) %></span>
              <% end %>
         <br/>
         歌手: <% @mix_artists.each do |artist| %>
-        	   <%= link_to(artist, search_path('keyword' => {'smart_type' => 'artist', "sort" => "popular", "words" => artist })) %>
+        	   <%= link_to(artist, search_path('keyword' => {'smart_type' => 'artist', "sort" => "popular", "words" => artist }), remote: true) %>
         	 <% end %>
       </td>
     </tr>
@@ -66,7 +69,7 @@
   $(".glyphicon-container").on('ajax:beforeSend', function(status, xhr, settings) {
     xhr.abort(); // prevent AJAX twice request.
   });
-  $("#play-btn-lg").on('ajax:beforeSend', function(status, xhr, settings) {
+  $(".img-container").on('ajax:beforeSend', function(status, xhr, settings) {
     xhr.abort(); // prevent AJAX twice request.
   });
 </script>

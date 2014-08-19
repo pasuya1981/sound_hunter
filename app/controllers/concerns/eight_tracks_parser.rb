@@ -314,8 +314,8 @@ module EightTracksParser
 
   def uri_to_nokogiri_xml(base_uri)
     #puts base_uri.red
-    unless base_uri =~ /&page=\d/i # this prevent double escaping
-      puts "escaping base uri...".blue
+    unless base_uri =~ /&page=\d/i # prevent repeated escape
+#      puts "escaping base uri...".blue
       base_uri = URI::escape base_uri
     end
     response = open(base_uri).read

@@ -137,11 +137,25 @@
     .img-container {
       position: relative;
       vertical-align: bottom;
-
       a { color: white; 
         &:hover { color: white; text-decoration: none; }
       }
-
+      #mix-name-container {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        #mix-name {
+          margin-left: auto;
+          margin-right: auto;
+          background-color: black;
+          padding: 10px;
+          border-top-left-radius: 8px;
+          opacity: 0.4;
+          font-size: 30px;
+          color: white;
+        }
+      }
       #play-btn-lg {
         position: absolute;
         bottom: 10px;
@@ -178,7 +192,7 @@
       left: 100px;
       top: 50px;
       border: 20px solid;
-      border-color: transparent transparent transparent LightGray;
+      border-color: transparent transparent transparent LightGray; //create dark-gray right-hand ▶
     }
     .glyphicon-container::after {
       position: absolute;
@@ -188,9 +202,8 @@
       left: 98px;
       top: 50px;
       border: 20px solid;
-      border-color: transparent transparent transparent #FFF; 
+      border-color: transparent transparent transparent #FFF; //create white right-hand ▶
     }
-
     .mix-dj-info {
       min-width: 400px;      
       padding-right: 10px;

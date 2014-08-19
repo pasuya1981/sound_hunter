@@ -17,11 +17,11 @@ class FavoriteController < ApplicationController
     
     respond_to do |format|
       if @user_token
-        format.html { redirect_to show_mix_path(mix_id: id) }
+        #format.html { redirect_to show_mix_path(mix_id: id) }
         format.js { @user_token }
       else
         session[:return_to_url] = request.original_url
-        format.html { }
+        #format.html { }
         format.js { puts "AJAX: the user need to login to toggle like action!".blue }
       end
     end

@@ -54,7 +54,7 @@
 
             <% # Link to Mix Show Page %>
             <div class="play-btn">
-              <a href="<%= home_path %>"><span class="glyphicon glyphicon-play"></span></a>
+            <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-play"), play_path(play: {mix_id: mix_id}), remote: true) %>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@
 
 <script>
   $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
-    // body...
     xhr.abort();
   });
+  // pagination ajax may send twice requext
   $(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
     xhr.abort();
   });

@@ -3,23 +3,39 @@
     <div id="controls">
       <table>
       	<tr>
-      	  <td class="control-btn" id="play-btn"><span class="glyphicon glyphicon-play"></span><div class="light-box"></div></td>
+          <% # Buttons area %>
+      	  <td class="control-btn" id="play-btn-sm"><span class="glyphicon glyphicon-play"></span><div class="light-box"></div></td>
       	  <td class="control-btn" id="pause-btn"><span class="glyphicon glyphicon-pause"></span><div class="light-box"></div></td>
       	  <td class="control-btn" id="skip-btn"><span class="glyphicon glyphicon-step-forward"></span><div class="light-box"></div></td>
+          <% # Youtube area %>
           <td id="youtube-trigger"><%= image_tag('youtube-logo.png', size: '47x20') %></td>
+          <% # Mix info area %>
           <td id="mix-info-pane">
-            <span id="track-name"></span><span id="performer"></span>
+            <span id="track-name"></span>
+            <span id="performer"></span>
             <br>
-            <span id="album-name"></span><span id="year"></span>
+            <span id="album-name"></span>
+            <span id="year"></span>
+            <div id="buy-icon-and-toggle-like-track-container">
+              <% # TODO: add buy icon AND toggle track like icon %>
+              <table>
+                <td id="buy-icon"></td><td id="star-icon"></td>
+              </table>
+            </div>
             <div id="duration-runner"></div>
           </td>
+          <% # Volume area %>
           <td id="volume-control">
             <span id="hidden-bg"></span>
             <span class="glyphicon glyphicon-volume-up"></span>
             <% # TODO: volumn slider %>
             <div id="volume-slider"></div>
           </td>
-          <td id="user-set-info-action"></td>
+          <td id="user-set-info-action">
+            <%= image_tag(@mix_cover_sm_url, size: '54x54', id: 'player-cover-sm') %>
+            <span id="player-mix-name">mix name..</span><br>
+            <span id="player-mix-dj-name"></span>
+          </td>
       	</tr>
       </table>
     </div>

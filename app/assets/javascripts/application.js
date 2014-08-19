@@ -38,7 +38,7 @@ $(document).ready(function(){
     }
   });
 
-// Comment out to normal.
+  // Hide audio player container.
   $("#music_player_container").hide(0,function() {
     $("#music_player").attr('play-state', 'stop');
   });
@@ -61,7 +61,6 @@ if (history && history.pushState){
 soundManager.setup({
   url: './',
   flashVersion: 9,
-
   preferFlash: false, // prefer 100% HTML5 mode, where both supported
   onready: function() {
     // console.log('SM2 ready!');
@@ -71,7 +70,7 @@ soundManager.setup({
   },
   defaultOptions: {
     // set global default volume for all sound objects
-    volume: 100,
+    volume: 100
   }
 });
 

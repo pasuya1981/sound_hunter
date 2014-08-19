@@ -37,20 +37,20 @@ class MixesController < ApplicationController
   def show
     # Render Mix Preview
     @mix_id = params[:mix_id]
-    mix = get_mix_by(@mix_id)
+    mix = EightTracksParser.get_mix_preview_by(mix_id: @mix_id, user_token: session[:user_token])
     info_hash = mix.info
     @mix_description = info_hash[:description]
     @mix_likes_count = info_hash[:likes_count]
     @mix_duration = info_hash[:duration]
     @mix_tracks_count = info_hash[:tracks_count]
     @mix_nsfw = info_hash[:nsfw]
-    @mix_artists = [];
+    @mix_artists = []
     info_hash[:artists].split.each { |artist| @mix_artists << artist } if info_hash[:artists].kind_of?(String)
     info_hash[:artists].each { |k, artist| @mix_artists << artist } if info_hash[:artists].kind_of?(Hash)
-    puts @mix_artists.join.red
     @mix_liked_by_current_user = info_hash[:liked_by_current_user] == 'false' ? false : true 
     @mix_name = info_hash[:name]
     @mix_cover_url = info_hash[:cover_urls][:sq500]
+    @mix_cover_sm_url = info_hash[:cover_urls][:sq133]
     @plays_count = info_hash[:plays_count]
     @tag_list_cache = info_hash[:tag_list_cache].gsub(/\//,' ').split(',')
     @mix_genres = []; info_hash[:genres].each { |k, genre| @mix_genres << genre }
@@ -67,8 +67,8 @@ class MixesController < ApplicationController
     @member_since = user_hash[:member_since]
 
     respond_to do |format|
-      format.html
-      format.js { @mix_id }
+      format.html { render 'show' }
+      format.js { @mix_id; @mix_cover_sm_url; @mix_name }
     end
   end
 
@@ -80,13 +80,12 @@ class MixesController < ApplicationController
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
     # render :index
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
-
-  def get_mix_by(mix_id)
-    mix = EightTracksParser.get_mix_preview_by(mix_id: mix_id, user_token: session[:user_token])
-  end
 
   def search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     mix_set_search_result = EightTracksParser.get_mix_set_by_smart_type(smart_type_in_sym, 

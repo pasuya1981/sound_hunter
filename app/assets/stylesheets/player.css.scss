@@ -1,6 +1,13 @@
 // Place all the styles related to the player controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 @mixin clean-background {
   background: -moz-linear-gradient(
     top,
@@ -106,7 +113,7 @@
   #music_player {
     background-color: transparent;
     padding: 0px;
-    width: 800px;
+    width: 1000px;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -140,7 +147,7 @@
       #mix-info-pane {
         span { z-index: 11;}
         text-align: left;
-        width: 450px;
+        width: 600px;
         font-size: 11px;
         line-height: 20px;
         font-family: 'menlo';
@@ -159,6 +166,15 @@
           padding: 0px;
           margin: 0px;
         }
+        #buy-icon-and-toggle-like-track-container {
+          // TODO: buy message area css modification!
+          position: absolute; right: 0; top: 0;
+          width: 160px;
+          height: 54px;
+          content: 'Buy Icon';
+          color: white;
+          table { td {  @include clean-background; } }
+        }
       }
       #volume-control {
         cursor: pointer;
@@ -166,31 +182,44 @@
         left: 5px;
         width: 50px;
         @include clean-background;
-        .glyphicon-volume-up {
-          opacity: .5;
-        }
+        .glyphicon-volume-up {}
         #hidden-bg {
           position: absolute;
           top: 0;
           left: 0;
           width: 50px;
-          height: 52px;
+          height: 54px;
           @include control-btn;
           display: none;
         }
         #volume-slider {
           position: absolute;
           top: -150px;
-          left: 2px;
+          left: 3px;
           width: 45px; height: 150px;
+          border-radius: 5px;
           .ui-slider-handle { display: none; }          
           .ui-widget-content { border-color: red; background-color: red; }
         }
       }
       #user-set-info-action {
+        padding-top: 0px;
         position: relative;
-        left: 10px;
-        width: 450px;
+        left: 14px;
+        width: 250px;
+        height: 54px;
+        vertical-align: middle;
+        font-size: 12px;
+        line-height: 20px;
+        font-size: 10px;
+        #player-cover-sm { 
+          cursor: pointer;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        #player-mix-name { }
+        #player-mix-dj-name { }
       }
     }
   }
