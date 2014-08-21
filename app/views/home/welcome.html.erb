@@ -1,26 +1,28 @@
 
 <h4>最新熱門列表</h4>
-
 <div id="glider-container-trending" slide-amount='0'>
-
   <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
-
   <div id="mix-window-wrapper">
     <% @trending_mixes_ary.each do |mix| %>
       <%= render 'mixes/mix', mix: mix %>
     <% end %>
   </div>
-
   <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
-
 </div>
-
 <div class="clear-both">
-  <% if user_logged_in? %>
-    <h4>喜愛列表</h4>
-    
-  <% end %>
 
+<% if user_logged_in? %>
+  <h4>喜愛列表</h4>
+  <div id="glider-container-favor" slide-amount='0'>
+    <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+    <div id="mix-window-wrapper">
+      <% @favorite_ary.each do |mix| %>
+        <%= render 'mixes/mix', mix: mix %>
+      <% end %>
+    </div>
+    <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+  </div>
+<% end %>
 <h4>熱門標籤</h4>
 <tr>
 <%= render 'shared/hot_tags' %>
@@ -28,6 +30,7 @@
 <script type="text/javascript">
   // Glider left and right function start ------>
   var glide_container = $("#glider-container-trending");
+  //var pan_left = glide_container.find("#glider-pan-left");
   $("#glider-pan-right").off('click');
   $("#glider-pan-right").on('click', function() {
     var slide_amount = glide_container.attr('slide-amount');

@@ -1,7 +1,6 @@
 $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
 alert("已成功登出!");
 $.get("<%= home_path %>", function (data, status) {
-  console.log("Get data: "+data);
   var ajax_reload_node = $(data).find("#ajax-page-reloader");
   $("#ajax-page-reloader").html(ajax_reload_node.html());
 });

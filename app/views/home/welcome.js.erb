@@ -1,6 +1,5 @@
 //$("#ajax-page-reloader").html("<%= escape_javascript(render(template: 'home/welcome.html.erb')) %>");
 $.get("/", function (data, status) {
-  console.log("Get data: "+data);
   var ajax_reload_node = $(data).find("#ajax-page-reloader");
   $("#ajax-page-reloader").html(ajax_reload_node.html());
 });

@@ -85,7 +85,6 @@
     }
   }
 }
-
 @mixin glider-container {
   position: relative;
   border-top: solid 1px LightGray;
@@ -96,38 +95,7 @@
   height: 210px; // 210
   overflow: hidden;
 }
-
-html { body { @include mix; } }
-
-#glider-container-trending {
-  @include glider-container;
-
-  #glider-pan-left, #glider-pan-right { 
-  	font-size: 22px; 
-  	color: LightGray;
-  	z-index: 31; 
-  	opacity: .7;
-  	cursor: pointer;
-  	// scale init value 
-  	transform: scale(1.5);
-  	-webkit-transform: scale(1.5);
-  	-moz-transform: scale(1.5);
-  	-o-transform: scale(1.5);
-  	// scale transition set up
-  	transition: transform .2s ease-in-out;
-  	-webkit-transition: transform .2s ease-in-out;
-  	-moz-transition: transform .2s ease-in-out;
-  	-o-transition: tarnsform .2s ease-in-out; 
-  	// transition on hover
-  	&:hover { transform: scale(2.5); }
-  }
-  #glider-pan-left { position: absolute; top: 100px; left: 10px; } 
-
-  #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
-
-  #glider-pan-right { position: absolute; top: 100px; right: 10px; }
-}
-#glider-container-trending::after {
+@mixin glider-after {
   position: absolute;
   right: 0;
   top: 0;
@@ -137,7 +105,7 @@ html { body { @include mix; } }
   width: 40px;
   background-color: white;
 }
-#glider-container-trending::before {
+@mixin glider-before {
   position: absolute;
   content: '';
   top: 0;
@@ -147,6 +115,48 @@ html { body { @include mix; } }
   width: 40px;
   background-color: white;
 }
+@mixin glider-pan {
+  font-size: 22px; 
+  color: LightGray;
+  z-index: 31; 
+  opacity: .7;
+  cursor: pointer;
+  // scale init value 
+  transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  // scale transition set up
+  transition: transform .2s ease-in-out;
+  -webkit-transition: transform .2s ease-in-out;
+  -moz-transition: transform .2s ease-in-out;
+  -o-transition: tarnsform .2s ease-in-out; 
+  // transition on hover
+  &:hover { transform: scale(2.5); }
+}
+html { body { @include mix; } }
+
+// Glider trending
+#glider-container-trending {
+  @include glider-container;
+  #glider-pan-left, #glider-pan-right {  @include glider-pan; }
+  #glider-pan-left { position: absolute; top: 100px; left: 10px; } 
+  #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
+  #glider-pan-right { position: absolute; top: 100px; right: 10px; }
+}
+#glider-container-trending::after { @include glider-after; }
+#glider-container-trending::before { @include glider-before; }
+// Glider favor
+#glider-container-favor {
+  @include glider-container;
+  //background-color: red;
+  #glider-pan-left, #glider-pan-right {  @include glider-pan; }
+  #glider-pan-left { position: absolute; top: 100px; left: 10px; } 
+  #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
+  #glider-pan-right { position: absolute; top: 100px; right: 10px; }
+}
+#glider-container-favor::after { @include glider-after; }
+#glider-container-favor::before { @include glider-before; }
 .clear-both { clear: both; }
 
 #hot-tags a { 
