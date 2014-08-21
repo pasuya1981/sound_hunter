@@ -53,7 +53,12 @@ class MixesController < ApplicationController
     @mix_cover_sm_url = info_hash[:cover_urls][:sq133]
     @plays_count = info_hash[:plays_count]
     @tag_list_cache = info_hash[:tag_list_cache].gsub(/\//,' ').split(',')
-    @mix_genres = []; info_hash[:genres].each { |k, genre| @mix_genres << genre }
+
+    @mix_genres = []
+    if info_hash[:genres].present?
+      info_hash[:genres].each { |k, genre| @mix_genres << genre } 
+    end
+
     @first_published_at = info_hash[:first_published_at]
 
     user_hash = info_hash[:user]

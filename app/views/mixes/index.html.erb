@@ -14,51 +14,10 @@
     <% end %>
     </div>
     
-
     <hr />
-  
     <div class="search_result">
       <% @mixes.each do |mix| %>
-        <% previe_hash   = mix.info[:preview] %>
-        <% duration      = previe_hash[:duration] %>
-        <% tracks_count  = previe_hash[:tracks_count] %>
-        <% cover_urls    = previe_hash[:cover_urls] %>
-
-        <% tags_list     = previe_hash[:tag_list_cache].split.map {|tag| tag.gsub(/,|\./, '').gsub(/#/, '')} %>
-        <% play_counts   = previe_hash[:plays_count] %>
-        <% likes_count   = previe_hash[:likes_count] %>
-        <% mix_id        = previe_hash[:id]  %>
-
-        <% # Hide and show content %>
-        <div class="content-exchange-box">
-          <%= link_to(image_tag(cover_urls, class: 'img-rounded visible', size: '200x200'), '#') %>
-
-          <% # Hover to show hidden content linking to mix show page. %>
-          <div id="hidden-content-link-to-show-mix">
-            <%= link_to(content_tag(:div, ''), 
-                        {controller: :mixes, action: :show, mix_id: mix_id}, 
-                        class: 'hidden-link',
-                        id: 'link-to-show-mix-page', 
-                        remote: true) %>
-            
-            <div class="tags-list-cache">
-              <% tags_list.each do |tag| %>
-                <span class="label label-default"><%= tag %></span>
-              <% end %>
-            </div>
-            <div class="play-counts">
-              <span><%= number_with_delimiter(play_counts) %> 播放次數</span>
-            </div>
-            <div class="like-counts">
-              <%= number_with_delimiter(likes_count) %> <span class="glyphicon glyphicon-heart" style="color:red;"></span>
-            </div>
-
-            <% # Link trigger to show music player panel %>
-            <div class="play-btn">
-            <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-play"), play_path(play: {mix_id: mix_id}), remote: true) %>
-            </div>
-          </div>
-        </div>
+        <%= render 'mix', mix: mix %>
       <% end %>
 </div>
 

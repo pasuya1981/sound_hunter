@@ -53,9 +53,13 @@
                <span><%= link_to(tag, hot_tags_search_path(keyword: tag), remote: true) %></span>
              <% end %>
         <br/>
-        類別: <% @mix_genres.each do |genre| %>
-        	   <span><%= link_to(genre, hot_tags_search_path(keyword: genre), remote: true) %></span>
-             <% end %>
+        <% if @mix_genres.count > 0 %>
+          類別: <% @mix_genres.each do |genre| %>
+        	       <span><%= link_to(genre, hot_tags_search_path(keyword: genre), remote: true) %></span>
+               <% end %>
+        <% else %>
+          類別: 未分類!
+        <% end %>
         <br/>
         歌手: <% @mix_artists.each do |artist| %>
         	   <%= link_to(artist, search_path('keyword' => {'smart_type' => 'artist', "sort" => "popular", "words" => artist }), remote: true) %>

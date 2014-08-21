@@ -1,10 +1,25 @@
 
-<h4>熱門混曲</h4>
-<hr>
-<% if user_logged_in? %>
-  <h4>妳喜歡的混曲</h4>
-  <hr>
-<% end %>
+<h4>最新熱門列表</h4>
+
+<div class="glider-container" slide-amount='0'>
+
+  <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+
+  <div id="mix-window-wrapper">
+    <% @trending_mixes_ary.each do |mix| %>
+      <%= render 'mixes/mix', mix: mix %>
+    <% end %>
+  </div>
+
+  <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+
+</div>
+
+<div class="clear-both">
+  <% if user_logged_in? %>
+    <h4>妳喜歡的混曲</h4>
+    <hr>
+  <% end %>
 
 <h4>熱門標籤</h4>
 <tr>

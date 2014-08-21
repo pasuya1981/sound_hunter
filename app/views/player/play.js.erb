@@ -249,9 +249,17 @@ function bind_control_action () {
     $.get(mix_show_query_url, function(data, status) {
       // After get data Logic.
       var mix_show_page_reload_node = $(data).find("#ajax-page-reloader");
-      mix_show_page_reload_node.find("#play-btn-lg").css('display', 'none');
       $("#ajax-page-reloader").html(mix_show_page_reload_node.html());
-      $("#play-btn-lg").hide(0);
+      
+      // Mix title visual effetc
+      $("#mix-name").hide(0);
+      $(".img-container").hover(function() {
+        // Mouse hover callback
+        $("#mix-name").fadeIn(200);
+      }, function() {
+        // Mouse leave callback
+        $("#mix-name").delay(500).fadeOut(200);
+      });
     });
   });
 }
