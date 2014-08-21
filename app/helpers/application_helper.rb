@@ -91,7 +91,7 @@ module ApplicationHelper
       :soundtrack => "配樂",
       :jazz => "爵士",
       :piano => "鋼琴",
-      :sex => "性愛",
+      :sex => "性感",
       :party => "派對",
       :relax => "放輕鬆",
       :workout => "健身",

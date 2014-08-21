@@ -91,8 +91,9 @@ html { body { @include mix; } }
 .glider-container {
   position: relative;
   border-top: solid 1px LightGray;
-  border-bottom: 1px solid LightGray;
+  //border-bottom: 1px solid LightGray;
   padding-left: 40px;
+  margin-bottom: 20px;
   width: 900px; // 850
   height: 210px; // 210
   overflow: hidden;
@@ -100,7 +101,7 @@ html { body { @include mix; } }
   #glider-pan-left, #glider-pan-right { 
   	font-size: 22px; 
   	color: LightGray;
-  	z-index: 99; 
+  	z-index: 31; 
   	opacity: .7;
   	cursor: pointer;
   	// scale init value 
@@ -126,7 +127,7 @@ html { body { @include mix; } }
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 98;
+  z-index: 30;
   content: ' ';
   height: 210px;
   width: 40px;
@@ -137,7 +138,7 @@ html { body { @include mix; } }
   content: '';
   top: 0;
   left: 0;
-  z-index: 98;
+  z-index: 30;
   height: 210px;
   width: 40px;
   background-color: white;

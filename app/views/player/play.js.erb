@@ -250,7 +250,8 @@ function bind_control_action () {
       // After get data Logic.
       var mix_show_page_reload_node = $(data).find("#ajax-page-reloader");
       $("#ajax-page-reloader").html(mix_show_page_reload_node.html());
-      
+      // Hide large-play-btn
+      $("#play-btn-lg").hide(0);
       // Mix title visual effetc
       $("#mix-name").hide(0);
       $(".img-container").hover(function() {

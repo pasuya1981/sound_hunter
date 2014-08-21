@@ -8,10 +8,17 @@ layout 'mixes'
   def welcome
     @tags_ary = EightTracksParser.get_trend_tags
     @trending_mixes_ary = EightTracksParser.get_mix_set_by_smart_type(:all).info[:mixes]
-    p @glide_page_index_with_mixes
+
+    if user_logged_in?
+      user = User.find_by(username: session[:username])
+      track_id = user.tracks_user_id
+      favorite_set = EightTracksParser.get_mix_set_by_smart_type(:liked, user_id: track_id, sort: track_id)
+      @favorite_ary = favorite_set[:mixes]
+    end
+
     respond_to do |format|
       format.html
-      format.js { puts "Responding to AJAX".red }
+      format.js
     end
   end
 
