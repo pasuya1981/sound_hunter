@@ -28,42 +28,15 @@ $(document).ready(function () {
   var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
   var isIE = /*@cc_on!@*/false || !!document.documentMode; // At least IE6
 
-  if (!isChrome) {
-    alert("系統偵統非使用Chome，請使用Chome來正常使用本網站!");
-  }
+  if (!isChrome) { alert("系統偵統非使用Chome，請使用Chome來正常使用本網站!"); }
 
-  // Glider left and right function start ------>
-  $("#glider-pan-right").off('click');
-  $("#glider-pan-right").on('click', function() {
-    var slide_amount = $(".glider-container").attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int <= -1670) return;
-    var slide_to = slide_amount_int - 835;
-    console.log("Current slide amount: " + slide_amount);
+  //  $("#lean-overlay").hide(0);
+  //  $("#login_form").hide(0);  //
 
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    $(".glider-container").attr('slide-amount', slide_to.toString());
-  });
-  $("#glider-pan-left").off('click');
-  $("#glider-pan-left").on('click', function() {
-    var slide_amount = $(".glider-container").attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int >= 0) return;
-    var slide_to = slide_amount_int + 835;
-    console.log("Current slide amount: " + slide_amount);
-
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    $(".glider-container").attr('slide-amount', slide_to.toString());
-  });
-  // Glider left and right function end <------
-
-  $("#lean-overlay").hide(0);
-  $("#login_form").hide(0);
-
-  function modal_login_form () {
-    $("#login_form").fadeIn(500);
-    $("#lean-overlay").fadeIn(300);
-  }
+  //  function modal_login_form () {
+  //    $("#login_form").fadeIn(500);
+  //    $("#lean-overlay").fadeIn(300);
+  //  }
   
 
   /* Search form input control */

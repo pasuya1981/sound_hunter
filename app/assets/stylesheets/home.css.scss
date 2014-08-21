@@ -86,9 +86,7 @@
   }
 }
 
-html { body { @include mix; } }
-
-.glider-container {
+@mixin glider-container {
   position: relative;
   border-top: solid 1px LightGray;
   //border-bottom: 1px solid LightGray;
@@ -97,6 +95,12 @@ html { body { @include mix; } }
   width: 900px; // 850
   height: 210px; // 210
   overflow: hidden;
+}
+
+html { body { @include mix; } }
+
+#glider-container-trending {
+  @include glider-container;
 
   #glider-pan-left, #glider-pan-right { 
   	font-size: 22px; 
@@ -123,7 +127,7 @@ html { body { @include mix; } }
 
   #glider-pan-right { position: absolute; top: 100px; right: 10px; }
 }
-.glider-container::after {
+#glider-container-trending::after {
   position: absolute;
   right: 0;
   top: 0;
@@ -133,7 +137,7 @@ html { body { @include mix; } }
   width: 40px;
   background-color: white;
 }
-.glider-container::before {
+#glider-container-trending::before {
   position: absolute;
   content: '';
   top: 0;

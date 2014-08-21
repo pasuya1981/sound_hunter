@@ -4,26 +4,4 @@ $.get("<%= home_path %>", function (data, status) {
   console.log("Get data: "+data);
   var ajax_reload_node = $(data).find("#ajax-page-reloader");
   $("#ajax-page-reloader").html(ajax_reload_node.html());
-  // Glider left and right function start ------>
-  $("#glider-pan-right").off('click');
-  $("#glider-pan-right").on('click', function() {
-    var slide_amount = $(".glider-container").attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int <= -1670) return;
-    var slide_to = slide_amount_int - 835;
-    console.log("Current slide amount: " + slide_amount);
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    $(".glider-container").attr('slide-amount', slide_to.toString());
-  });
-  $("#glider-pan-left").off('click');
-  $("#glider-pan-left").on('click', function() {
-    var slide_amount = $(".glider-container").attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int >= 0) return;
-    var slide_to = slide_amount_int + 835;
-    console.log("Current slide amount: " + slide_amount);
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    $(".glider-container").attr('slide-amount', slide_to.toString());
-  });
-  // Glider left and right function end <------
 });
