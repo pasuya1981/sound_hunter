@@ -314,14 +314,39 @@ module EightTracksParser
 
   def uri_to_nokogiri_xml(base_uri)
     #puts base_uri.red
-    unless base_uri =~ /&page=\d/i # prevent repeated escape
-#      puts "escaping base uri...".blue
-      base_uri = URI::escape base_uri
+    chinese_collector = []
+    base_uri.split.each_with_index do |char, index|
+      base_uri.chars.each_with_index { |char, index| chinese_collector << "Find CJK: #{char}. At index: #{index}" if check_char(base_uri, index) }
     end
+    base_uri = URI::escape base_uri if chinese_collector.size > 0
+    puts "See base uri: #{base_uri}".red
     response = open(base_uri).read
     xml = Nokogiri::XML(response)
     status = xml.css('status').first.content 
     yield(status, xml) if block_given?  
+  end
+
+  # Check if string contains Chinese, Japaness or Korean char.
+  def check_char(str, n)
+    list_of_chars = str.unpack("U*")
+    char = list_of_chars[n]
+    #main blocks
+    if char >= 0x4E00 && char <= 0x9FFF
+      return true
+    end
+    #extended block A
+    if char >= 0x3400 && char <= 0x4DBF
+      return true
+    end
+    #extended block B
+    if char >= 0x20000 && char <= 0x2A6DF
+      return true
+    end
+    #extended block C
+    if char >= 0x2A700 && char <= 0x2B73F
+      return true
+    end
+    return false
   end
 
   def safe_url(string)

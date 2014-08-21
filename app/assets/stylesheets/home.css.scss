@@ -104,7 +104,7 @@ html { body { @include mix; } }
   	opacity: .7;
   	cursor: pointer;
   	// scale init value 
-  	transform: scale(1);
+  	transform: scale(1.5);
   	-webkit-transform: scale(1.5);
   	-moz-transform: scale(1.5);
   	-o-transform: scale(1.5);
@@ -143,3 +143,11 @@ html { body { @include mix; } }
   background-color: white;
 }
 .clear-both { clear: both; }
+
+#hot-tags a { 
+  color: white; 
+  &:hover { 
+    text-decoration: none; 
+  } 
+}
+

@@ -64,11 +64,11 @@ module ApplicationHelper
     end
     h_size = map_count_to_size taggin_count
     rand_style = [ 'success', 'info', 'warning', 'danger'][rand(0..3)] #'Primary' & 'Defaut' are removed, can't see in white background
-    inner_content = content_tag('span', 
-                                content_tag(:a, tag_translate(name), 
-                                href: hot_tags_search_path(keyword: name)), class: "label label-#{rand_style}")  
+    inner_content = content_tag('span', link_to(tag_translate(name), hot_tags_search_path(keyword: name), remote: true), class: "label label-#{rand_style}")  
     content_tag("h#{h_size}", inner_content, class: "display-in-line tags")
   end
+
+  #content_tag(:a, tag_translate(name), href: hot_tags_search_path(keyword: name))
 
   def tag_translate(name)
     name_in_sym = name.downcase.to_sym
