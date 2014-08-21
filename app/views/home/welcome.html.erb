@@ -1,22 +1,11 @@
-<h3>I am a title</h3>
-<p>
-  main content
-</p>
 
+<h4>熱門混曲</h4>
+<hr>
+<% if user_logged_in? %>
+  <h4>妳喜歡的混曲</h4>
+  <hr>
+<% end %>
 
-<section>
-  <input type='text' class="date_picker">
-</section>
-
-<br><hr>
-
-<section>   
-  <span class="tooltip"></span>   
-  <div id="slider-vertical"></div>  
-  <span class="volume"></span>  
-</section> 
-
-
-<script>
-  $(".date_picker").datepicker();
-</script
+<h4>熱門標籤</h4>
+<tr>
+<%= render 'shared/hot_tags' %>

@@ -1,3 +1,4 @@
 
 $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
 alert("已成功登出!");
+$("#ajax-page-reloader").html("<%= escape_javascript(render(template: 'home/welcome.html.erb')) %>");

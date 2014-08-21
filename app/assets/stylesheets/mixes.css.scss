@@ -135,6 +135,8 @@
   /* page css control */
   .mix-show-page {
     .img-container {
+      -webkit-position: relative;
+      -moz-position: relative;
       position: relative;
       vertical-align: bottom;
       a { color: white; 
@@ -157,6 +159,8 @@
         }
       }
       #play-btn-lg {
+        -moz-position: absolute;
+        -webkit-position: absolute;
         position: absolute;
         bottom: 10px;
         left: 10px;

@@ -32,8 +32,9 @@
         <% # Hide and show content %>
         <div class="content-exchange-box">
           <%= link_to(image_tag(cover_urls, class: 'img-rounded visible', size: '200x200'), '#') %>
-          <div id="hidden-content-link-to-show-mix">
 
+          <% # Hover to show hidden content linking to mix show page. %>
+          <div id="hidden-content-link-to-show-mix">
             <%= link_to(content_tag(:div, ''), 
                         {controller: :mixes, action: :show, mix_id: mix_id}, 
                         class: 'hidden-link',
@@ -52,7 +53,7 @@
               <%= number_with_delimiter(likes_count) %> <span class="glyphicon glyphicon-heart" style="color:red;"></span>
             </div>
 
-            <% # Link to Mix Show Page %>
+            <% # Link trigger to show music player panel %>
             <div class="play-btn">
             <%= link_to(content_tag(:span, nil, class: "glyphicon glyphicon-play"), play_path(play: {mix_id: mix_id}), remote: true) %>
             </div>
