@@ -141,6 +141,7 @@ html {
   body { 
     @include mix; 
     h4 { font-size: 14px; }
+    #hot-tags { width: 640px; }
   } 
 }
 
@@ -157,7 +158,6 @@ html {
 // Glider favor
 #glider-container-favor {
   @include glider-container;
-  //background-color: red;
   #glider-pan-left, #glider-pan-right {  @include glider-pan; }
   #glider-pan-left { position: absolute; top: 75px; left: 10px; } 
   #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
@@ -165,6 +165,17 @@ html {
 }
 #glider-container-favor::after { @include glider-after; }
 #glider-container-favor::before { @include glider-before; }
+// Glider Feed
+#glider-container-recommended {
+  @include glider-container;
+  #glider-pan-left, #glider-pan-right {  @include glider-pan; }
+  #glider-pan-left { position: absolute; top: 75px; left: 10px; } 
+  #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
+  #glider-pan-right { position: absolute; top: 75px; right: 10px; }
+}
+#glider-container-recommended::after { @include glider-after; }
+#glider-container-recommended::before { @include glider-before; }
+
 .clear-both { clear: both; }
 
 #hot-tags a { 

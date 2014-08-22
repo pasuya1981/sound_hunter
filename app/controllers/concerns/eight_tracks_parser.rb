@@ -73,6 +73,7 @@ module EightTracksParser
                                           password: password)
     nokogiri_xml = Nokogiri::XML(response.body)
     user_info = {}
+    return nil if nokogiri_xml.css('login').first.nil?
     user_info[:tracks_user_name] = nokogiri_xml.css('login').first.content
     user_info[:tracks_user_id] = nokogiri_xml.css('id').first.content
     user_info[:tracks_user_email] = nokogiri_xml.css('email').first.content

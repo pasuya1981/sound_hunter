@@ -1,5 +1,5 @@
 
-<h4>最新熱門列表</h4>
+<h4>熱門</h4>
 <div id="glider-container-trending" slide-amount='0'>
   <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
   <div id="mix-window-wrapper">
@@ -12,20 +12,35 @@
 <div class="clear-both">
 
 <% if user_logged_in? %>
+  <!-- # Liked mixes -->
   <h4>喜愛列表</h4>
   <div id="glider-container-favor" slide-amount='0'>
     <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
     <div id="mix-window-wrapper">
-      <% @favorite_ary.each do |mix| %>
+      <% @favorite_mixes.each do |mix| %>
+        <%= render 'mixes/mix', mix: mix %>
+      <% end %>
+    </div>
+    <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+  </div>
+  <!-- # Feed mixes -->
+  <h4>為您量身推薦</h4>
+  <div id="glider-container-recommended" slide-amount='0'>
+    <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+    <div id="mix-window-wrapper">
+      <% @recommended_mixes.each do |mix| %>
         <%= render 'mixes/mix', mix: mix %>
       <% end %>
     </div>
     <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
   </div>
 <% end %>
-<h4>熱門標籤</h4>
-<hr>
-<%= render 'shared/hot_tags' %>
+<div id="hot-tags">
+  <h4>熱門標籤</h4>
+  <hr/>
+  <%= render 'shared/hot_tags' %>
+</div>
+
 
 <script type="text/javascript">
   // Ajax double request bug fix
@@ -63,5 +78,6 @@
   }
   init_glider_for($("#glider-container-trending"));
   init_glider_for($("#glider-container-favor"));
+  init_glider_for($("#glider-container-recommended"));
   // Glider left and right function end <------
 </script>

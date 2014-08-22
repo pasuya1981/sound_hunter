@@ -37,8 +37,10 @@ module ApplicationHelper
   end
 
   def clear_user_token
+    session[:username]   = nil
     session[:user_token] = nil
     session[:avatar_url] = nil
+    session[:tracks_user_id] = nil
   end
 
   def dynamic_action_name
@@ -51,6 +53,7 @@ module ApplicationHelper
     session[:username]   = user_model_instance.username
     session[:user_token] = user_model_instance.tracks_user_token
     session[:avatar_url] = user_model_instance.tracks_user_avatar_url
+    session[:tracks_user_id] = user_model_instance.tracks_user_id
   end
 
   # Bootstrap 3.0 style label

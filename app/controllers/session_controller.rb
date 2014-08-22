@@ -16,7 +16,6 @@ class SessionController < ApplicationController
     user = User.find_by(email: email)
      
     respond_to do |format|
-
       unless make_sure_user_params_are_all_present
         flash.now[:info] = "帳號或密碼不能為空白"
         format.html { redirect_to login_path } 
@@ -53,7 +52,7 @@ class SessionController < ApplicationController
         user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
         # no account on 8tracks server
         if user_info_hash.nil?
-          @error = "無此帳號"
+          @error = "帳號或密碼錯誤"
           format.html { redirect_to login_path } 
           format.js { @error }
           return
@@ -91,7 +90,6 @@ class SessionController < ApplicationController
   end
 
   def logout
-    puts "logging out".red
     clear_user_token
     respond_to do |format|
       format.html { redirect_to login_path }

@@ -1,5 +1,5 @@
 <% if @error %>
-  alert("You have error here: " + "<%= @error %>");
+  alert("<%= @error %>");
 <% else %>
   $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
   $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
