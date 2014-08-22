@@ -31,7 +31,7 @@ class MixesController < ApplicationController
     init_view_data_with mix_set_search_result
     # render :index
     respond_to do |format|
-      format.html { raise "Should respond to AJAX".red }
+      format.html { redirect_to home_path }
       format.js 
     end
   end
@@ -89,6 +89,7 @@ class MixesController < ApplicationController
     # render :index
     respond_to do |format|
       format.js
+      format.html { redirect_to home_path }
     end
   end
 

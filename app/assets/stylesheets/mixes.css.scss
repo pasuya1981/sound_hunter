@@ -41,7 +41,7 @@
 
     /* index page */
   .search_result {
-    width: 903px;
+    width: 570px;
     .content-exchange-box {
       
       float: left;
@@ -59,7 +59,6 @@
         z-index: 1;
       }
       #hidden-content-link-to-show-mix {
-
         height: 133px;
         width: 133px;
         opacity: 0;
@@ -90,7 +89,7 @@
             -webkit-transition: color .1s ease-in-out;
             &:hover { color: LightBlue; }
           }
-          font-size: 3em;
+          font-size: 2em;
           position: absolute;
           right: 10px;
           bottom: -5px;

@@ -169,11 +169,21 @@
         #buy-icon-and-toggle-like-track-container {
           // TODO: buy message area css modification!
           position: absolute; right: 0; top: 0;
-          width: 160px;
+          width: 100px;
           height: 54px;
-          content: 'Buy Icon';
           color: white;
           table { td {  @include clean-background; } }
+          #buy-icon  { 
+            font-size: 14px; 
+            padding: 0;
+          }
+          #star-icon {
+            position: relative;
+            span {
+              position: relative;
+              bottom: -115px;
+            }
+          }
         }
       }
       #volume-control {
@@ -200,6 +210,15 @@
           border-radius: 5px;
           .ui-slider-handle { display: none; }          
           .ui-widget-content { border-color: red; background-color: red; }
+        }
+        #volume-slider::after {
+          content: '';
+          position: absolute;
+          top: -2px; left: -2px;
+          width: 49px; height: 154px;
+          border: 15px black solid;
+          z-index: 3;
+          border-radius: 2px;
         }
       }
       #user-set-info-action {
