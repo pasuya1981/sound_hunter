@@ -14,7 +14,7 @@ layout 'mixes'
       recommend_set = EightTracksParser.get_mix_set_by_smart_type(:recommended, user_id: tracks_user_id, sort: :popular)
       @recommended_mixes = recommend_set.info[:mixes]
     end
-    @hot_tags = EightTracksParser.get_trend_tags
+    @tags_ary = EightTracksParser.get_trend_tags
   end
 
   private

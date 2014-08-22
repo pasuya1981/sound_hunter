@@ -122,10 +122,13 @@ class MixesController < ApplicationController
 
   def init_trend_tag_session
     if session[:trend_tags].nil? || session[:trending_tags_created_at] < 1.hours.ago
-      session[:trend_tags] = EightTracksParser.get_trend_tags
+      trend_tags = EightTracksParser.get_trend_tags
+      session[:trend_tags] = trend_tags
       session[:trending_tags_created_at] = Time.now
     end
-    @tags_ary = session[:trend_tags].shuffle
+    if session[:trend_tags].present?
+      @tags_ary = session[:trend_tags].shuffle
+    end
   end
 
   def remember_search_action(smart_type, sort_type)

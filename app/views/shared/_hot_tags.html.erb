@@ -1,10 +1,8 @@
 <div id="hot-tags">
-  <% unless controller.controller_name == 'session' %>  
 
-    <% @tags_ary ||= session[:trend_tags].shuffle %>
-    <% @tags_ary.each do |tag_hash| %>
-      <%= random_label_for(tag_hash) %>
-    <% end %> 
+  <% tags_ary.shuffle! %>
+  <% tags_ary.each do |tag_hash| %>
+    <%= random_label_for(tag_hash) %>
+  <% end %> 
      
-  <% end %>
 </div>
