@@ -24,32 +24,38 @@
   </div>
 <% end %>
 <h4>熱門標籤</h4>
-<tr>
+<hr>
 <%= render 'shared/hot_tags' %>
 
 <script type="text/javascript">
   // Glider left and right function start ------>
-  var glide_container = $("#glider-container-trending");
-  //var pan_left = glide_container.find("#glider-pan-left");
-  $("#glider-pan-right").off('click');
-  $("#glider-pan-right").on('click', function() {
-    var slide_amount = glide_container.attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int <= -1670) return;
-    var slide_to = slide_amount_int - 835;
-    console.log("Current slide amount: " + slide_amount);
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    glide_container.attr('slide-amount', slide_to.toString());
-  });
-  $("#glider-pan-left").off('click');
-  $("#glider-pan-left").on('click', function() {
-    var slide_amount = glide_container.attr('slide-amount');
-    var slide_amount_int = parseInt(slide_amount);
-    if (slide_amount_int >= 0) { return; }
-    var slide_to = slide_amount_int + 835;
-    console.log("Current slide amount: " + slide_amount);
-    $("#mix-window-wrapper").animate({left: slide_to.toString()+'px'}, 300, 'swing');
-    glide_container.attr('slide-amount', slide_to.toString());
-  });
+  function init_glider_for (glide_container) {
+    //var glide_container = $("#glider-container-trending");
+    var pan_left = glide_container.find("#glider-pan-left");
+    var pan_right = glide_container.find("#glider-pan-right");
+    var mix_window_wrapper = glide_container.find("#mix-window-wrapper");
+    pan_right.off('click');
+    pan_right.on('click', function() {
+      var slide_amount = glide_container.attr('slide-amount');
+      var slide_amount_int = parseInt(slide_amount);
+      if (slide_amount_int <= -1670) return;
+      var slide_to = slide_amount_int - 835;
+      //console.log("Current slide amount: " + slide_amount);
+      mix_window_wrapper.animate({left: slide_to.toString()+'px'}, 300, 'swing');
+      glide_container.attr('slide-amount', slide_to.toString());
+    });
+    pan_left.off('click');
+    pan_left.on('click', function() {
+      var slide_amount = glide_container.attr('slide-amount');
+      var slide_amount_int = parseInt(slide_amount);
+      if (slide_amount_int >= 0) { return; }
+      var slide_to = slide_amount_int + 835;
+      console.log("Current slide amount: " + slide_amount);
+      mix_window_wrapper.animate({left: slide_to.toString()+'px'}, 300, 'swing');
+      glide_container.attr('slide-amount', slide_to.toString());
+    });
+  }
+  init_glider_for($("#glider-container-trending"));
+  init_glider_for($("#glider-container-favor"));
   // Glider left and right function end <------
 </script>
