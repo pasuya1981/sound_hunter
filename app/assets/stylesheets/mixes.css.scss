@@ -41,31 +41,32 @@
 
     /* index page */
   .search_result {
+    width: 903px;
     .content-exchange-box {
       
       float: left;
-      margin: 1em;
-      height: 180px;
-      width: 180px;
+      margin: .2em;
+      height: 133px;
+      width: 133px;
       position: relative;
       &:hover {
         z-index: 9;
       }
       .visible {
-        height: 180px;
-        width: 180px;
+        height: 133px;
+        width: 133px;
         position: absolute;
         z-index: 1;
       }
       #hidden-content-link-to-show-mix {
 
-        height: 180px;
-        width: 180px;
+        height: 133px;
+        width: 133px;
         opacity: 0;
         background-color: white;
         position: absolute;
         z-index: 3;
-        border-radius: 5px;
+        //border-radius: 5px;
         clear: both;
         transition: opacity .1s ease-in-out;
         -moz-transition: opacity .1s ease-in-out;
@@ -74,8 +75,8 @@
           opacity: .9;
         }
         .hidden-link {
-          height: 180px;
-          width: 180px;
+          height: 133px;
+          width: 133px;
           position: absolute;
           background-color: transparent;
           z-index: 2;
@@ -110,7 +111,7 @@
         .tags-list-cache {
           margin: .5em;
           .label {
-            border-radius: 5px;
+            //border-radius: 5px;
           }
         }
         .play-counts {
@@ -152,7 +153,7 @@
           margin-right: auto;
           background-color: black;
           padding: 10px;
-          border-top-left-radius: 8px;
+          //border-top-left-radius: 8px;
           opacity: 0.4;
           font-size: 30px;
           color: white;

@@ -16,6 +16,7 @@ class MixesController < ApplicationController
     word_in_ary = keyword.strip.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
     init_view_data_with mix_set_search_result
+
     respond_to do |format|
       format.html
       format.js
@@ -24,6 +25,7 @@ class MixesController < ApplicationController
 
   def query_next_page
     next_page_path = params[:next_page_path]
+    puts "Next page path: #{next_page_path}".blue
     return unless next_page_path.present?
     mix_set_search_result = EightTracksParser.query_next_page next_page_path
     init_view_data_with mix_set_search_result
@@ -104,6 +106,7 @@ class MixesController < ApplicationController
   def init_view_data_with(mix_set_search_result)
     info = mix_set_search_result.info
     page_info = info[:pagination]
+    puts "Page info: #{page_info}".green
     @mixes = info[:mixes]
     @current_page = page_info[:current_page]
     @per_page = page_info[:per_page]

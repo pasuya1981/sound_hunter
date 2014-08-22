@@ -1,32 +1,39 @@
 
 <% # panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger" %>
 
-    <div class="pager">
-      <% if @previous_page_path %>
-      <li class="previous"><%= link_to("上一頁", 
-                                       next_page_path(next_page_path: @previous_page_path), 
-                                       remote: true) %></li>
-    <% end %>
-    <% if @next_page_path %>
-      <li class="next"><%= link_to("下一頁", 
-                                   next_page_path(next_page_path: @next_page_path), 
-                                   remote: true) %></li>
-    <% end %>
-    </div>
     
-    <hr />
     <div class="search_result">
+      <ul class="pager">
+        <% if @previous_page_path %>
+          <li class="previous"><%= link_to("上一頁", 
+                                           next_page_path(next_page_path: @previous_page_path), 
+                                           remote: true) %></li>
+        <% end %>
+        <% if @next_page_path %>
+          <li class="next"><%= link_to("下一頁", 
+                                       next_page_path(next_page_path: @next_page_path), 
+                                       remote: true) %></li>
+        <% end %>
+      </ul>
+      <hr />
       <% @mixes.each do |mix| %>
         <%= render 'mix', mix: mix %>
       <% end %>
-</div>
+      <div style="clear:both; padding-top:20px;"></div>
+      <hr/>
+    </div>
+
 
 <script>
+  //$("body").off('ajax:beforeSend');
+  //$("body").on('ajax:beforeSend', function (status, xhr, settings) {
+  //  xhr.abort();
+  //});
   $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
     xhr.abort();
   });
   // pagination ajax may send twice requext
-  $(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
-    xhr.abort();
-  });
+  //$(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
+  //  xhr.abort();
+  //});
 </script>

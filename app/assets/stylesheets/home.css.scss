@@ -5,27 +5,29 @@
 @mixin mix {
   .content-exchange-box {
     float: left;
-    margin: 1em;
-    height: 180px;
-    width: 180px;
+    margin: .2em;
+    height: 133px;
+    width: 133px;
     position: relative;
     &:hover {
       z-index: 9;
     }
     .visible {
-      height: 180px;
-      width: 180px;
+      height: 133px;
+      width: 133px;
       position: absolute;
+      top: 0; left: 0;
       z-index: 1;
     }
     #hidden-content-link-to-show-mix {
-      height: 180px;
-      width: 180px;
+      height: 133px;
+      width: 135px;
       opacity: 0;
       background-color: white;
       position: absolute;
+      top: 0; left: 0;
       z-index: 3;
-      border-radius: 5px;
+      //border-radius: 5px;
       clear: both;
       transition: opacity .1s ease-in-out;
       -moz-transition: opacity .1s ease-in-out;
@@ -34,8 +36,8 @@
         opacity: .9;
       }
       .hidden-link {
-        height: 180px;
-        width: 180px;
+        height: 133px;
+        width: 133px;
         position: absolute;
         background-color: transparent;
         z-index: 2;
@@ -49,9 +51,9 @@
           -webkit-transition: color .1s ease-in-out;
           &:hover { color: LightBlue; }
         }
-        font-size: 3em;
+        font-size: 2em;
         position: absolute;
-        right: 10px;
+        right: 13px;
         bottom: -5px;
         transform:rotate(0deg);
         -ms-transform:rotate(0deg); /* IE 9 */
@@ -90,8 +92,9 @@
   border-top: solid 1px LightGray;
   //border-bottom: 1px solid LightGray;
   padding-left: 40px;
+  padding-top: 20px;
   margin-bottom: 20px;
-  width: 900px; // 850
+  width: 630px; // 850
   height: 210px; // 210
   overflow: hidden;
 }
@@ -116,7 +119,7 @@
   background-color: white;
 }
 @mixin glider-pan {
-  font-size: 22px; 
+  font-size: 18px; 
   color: LightGray;
   z-index: 31; 
   opacity: .7;
@@ -140,9 +143,9 @@ html { body { @include mix; } }
 #glider-container-trending {
   @include glider-container;
   #glider-pan-left, #glider-pan-right {  @include glider-pan; }
-  #glider-pan-left { position: absolute; top: 100px; left: 10px; } 
+  #glider-pan-left { position: absolute; top: 75px; left: 10px; } 
   #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
-  #glider-pan-right { position: absolute; top: 100px; right: 10px; }
+  #glider-pan-right { position: absolute; top: 75px; right: 10px; }
 }
 #glider-container-trending::after { @include glider-after; }
 #glider-container-trending::before { @include glider-before; }
@@ -151,9 +154,9 @@ html { body { @include mix; } }
   @include glider-container;
   //background-color: red;
   #glider-pan-left, #glider-pan-right {  @include glider-pan; }
-  #glider-pan-left { position: absolute; top: 100px; left: 10px; } 
+  #glider-pan-left { position: absolute; top: 75px; left: 10px; } 
   #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
-  #glider-pan-right { position: absolute; top: 100px; right: 10px; }
+  #glider-pan-right { position: absolute; top: 75px; right: 10px; }
 }
 #glider-container-favor::after { @include glider-after; }
 #glider-container-favor::before { @include glider-before; }

@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require turbolinks
+// require turbolinks
 //= require 'soundmanager2'
 // require_tree .
 

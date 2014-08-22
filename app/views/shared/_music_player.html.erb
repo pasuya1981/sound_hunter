@@ -43,7 +43,8 @@
 </div>
 <script>
   // Prevent AJAX from sending twice request.
-  $("#volume-control").on('ajax:beforeSend', function (status, xhr, settions) {
-    xhr.abort();
-  });
+  //$("body").off('ajax:beforeSend');
+  //$("body").on('ajax:beforeSend', function (status, xhr, settions) {
+  //  xhr.abort();
+  //});
 </script>

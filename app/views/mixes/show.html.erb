@@ -39,7 +39,7 @@
             <tr><td id="dj-follow-btn"><button>Follow</button></td></tr>
           </tr>
           <tr>
-          	<td id="commercial" colspan="2">廣告在這邊</td>
+          	<td id="commercial" colspan="2">Commercial Area</td>
           </tr>
           <tr><td id="dj-mixes" colspan="2">DJ Mixes goes here...</td></tr>
         </table>
@@ -70,10 +70,8 @@
 </div>
 
 <script>
-  $(".glyphicon-container").on('ajax:beforeSend', function(status, xhr, settings) {
-    xhr.abort(); // prevent AJAX twice request.
-  });
-  $(".img-container").on('ajax:beforeSend', function(status, xhr, settings) {
-    xhr.abort(); // prevent AJAX twice request.
-  });
+  //$("body").off('ajax:beforeSend');
+  //$('body').on('ajax:beforeSend', function (status, xhr, settings) {
+  //  xhr.abort();
+  //});
 </script>

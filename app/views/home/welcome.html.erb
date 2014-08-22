@@ -3,7 +3,7 @@
 <div id="glider-container-trending" slide-amount='0'>
   <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
   <div id="mix-window-wrapper">
-    <% @trending_mixes_ary.each do |mix| %>
+    <% @trending_mixes.each do |mix| %>
       <%= render 'mixes/mix', mix: mix %>
     <% end %>
   </div>
@@ -28,6 +28,12 @@
 <%= render 'shared/hot_tags' %>
 
 <script type="text/javascript">
+  // Ajax double request bug fix
+  //$('body').off('ajax:beforeSend');
+  //$("body").on('ajax:beforeSend', function (status, xhr, settings) {
+  //  xhr.abort();
+  //});
+
   // Glider left and right function start ------>
   function init_glider_for (glide_container) {
     //var glide_container = $("#glider-container-trending");
@@ -38,8 +44,8 @@
     pan_right.on('click', function() {
       var slide_amount = glide_container.attr('slide-amount');
       var slide_amount_int = parseInt(slide_amount);
-      if (slide_amount_int <= -1670) return;
-      var slide_to = slide_amount_int - 835;
+      if (slide_amount_int <= -1110) return;
+      var slide_to = slide_amount_int - 555;
       //console.log("Current slide amount: " + slide_amount);
       mix_window_wrapper.animate({left: slide_to.toString()+'px'}, 300, 'swing');
       glide_container.attr('slide-amount', slide_to.toString());
@@ -49,7 +55,7 @@
       var slide_amount = glide_container.attr('slide-amount');
       var slide_amount_int = parseInt(slide_amount);
       if (slide_amount_int >= 0) { return; }
-      var slide_to = slide_amount_int + 835;
+      var slide_to = slide_amount_int + 555;
       console.log("Current slide amount: " + slide_amount);
       mix_window_wrapper.animate({left: slide_to.toString()+'px'}, 300, 'swing');
       glide_container.attr('slide-amount', slide_to.toString());
