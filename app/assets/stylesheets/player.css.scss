@@ -167,9 +167,8 @@
           margin: 0px;
         }
         #buy-icon-and-toggle-like-track-container {
-          // TODO: buy message area css modification!
           position: absolute; right: 0; top: 0;
-          width: 100px;
+          width: 70px;
           height: 54px;
           color: white;
           table { td {  @include clean-background; } }
