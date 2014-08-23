@@ -6,3 +6,10 @@
   <% # user NOT login logic %>
   <%= link_to_unless_current('登入',  login_path, remote: true, role: "menuitem", tabindex: "-1") %>
 <% end %>
+
+<script type="text/javascript">
+  $("#logout_btn").off('ajax:beforeSend');
+  $("#logout_btn").on('ajax:beforeSend', function (status, xhr, settings) {
+  	xhr.abort();
+  });
+</script>

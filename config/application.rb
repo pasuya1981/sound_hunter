@@ -18,6 +18,7 @@ Bundler.require(*Rails.groups)
 module SoundHunter
   class Application < Rails::Application
     # Precompile bug. Solution source: https://github.com/sferik/rails_admin/issues/1343
+    # for runtime error: Asset logical path has no extension
     initializer 'setup_asset_pipeline', :group => :all do |app|
     # We don't want the default of everything that isn't js or css, because it pulls too many things in
     app.config.assets.precompile.shift

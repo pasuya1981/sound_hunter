@@ -37,6 +37,7 @@ class MixesController < ApplicationController
   end
 
   def show
+    
     # Render Mix Preview
     @mix_id = params[:mix_id]
     mix = EightTracksParser.get_mix_preview_by(mix_id: @mix_id, user_token: session[:user_token])
@@ -74,7 +75,7 @@ class MixesController < ApplicationController
     @member_since = user_hash[:member_since]
 
     respond_to do |format|
-      format.html { redirect_to home_path }
+      format.html { render 'show' }
       format.js { @mix_id; @mix_cover_sm_url; @mix_name }
     end
   end

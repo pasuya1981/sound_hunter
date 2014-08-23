@@ -44,8 +44,9 @@
 </div>
 <script>
   // Prevent AJAX from sending twice request.
-  //$("body").off('ajax:beforeSend');
-  //$("body").on('ajax:beforeSend', function (status, xhr, settions) {
-  //  xhr.abort();
-  //});
+  $("#player-cover-sm").off('ajax:beforeSend');
+  $("#player-cover-sm").on('ajax:beforeSend', function (status, xhr, settions) {
+    alert("Detect ajax form #player-cover-sm");
+    xhr.abort();
+  });
 </script>

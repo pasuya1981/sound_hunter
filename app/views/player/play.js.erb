@@ -243,9 +243,10 @@ function bind_control_action () {
     volume_slider.delay(300).fadeOut(200);
   });
   // Click player small cover image should take user to mix show page.
-  var mix_show_query_url = '/showmix?mix_id='+"<%= @mix_id %>";
+  var mix_show_query_url = '/showmix?mix_id='+"<%= @mix_id %>"; // this is HTML query uri.
   $("#player-cover-sm").off('click');
-  $("#player-cover-sm").on('click', function () {
+  $("#player-cover-sm").on('click', function (event) {
+    event.preventDefault();
     $.get(mix_show_query_url, function(data, status) {
       // After get data Logic.
       var mix_show_page_reload_node = $(data).find("#ajax-page-reloader");

@@ -11,28 +11,32 @@
 </div>
 <div class="clear-both">
 
+
 <% if user_logged_in? %>
-  <!-- # Liked mixes -->
-  <h4>喜愛列表</h4>
-  <div id="glider-container-favor" slide-amount='0'>
-    <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
-    <div id="mix-window-wrapper">
-      <% @favorite_mixes.each do |mix| %>
-        <%= render 'mixes/mix', mix: mix %>
-      <% end %>
+  <div id="user_login_glide_area">
+
+    <!-- # Liked mixes -->
+    <h4>喜愛列表</h4>
+    <div id="glider-container-favor" slide-amount='0'>
+      <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+      <div id="mix-window-wrapper">
+        <% @favorite_mixes.each do |mix| %>
+          <%= render 'mixes/mix', mix: mix %>
+        <% end %>
+      </div>
+      <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
     </div>
-    <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
-  </div>
-  <!-- # Feed mixes -->
-  <h4>為您量身推薦</h4>
-  <div id="glider-container-recommended" slide-amount='0'>
-    <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
-    <div id="mix-window-wrapper">
-      <% @recommended_mixes.each do |mix| %>
-        <%= render 'mixes/mix', mix: mix %>
-      <% end %>
+    <!-- # Feed mixes -->
+    <h4>量身推薦</h4>
+    <div id="glider-container-recommended" slide-amount='0'>
+      <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+      <div id="mix-window-wrapper">
+        <% @recommended_mixes.each do |mix| %>
+          <%= render 'mixes/mix', mix: mix %>
+        <% end %>
+      </div>
+      <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
     </div>
-    <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
   </div>
 <% end %>
 <div id="hot-tags">
@@ -46,7 +50,6 @@
   // Ajax double request bug fix
   $('.content-exchange-box').off('ajax:beforeSend');
   $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
-    alert("Detect ajax form .content-exchange-box");
     xhr.abort();
   });
 
