@@ -1,7 +1,6 @@
 
 <% # panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger" %>
 
-    
     <div class="search_result">
       <ul class="pager">
         <% if @previous_page_path %>
@@ -22,8 +21,6 @@
       <div style="clear:both; padding-top:20px;"></div>
       <hr/>
     </div>
-
-
 <script>
   $(".content-exchange-box").off('ajax:beforeSend');
   $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
