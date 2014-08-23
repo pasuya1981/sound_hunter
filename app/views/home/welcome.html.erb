@@ -106,15 +106,15 @@
   hot_tags_toggle_slide_arrow.click(function(event) {
     //alert(hot_tags_toggle_slide_arrow.attr('style'));
     if (hot_tags_toggle_slide_arrow.attr('style') == "transform: rotate(0deg);") {
-      rotate_elem(hot_tags_toggle_slide_arrow, 0, 180, 300, 'linear' );
+      rotate_jquery_elem(hot_tags_toggle_slide_arrow, 0, 180, 300, 'linear' );
       hot_tags_container.slideUp(300);
     } else {
-      rotate_elem(hot_tags_toggle_slide_arrow, 180, 0, 300, 'linear' );
+      rotate_jquery_elem(hot_tags_toggle_slide_arrow, 180, 0, 300, 'linear' );
       hot_tags_container.slideDown(300);
     }
   });
 
-  function rotate_elem (elem, from_deg, to_deg, duration, swing_or_linear ) {
+  function rotate_jquery_elem (elem, from_deg, to_deg, duration, swing_or_linear ) {
     // Psuedo animation
     $({degree: from_deg}).animate({degree: to_deg}, {
       duration: duration,
