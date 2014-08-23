@@ -50,12 +50,9 @@ html {
       background-repeat: no-repeat;
       background-position: 95% 50%;
       background-color: #30302F;
-      transform: scale(1);
       transition: background-color .2s ease-in-out;
-      transition: transform .2s ease-in-out;
       &:focus { 
         background-color: white;
-        transform: scale(1.2);
         border-color: #30302F;
       }
     }
@@ -96,7 +93,7 @@ html {
       
       .right_container { 
         padding-top: 15px;
-        #hot-tags {
+        #hot-tags-container {
           a {
             text-decoration: none;
             color: white;

@@ -24,15 +24,19 @@ function query_track_and_play (mix_id, play_or_next) {
     // Parse JSON into string => $.parseJSON(json_string);
     // Parse String into JSON => JSON.stringify(json_data, null, 2); ( 2 means identation ).
     // To reach stream location => data.set.track.track_file_stream_url.
+
+    //  at_beginning: true if you are at the first track in the mix.
+    // at_last_track: true if you reached the final track in the mix.
+    //        at_end: true if you are past the final track.
+    //  skip_allowed: true if you can skip at this point, false if the maximum number of skips has been 
+    if (data.set.at_last_track) { alert("Set reached final track!!"); }
     if (status == 'success') {
       //console.log("Receiving data: " + JSON.stringify(data, null, 4));
        $("#music_player").attr('current-mix-id', mix_id);// add mix-id to music_player for future reference.
-       //console.log("Query track play info data: " + JSON.stringify(data, null, 4));
+       console.log("Success fetch track play info json data on " + play_or_next + " : " + JSON.stringify(data, null, 4));
       init_sm2_with_audio_url_and_track_id(data.set.track.track_file_stream_url, data.set.track['id'], mix_id);
       update_player_track_info_pane_with_json_data(data);
-    } else {
-      alert('Query next track failed!');
-    }
+    } else { alert('下載音樂失敗!'); }
   });
 }
 function play_next_track_or_similar_mix (api_key, play_token, mix_id) {
@@ -62,7 +66,9 @@ function update_player_track_info_pane_with_json_data (json_data) {
     $("#user-set-info-action img").attr('src', cover_url_sq133);
   }
   // Update track info window.
-  $("#track-name").html(json_data.set.track['name'].substring(0,25) || "未知").css('text-transform', 'capitalize');
+  var track_name = '未知';
+  if (json_data.set.track['name'] ) { track_name = json_data.set.track['name']; }
+  $("#track-name").html(track_name.substring(0,25)).css('text-transform', 'capitalize');
   $("#performer").html( json_data.set.track.performer || "未知");
   $("#album-name").html("專輯: " + ( json_data.set.track.release_name || "未知"));
   $("#year").html("年份: " + (  json_data.set.track.year || "未知" ));

@@ -75,8 +75,16 @@ html {
   body { 
     @include mix; 
     h4 { font-size: 14px; }
-    #hot-tags { width: 640px; }
   } 
+}
+
+#hot-tags-toggle-show-and-hide-arrow { margin-left: 10px; color: LightGray; cursor: pointer; }
+#hot-tags-container { 
+  width: 640px;
+  .mix-title { display: inline; margin-right: 20px; }
+  .glyphicon-chevron-down { color: LightGray; }
+  hr { margin-top: 5px; }
+
 }
 
 // Glider trending
@@ -99,7 +107,8 @@ html {
 }
 #glider-container-favor::after { @include glider-after; }
 #glider-container-favor::before { @include glider-before; }
-// Glider Feed
+
+// Glider Recommended
 #glider-container-recommended {
   @include glider-container;
   #glider-pan-left, #glider-pan-right {  @include glider-pan; }
@@ -109,10 +118,21 @@ html {
 }
 #glider-container-recommended::after { @include glider-after; }
 #glider-container-recommended::before { @include glider-before; }
+// Glider New Mix
+#glider-container-new {
+  @include glider-container;
+  #glider-pan-left, #glider-pan-right {  @include glider-pan; }
+  #glider-pan-left { position: absolute; top: 75px; left: 10px; } 
+  #mix-window-wrapper { position: relative; width: 3000px; height: 100%; }
+  #glider-pan-right { position: absolute; top: 75px; right: 10px; }
+}
+#glider-container-new::after { @include glider-after; }
+#glider-container-new::before { @include glider-before; }
 
 .clear-both { clear: both; }
 
-#hot-tags a { 
+#hot-tags-container a { 
+  .display-inline { margin: 0; }
   color: white; 
   &:hover { 
     text-decoration: none; 

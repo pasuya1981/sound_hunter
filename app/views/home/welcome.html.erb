@@ -1,5 +1,5 @@
 
-<h4>熱門</h4>
+<h4 class='mix-title'>熱門</h4>
 <div id="glider-container-trending" slide-amount='0'>
   <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
   <div id="mix-window-wrapper">
@@ -9,14 +9,14 @@
   </div>
   <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
 </div>
-<div class="clear-both">
+<div class="clear-both"></div>
 
 
 <% if user_logged_in? %>
   <div id="user_login_glide_area">
 
     <!-- # Liked mixes -->
-    <h4>喜愛列表</h4>
+    <h4 class='mix-title'>喜愛列表</h4>
     <div id="glider-container-favor" slide-amount='0'>
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
@@ -27,7 +27,7 @@
       <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
     </div>
     <!-- # Feed mixes -->
-    <h4>量身推薦</h4>
+    <h4 class='mix-title'>量身推薦</h4>
     <div id="glider-container-recommended" slide-amount='0'>
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
@@ -39,8 +39,20 @@
     </div>
   </div>
 <% end %>
-<div id="hot-tags">
-  <h4>熱門標籤</h4>
+
+<h4 class='mix-title'>最新</h4>
+<div id="glider-container-new" slide-amount='0'>
+  <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+  <div id="mix-window-wrapper">
+    <% @new_mixes.each do |mix| %>
+      <%= render 'mixes/mix', mix: mix %>
+    <% end %>
+  </div>
+  <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+</div>
+
+<h4 class='mix-title' style="display: inline-block;">熱門標籤</h4><span id="hot-tags-toggle-show-and-hide-arrow" class="glyphicon glyphicon-chevron-down"></span><div class="clear-both"></div>
+<div id="hot-tags-container">
   <hr/>
   <%= render 'shared/hot_tags', tags_ary: @tags_ary %>
 </div>
@@ -83,5 +95,39 @@
   init_glider_for($("#glider-container-trending"));
   init_glider_for($("#glider-container-favor"));
   init_glider_for($("#glider-container-recommended"));
+  init_glider_for($("#glider-container-new"));
   // Glider left and right function end <------
+
+  // Hot tags div toggle slide logic.
+  var hot_tags_toggle_slide_arrow = $("#hot-tags-toggle-show-and-hide-arrow");
+  var hot_tags_container = $("#hot-tags-container");
+  hot_tags_toggle_slide_arrow.off('click');
+  hot_tags_toggle_slide_arrow.css('transform','rotate(0deg)');
+  hot_tags_toggle_slide_arrow.click(function(event) {
+    //alert(hot_tags_toggle_slide_arrow.attr('style'));
+    if (hot_tags_toggle_slide_arrow.attr('style') == "transform: rotate(0deg);") {
+      rotate_elem(hot_tags_toggle_slide_arrow, 0, 180, 300, 'linear' );
+      hot_tags_container.slideUp(300);
+    } else {
+      rotate_elem(hot_tags_toggle_slide_arrow, 180, 0, 300, 'linear' );
+      hot_tags_container.slideDown(300);
+    }
+  });
+
+  function rotate_elem (elem, from_deg, to_deg, duration, swing_or_linear ) {
+    // Psuedo animation
+    $({degree: from_deg}).animate({degree: to_deg}, {
+      duration: duration,
+      easing: swing_or_linear,
+      step: function (now, fx) {
+        //console.log("Now is: " + now);
+        //console.log("fx.prop: " + fx.prop);
+        $("#hot-tags-toggle-show-and-hide-arrow").css({'transform': 'rotate('+now+'deg)'},
+                                                      {'-moz-transform': 'rotate('+now+'deg)'},
+                                                      {'-webkit-transform': 'rotate('+now+'deg)'},
+                                                      {'-o-transform': 'rotate('+now+'deg)'});
+        console.log('rotate:('+now+'deg)');
+      }
+    });
+  }
 </script>
