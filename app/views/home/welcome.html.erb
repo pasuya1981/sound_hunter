@@ -44,10 +44,11 @@
 
 <script type="text/javascript">
   // Ajax double request bug fix
-  //$('body').off('ajax:beforeSend');
-  //$("body").on('ajax:beforeSend', function (status, xhr, settings) {
-  //  xhr.abort();
-  //});
+  $('.content-exchange-box').off('ajax:beforeSend');
+  $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
+    alert("Detect ajax form .content-exchange-box");
+    xhr.abort();
+  });
 
   // Glider left and right function start ------>
   function init_glider_for (glide_container) {

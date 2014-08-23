@@ -117,7 +117,8 @@ module EightTracksParser
     validate_arguments(type, parames)
     type = type.to_sym unless type.kind_of?(Symbol)
     # Parse params to correct uri
-    base_uri = base_uri + type.to_s + ':'
+    base_uri = base_uri + type.to_s
+    base_uri << ':' unless type.to_s == 'all'
     if parames[:user_id]
       base_uri += "#{parames[:user_id]}"
     elsif parames[:keyword]

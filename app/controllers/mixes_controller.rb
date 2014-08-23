@@ -74,7 +74,7 @@ class MixesController < ApplicationController
     @member_since = user_hash[:member_since]
 
     respond_to do |format|
-      format.html { render 'show' }
+      format.html { redirect_to home_path }
       format.js { @mix_id; @mix_cover_sm_url; @mix_name }
     end
   end
