@@ -6,8 +6,8 @@ class SessionController < ApplicationController
     @user = User.new
     @submit_btn_name = "登入"
     respond_to do |format|
-      format.html {}
-      format.js {}
+      format.html { redirect_to home_path }
+      format.js
     end
   end
 

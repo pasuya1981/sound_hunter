@@ -21,11 +21,12 @@ function query_track_and_play (mix_id, play_or_next_or_similar) {
     }
   }
   if (play_or_next_or_similar == 'similar') {
-    var base_uri = "http://8tracks.com/mix_sets/similar:"+mix_id+".xml?api_version=3&include=mixes&api_key="+api_key()+"&sort=hot";
+    var base_uri = "http://8tracks.com/mix_sets/similar:"+mix_id+".json?api_version=3&include=mixes&api_key="+api_key()+"&sort=hot";
+    //console.log('Ready to Find similar mix for mix_id: '+mix_id);
     $.get(base_uri, function (data, status) {
-      // body...
+      //console.log("Get similar mix json: "+JSON.stringify(data));
       var similar_mix_id = data.mix_set.mixes[0]['id'];
-      // TODO: play the similar mix.
+      // Play the similar mix.
       sm2_make_some_noise(similar_mix_id, 'play');
     });
   } else {
@@ -45,7 +46,6 @@ function query_track_and_play (mix_id, play_or_next_or_similar) {
         //        at_end: true if you are past the final track.
         //  skip_allowed: true if you can skip at this point, false if the maximum number of skips has been 
       if (status == 'success') {
-         $("#music_player").attr('current-mix-id', mix_id);// add mix-id to music_player for future reference.
          console.log("Success fetch track play info json data on " + play_or_next + " : " + JSON.stringify(data, null, 4));
         init_sm2(data.set.track.track_file_stream_url, data.set.track['id'], mix_id, data.set.at_last_track);
         update_player_track_info_pane_with_json_data(data, mix_id);
@@ -169,6 +169,8 @@ function init_sm2 (audio_url, track_id, mix_id, is_last_track) {
       if ($("#music_player_container").css('display') == 'none') {
         $("#music_player_container").slideDown(300);
       }
+      // Player panel control logic.
+      bind_control_action(mix_id);
     },
     onfinish: function () {
       var is_next_for_similar = is_last_track
@@ -229,7 +231,7 @@ function init_volume_slider () {
   });
   slider.fadeOut(0);
 }
-function bind_control_action () {
+function bind_control_action (mix_id) {
 
   var volume_slider = $("#volume-slider"); 
   var pause_btn = $("#pause-btn");
@@ -265,11 +267,11 @@ function bind_control_action () {
     glyph_volume_icon.delay(300).fadeTo(200, 0.5, 'linear');
     volume_slider.delay(300).fadeOut(200);
   });
+  $("#music_player").attr('current-mix-id', mix_id);// add mix-id to music_player for future reference.
   // Click player small cover image should take user to mix show page.
-  var mix_show_query_url = '/showmix?mix_id='+"<%= @mix_id %>"; // this is HTML query uri.
+  var mix_show_query_url = '/showmix?mix_id='+mix_id;
   $("#player-cover-sm").off('click');
-  $("#player-cover-sm").on('click', function (event) {
-    event.preventDefault();
+  $("#player-cover-sm").on('click', function () {
     $.get(mix_show_query_url, function(data, status) {
       // After get data Logic.
       var mix_show_page_reload_node = $(data).find("#ajax-page-reloader");
@@ -289,4 +291,3 @@ function bind_control_action () {
   });
 }
 delete_previous_and_create_new_sm2_from_mix_id("<%= @mix_id %>");
-bind_control_action();
