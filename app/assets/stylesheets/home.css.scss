@@ -2,25 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@mixin mix {
-  .content-exchange-box {
-    float: left;
-    margin: .2em;
-    height: 133px;
-    width: 133px;
-    position: relative;
-    &:hover {
-      z-index: 9;
-    }
-    .visible {
-      height: 133px;
-      width: 133px;
-      position: absolute;
-      top: 0; left: 0;
-      z-index: 1;
-    }
-  }
-}
+
 @mixin glider-container {
   position: relative;
   border-top: solid 1px LightGray;
@@ -70,12 +52,6 @@
   -o-transition: tarnsform .2s ease-in-out; 
   // transition on hover
   &:hover { transform: scale(2.5); }
-}
-html { 
-  body { 
-    @include mix; 
-    h4 { font-size: 14px; }
-  } 
 }
 
 #hot-tags-toggle-show-and-hide-arrow { margin-left: 10px; color: LightGray; cursor: pointer; }

@@ -13,6 +13,8 @@
   background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
 }
 
+h4 { font-size: 14px; }
+
 #header-nav-bar-bg {
   @include header-bg-gradient;
   width: 100%;
