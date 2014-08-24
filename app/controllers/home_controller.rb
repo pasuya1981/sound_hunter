@@ -5,8 +5,12 @@ layout 'mixes'
 
   end
 
+  def test_page 
+  end
+
   def welcome
-    init_view_data
+    #init_view_data
+    render action: :test_page
   end
 
   #def welcome_ajax

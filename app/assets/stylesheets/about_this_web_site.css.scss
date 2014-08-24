@@ -1,0 +1,16 @@
+#web-site-info-container {
+  .auto-centered-container {
+  	margin-right: auto;
+  	margin-left: auto;
+  	width: 400px;
+  	//background-color: LightYellow;
+  }
+  height: 60px; width: 100%;
+  ul { 
+    display: inline-block; margin: 20px; margin-left: 30px;
+    li a, li { font-size: 16px; font-family: serif, ariel, menlo; color: #aaa }
+    li a:hover { border-bottom: 3px solid rgba(139, 162, 109, .5); }
+  }
+  ul:first-child { margin-left: 40px; }
+  background-color: #eee;
+}
