@@ -258,9 +258,11 @@ function bind_control_action (mix_id) {
   // Volume pane Show/Hide logic.
   $("#volume-control").hover(function() {
     // Stuff to do when the mouse enters the element
-    hidden_bg.fadeIn(200);
-    glyph_volume_icon.fadeTo(200, 1, 'linear');
-    volume_slider.fadeIn(200);
+    if ($("#hidden-bg").css('display') == 'none') {
+      hidden_bg.fadeIn(200);
+      glyph_volume_icon.fadeTo(200, 1, 'linear');
+      volume_slider.fadeIn(200);
+    }
   }, function() {
     // Stuff to do when the mouse leaves the element
     hidden_bg.delay(300).fadeOut(200);
