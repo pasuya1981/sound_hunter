@@ -4,12 +4,49 @@
 
 @import 'ui_elements';
 
+@mixin header-bg-gradient {
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #45484d 0%,#000000 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+}
+
+#header-nav-bar-bg {
+  @include header-bg-gradient;
+  width: 100%;
+  height: 60px;
+  #nav-bar-container {
+    position: relative;
+    width: 1200px;
+    height: 60px;
+    //background-color: green;
+    //margin-right: auto; margin-left: auto;
+    #home-btn { margin-right: 30px; margin-left: 10px; }
+    #home-btn, #form-search-container, #user-pane-container { display: inline-block; }
+    #home-btn { position: relative; top: 8px;}
+    #form-search-container { 
+      //background-color: blue; 
+      padding-top: 8px; margin-left: 400px;
+      width: 550px; height: 60px;
+      select {  width: 80px; display: inline; }
+      input { width: 350px; height: 45px; display: inline; }
+      .form-group { display: inline; margin-right: 10px;}
+    }
+    #user-pane-container {
+      a { color: white; font-family: 'ariel';}
+    }
+  }
+}
+
 .navbar-brand {
   font-size: 30px;
   font-weight: bolder;
 }
-
-
 .main_container { 
 
     /* index page */
