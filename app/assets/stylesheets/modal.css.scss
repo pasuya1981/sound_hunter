@@ -1,0 +1,49 @@
+// Place all the styles related to the modal controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+#modal-login-main-container {
+  //display: none;
+  z-index: 99;
+  .lean-bg {
+  	z-index: 99;
+    position: absolute;
+    top: 0; left: 0;
+    background-color: black;
+    opacity: .5;
+    width: 100%;
+    height: 100%;
+  }
+  #sign-in-form-container {
+  	position: fixed;
+  	z-index: 99;
+  	top: 200px; left: 300px;
+  	width: 500px;
+  	height: 400px;
+  	padding: 20px;
+  	.simple_form {
+  	  margin-left: 20px;
+  	  margin-right: 100px;
+  	  margin-top: 20px;
+  	  .login-btn { width: 100px; height: 50px; position: relative; left: -15px; }
+  	}
+  	#remove-btn {
+  	  position: absolute;
+  	  top: 5px; right: 5px; cursor: pointer; font-size: 30px; color: black;
+  	  transform: rotate(0deg);
+  	  -webkit-transform: rotate(0deg);
+  	  transition: transform .2s;
+  	  -webkit-transition: -webkit-transform .2s;
+  	  &:hover {  
+  	  	transform: rotate(90deg);
+  	    -webkit-transform: rotate(90deg);
+  	  }
+  	}
+  }
+}
+
+
+

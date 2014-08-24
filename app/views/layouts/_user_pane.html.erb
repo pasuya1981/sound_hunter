@@ -4,12 +4,17 @@
 
 <% else %>
   <% # user NOT login logic %>
-  <%= link_to_unless_current('登入',  login_path, remote: true, role: "menuitem", tabindex: "-1") %>
+  <%= link_to_unless_current('登入',  {controller: :modal, action: :modal_view_login}, id: 'login-btn', remote: true, role: "menuitem", tabindex: "-1") %>
 <% end %>
 
 <script type="text/javascript">
   $("#logout_btn").off('ajax:beforeSend');
   $("#logout_btn").on('ajax:beforeSend', function (status, xhr, settings) {
+  	xhr.abort();
+  });
+  var login_btn = $("#login-btn");
+  login_btn.off('ajax:beforeSend');
+  login_btn.on('ajax:beforeSend', function (status, xhr, settings) {
   	xhr.abort();
   });
 </script>

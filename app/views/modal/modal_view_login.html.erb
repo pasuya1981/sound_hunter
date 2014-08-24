@@ -1,0 +1,11 @@
+<div id="modal-login-main-container">
+  <div class="lean-bg"></div>
+  <div id="sign-in-form-container" class="well">
+  <span id="remove-btn" class="glyphicon glyphicon-remove-circle"></span>
+    <%= simple_form_for(User.new, url: {controller: :session, action: :create }, html: { class: 'form-horizontal' }, remote: true) do |f| %>
+      <%= f.input :email, label: '郵件' %>
+      <%= f.input :password, label: '密碼' %>
+      <%= f.button :submit,'登入', class: 'login-btn' %>
+    <% end %>
+  </div>
+</div>

@@ -20,12 +20,12 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
             <%= simple_form_for(User.new, url: {controller: :session, action: :create }, html: { class: 'form-horizontal' }) do |f| %>
-            <%= f.input :username, lable: '名字' %>
-            <%= f.input :email, lable: '郵件' %>
-            <%= f.input :password, label: '密碼' %>
-            <%= f.input :password_confirmation, lable: '密碼確認' %>
-            <%= f.button :submit,'Test Btn', class: "btn btn-default", html: { 'data-dismiss' => 'modal' } %>
-          <% end %>
+              <%= f.input :username, lable: '名字' %>
+              <%= f.input :email, lable: '郵件' %>
+              <%= f.input :password, label: '密碼' %>
+              <%= f.input :password_confirmation, lable: '密碼確認' %>
+              <%= f.button :submit,'Test Btn', class: "btn btn-default", html: { 'data-dismiss' => 'modal' } %>
+            <% end %>
           </div>
           <div class="col-md-2"></div>
           <!-- ...Grid Logic Finish -->

@@ -1,24 +1,25 @@
-<% if @error %>
-  alert("<%= @error %>");
-<% else %>
-  $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
-  alert("已成功登入!");
+if ($("#modal-login-main-container").html() == undefined) {
+  $("body").append("<%= j(render(template: 'modal/modal_view_login.html.erb')) %>");
+} else {
+  $("#modal-login-main-container").css('display', 'block');
+}
 
-  // Hide Login form logic.
-  var form_main_container = $("#modal-login-main-container");
-  var form_node = $("#sign-in-form-container"); //cache node for efficiency.
+var form_main_container = $("#modal-login-main-container");
+var form_node = $("#sign-in-form-container"); //cache node for efficiency.
+
+translate_jquery_elem( form_node, 350, 350, -300, 100, 'swing', 400, null );
+var remove_btn = $("#remove-btn");
+remove_btn.click( function () {
   translate_jquery_elem(form_node, 350, 350, 100, -500, 'swing', 400, function () {
   	form_main_container.css('display', 'none');
   });
-
-
-  $.get("<%= home_path %>", function (data, status) {
-    var ajax_reload_node = $(data).find("#ajax-page-reloader");
-    $("#ajax-page-reloader").html(ajax_reload_node.html());
+});
+$(".lean-bg").click( function () {
+  translate_jquery_elem(form_node, 350, 350, 100, -500, 'swing', 400, function () {
+  	form_main_container.css('display', 'none');
   });
-<% end %>
+});
 
-// Hide login form plugin.
 function translate_jquery_elem (elem, from_x, to_x, from_y, to_y, swing_or_linear, duration, callback) {
   // Psuedo animation
   $({x: from_x, y: from_y}).animate({x: to_x, y: to_y}, {
@@ -35,8 +36,3 @@ function translate_jquery_elem (elem, from_x, to_x, from_y, to_y, swing_or_linea
     }
   });
 }
-
-
-
-
-
