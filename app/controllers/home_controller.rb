@@ -11,7 +11,7 @@ layout 'mixes'
   def welcome
     init_view_data
     #render action: :test_page
-    # just for commit
+    
   end
 
   #def welcome_ajax
