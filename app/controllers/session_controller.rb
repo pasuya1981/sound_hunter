@@ -107,33 +107,44 @@ class SessionController < ApplicationController
     username = user_params[:username]
     email    = user_params[:email]
     password = user_params[:password]
+    puts "Usename: #{username}, email: #{email}, password: #{password}".red
 
     user_info_hash = EightTracksParser.signup_user_to_8tracks(username, email, password)
 
-    # 8tracks user signup successfully
-    if user_info_hash && user_info_hash[:error].nil? 
-      user_info_hash[:tracks_user_password] = user_params[:password]
-      user = new_user_from(user_info_hash)
-      # user save successfully
-      if user.save 
-        user_session_setup_for(user)
-        redirect_to(home_path)
-      # user already exist
-      elsif User.exists?(username: user.username, email: user.email) 
-        user_session_setup_for(user)
-        redirect_to(home_path)
-      # DB fails to save user
-      else 
-        redirect_to signup_path
+    unless request.xhr?
+      redirect_to home_path
+      return
+    end
+
+    respond_to do |format|
+      # 8tracks user signup successfully
+      if user_info_hash && user_info_hash[:error].nil? 
+        user_info_hash[:tracks_user_password] = user_params[:password]
+        user = new_user_from(user_info_hash)
+        # user save successfully
+        if user.save 
+          user_session_setup_for(user)
+          @message = "成功建立帳號 #{username} #{email}"
+          format.js { @message }
+        # user already exist
+        elsif User.exists?(username: user.username, email: user.email) 
+          user_session_setup_for(user)
+          @message = "帳號已存在，直接登入. #{username} #{email}"
+          format.js { @message }
+        # DB fails to save user
+        else 
+          @error = "成功在8tracks申請帳號，但Local DB存入失敗"
+          format.js { @error }
+        end
+      # 8tracks returns error for user creation
+      elsif user_info_hash[:error]
+        @error = "8tracks帳號申請錯誤: #{user_info_hash[:error]}"
+        format.js { @error }
+      # no idea what is the error
+      else
+        @error = "不知明的錯誤....#{user_info_hash}"
+        format.js { @error }
       end
-    # 8tracks returns error for user creation
-    elsif user_info_hash[:error]
-      flash[:warning] = "8tracks帳號申請錯誤: #{user_info_hash[:error]}"
-      redirect_to signup_path
-    # no idea what is the error
-    else
-      flash[:danger] = "不知明的錯誤....#{user_info_hash}"
-      redirect_to signup_path
     end
   end
 

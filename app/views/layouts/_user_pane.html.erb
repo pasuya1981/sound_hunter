@@ -1,6 +1,6 @@
 <% if user_logged_in? %>
   <% # user login logic %>
-  <%= link_to_unless_current('登出', logout_path, remote: true, role: "menuitem", tabindex: "-1", id: "logout_btn", data: { confirm: '確定登出?'}) %>
+  <%= link_to_unless_current('登出', logout_path, remote: true, role: "menuitem", tabindex: "-1", id: "logout_btn") %>
 
 <% else %>
   <% # user NOT login logic %>

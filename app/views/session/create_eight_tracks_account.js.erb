@@ -1,9 +1,9 @@
-<% if @error %>
-  alert("<%= @error %>");
-<% else %>
+
+<% if @message %>
+  alert("<%= @message %>");
+
   // Re display/update Nav-bar header.
   $("#nav-bar-pane").html("<%= escape_javascript(render(template: 'layouts/_header.html.erb')) %>");
-  alert("已成功登入!");
 
   // Hide Login form logic.
   var form_main_container = $("#modal-login-main-container");
@@ -17,9 +17,12 @@
     var ajax_reload_node = $(data).find("#ajax-page-reloader");
     $("#ajax-page-reloader").html(ajax_reload_node.html());
   });
+<% elsif @error %>
+  // Show error msg and do nothing else.
+  alert("<%= @error %>");
 <% end %>
 
-// Hide login form plugin.
+//Hide login form plugin.
 function translate_jquery_elem (elem, from_x, to_x, from_y, to_y, swing_or_linear, duration, callback) {
   // Psuedo animation
   $({x: from_x, y: from_y}).animate({x: to_x, y: to_y}, {
@@ -36,8 +39,3 @@ function translate_jquery_elem (elem, from_x, to_x, from_y, to_y, swing_or_linea
     }
   });
 }
-
-
-
-
-

@@ -1,11 +1,34 @@
 <div id="modal-login-main-container">
   <div class="lean-bg"></div>
-  <div id="sign-in-form-container" class="well">
+  <div id="sign-in-form-container" >
   <span id="remove-btn" class="glyphicon glyphicon-remove-circle"></span>
-    <%= simple_form_for(User.new, url: {controller: :session, action: :create }, html: { class: 'form-horizontal' }, remote: true) do |f| %>
-      <%= f.input :email, label: '郵件' %>
-      <%= f.input :password, label: '密碼' %>
-      <%= f.button :submit,'登入', class: 'login-btn' %>
+    <%= simple_form_for(User.new, url: {controller: :session, action: :create }, 
+    							  html: { class: 'form-horizontal', autocomplete: 'off' }, 
+    							  remote: true) do |f| %>
+      <%= f.input :username, label: false, placeholder: '輸入帳號' %>						  
+      <%= f.input :email, label: false, placeholder: '電郵地址' %>
+      <%= f.input :password, label: false, placeholder: '密碼' %>
+      <%= f.button :submit,'確定', id: 'login-btn' %>
     <% end %>
+  <span id="signup-link" next-action="signup">申請新帳號?</span>
   </div>
 </div>
+
+<script type="text/javascript">
+  var signup_link = $("#signup-link");
+  var input_username = $("#user_username");
+  var form_body = $(".simple_form");
+  signup_link.click(function (event) {
+  	if (signup_link.attr('next-action') == 'signup') {
+  	  input_username.slideDown(600);
+      signup_link.attr('next-action', 'login');
+      signup_link.html('返回登入畫面');
+      form_body.attr('action', '/session/create_eight_tracks_account');
+    } else if (signup_link.attr('next-action') == 'login') {
+      input_username.slideUp(600);
+      signup_link.attr('next-action', 'signup');
+      signup_link.html('申請新帳號?');
+      form_body.attr('action', '/session/create');
+    }
+  });
+</script>
