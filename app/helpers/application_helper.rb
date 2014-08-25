@@ -81,7 +81,7 @@ module ApplicationHelper
       :electronic => "電音",
       :punk => "龐客",
       :instrumental => "樂器",
-      :"indie rock" => "獨立搖滾",
+      :"indie rock" => "印度搖滾",
       :mashup => "混搭",
       :acoustic => "原聲",
       :love => "愛情",
@@ -99,8 +99,8 @@ module ApplicationHelper
       :relax => "放輕鬆",
       :workout => "健身",
       :"90s" => "八零年代",
-      :morning => "早上好",
-      :study => "用功學習" }[name_in_sym] || name
+      :morning => "早晨",
+      :study => "學習" }[name_in_sym] || name
   end
 
   private
