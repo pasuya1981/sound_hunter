@@ -1,6 +1,10 @@
 <div id="modal-login-main-container">
   <div class="lean-bg"></div>
   <div id="sign-in-form-container" >
+  <section id="form-header">
+    登入
+  </section>
+  <hr>
   <span id="remove-btn" class="glyphicon glyphicon-remove-circle"></span>
     <%= simple_form_for(User.new, url: {controller: :session, action: :create }, 
     							  html: { class: 'form-horizontal', autocomplete: 'off' }, 
@@ -11,6 +15,10 @@
       <%= f.button :submit,'確定', id: 'login-btn' %>
     <% end %>
   <span id="signup-link" next-action="signup">申請新帳號?</span>
+  <section id="form-footer">
+  <hr>
+  <span class="glyphicon glyphicon-info-sign"></span>
+  </section>
   </div>
 </div>
 
@@ -18,17 +26,20 @@
   var signup_link = $("#signup-link");
   var input_username = $("#user_username");
   var form_body = $(".simple_form");
+  var form_header = $("#form-header");
   signup_link.click(function (event) {
   	if (signup_link.attr('next-action') == 'signup') {
   	  input_username.slideDown(600);
       signup_link.attr('next-action', 'login');
       signup_link.html('返回登入畫面');
+      form_header.html('申請新帳號').reload();
       form_body.attr('action', '/session/create_eight_tracks_account');
     } else if (signup_link.attr('next-action') == 'login') {
       input_username.slideUp(600);
       signup_link.attr('next-action', 'signup');
       signup_link.html('申請新帳號?');
       form_body.attr('action', '/session/create');
+      form_header.html('登入').reload();
     }
   });
 </script>

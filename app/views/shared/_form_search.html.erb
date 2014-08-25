@@ -4,6 +4,6 @@
 						      method: :get, remote: true) do |f| %>
   <%= f.input :smart_type, collection: ['標籤','歌手', '關鍵字'], selected: session[:smart_type_remember] , label: false, input_html: { class: 'search_input' } %>
   <%= f.input :sort, collection: ['最新', '熱門'], selected: session[:sort_type_remember], label: false, input_html: { class: 'search_input' } %>
-  <%= f.input :words, label: false, placeholder: 'Search...', input_html: { class: "search_input", id: 'words_input' } %>
+  <%= f.input :words, label: false, placeholder: '按ENTER搜尋..', input_html: { class: "search_input", id: 'words_input' } %>
   <%= f.button :submit, '搜尋', class: 'btn-search-submit', style: 'display: none;' %>
 <% end %>
