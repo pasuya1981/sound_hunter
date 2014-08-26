@@ -9,7 +9,7 @@
   ul { 
     display: inline-block; margin: 20px; margin-left: 30px;
     li a, li { font-size: 16px; font-family: serif, ariel, menlo; color: #aaa }
-    li a:hover { border-bottom: 3px solid rgba(139, 162, 109, .5); }
+    li a:hover { border-bottom: 1px solid rgba(139, 162, 109, .5); }
   }
   ul:first-child { margin-left: 40px; }
   background-color: #eee;
