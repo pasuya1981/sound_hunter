@@ -1,15 +1,23 @@
 <% if user_logged_in? %>
   <% # user login logic %>
-  <%= link_to_unless_current('登出', logout_path, remote: true, role: "menuitem", tabindex: "-1", id: "logout_btn") %>
-
+  <%= link_to_unless_current(raw("<span class='glyphicon glyphicon-log-out'></span>"), 
+                             logout_path, 
+                             remote: true, 
+                             role: "menuitem", 
+                             tabindex: "-1", 
+                             id: "logout-btn") %>
 <% else %>
   <% # user NOT login logic %>
-  <%= link_to_unless_current('登入',  {controller: :modal, action: :modal_view_login}, id: 'login-btn', remote: true, role: "menuitem", tabindex: "-1") %>
+  <%= link_to_unless_current(raw("<span class='glyphicon glyphicon-log-in'></span>") ,  
+                             { controller: :modal, action: :modal_view_login }, 
+                             id: 'login-btn', 
+                             remote: true, 
+                             role: "menuitem", 
+                             tabindex: "-1") %>
 <% end %>
-
 <script type="text/javascript">
-  $("#logout_btn").off('ajax:beforeSend');
-  $("#logout_btn").on('ajax:beforeSend', function (status, xhr, settings) {
+  $("#logout-btn").off('ajax:beforeSend');
+  $("#logout-btn").on('ajax:beforeSend', function (status, xhr, settings) {
   	xhr.abort();
   });
   var login_btn = $("#login-btn");

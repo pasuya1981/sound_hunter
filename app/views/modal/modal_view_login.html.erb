@@ -2,7 +2,7 @@
   <div class="lean-bg"></div>
   <div id="sign-in-form-container" >
   <section id="form-header">
-    登入
+    <span class="glyphicon glyphicon-user"></span>
   </section>
   <hr>
   <span id="remove-btn" class="glyphicon glyphicon-remove-circle"></span>
@@ -32,14 +32,14 @@
   	  input_username.slideDown(600);
       signup_link.attr('next-action', 'login');
       signup_link.html('返回登入畫面');
-      form_header.html('申請新帳號').reload();
+      form_header.html("<span class='glyphicon glyphicon-pencil'></span>").reload();
       form_body.attr('action', '/session/create_eight_tracks_account');
     } else if (signup_link.attr('next-action') == 'login') {
       input_username.slideUp(600);
       signup_link.attr('next-action', 'signup');
       signup_link.html('申請新帳號?');
       form_body.attr('action', '/session/create');
-      form_header.html('登入').reload();
+      form_header.html("<span class='glyphicon glyphicon-user'></span>").reload();
     }
   });
 </script>

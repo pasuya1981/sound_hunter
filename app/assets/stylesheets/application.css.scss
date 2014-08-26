@@ -37,7 +37,7 @@ html {
 
       &:hover { 
         text-decoration: none; color: white; 
-        transform: scale(1.4);
+        transform: scale(1.6);
         -webkit-transform: scale(1.4);
         -moz-transform: scale(1.4);
         -o-transform: scale(1.4);
@@ -49,7 +49,7 @@ html {
       background-image: url('/assets/search.png'); 
       background-repeat: no-repeat;
       background-position: 95% 50%;
-      background-color: #eee;
+      background-color: DarkGray;
       transition: background-color .2s ease-in-out;
       &:focus { 
         background-color: white;

@@ -204,13 +204,14 @@
         #volume-slider {
           position: absolute;
           top: -150px;
-          left: 3px;
+          left: 1px;
           width: 45px; height: 150px;
           border-radius: 5px;
           .ui-slider-handle { display: none; }          
           .ui-widget-content { border-color: red; background-color: red; }
         }
         #volume-slider::after {
+          // Volume slider border setup.
           content: '';
           position: absolute;
           top: -2px; left: -2px;

@@ -2,7 +2,7 @@
 <div class="home-2-column-wrapper">
 
   <div id="home-left-column-wrapper">
-    <h4 class='mix-title'>熱門</h4>
+    <h4 class='mix-title'><span class="glyphicon glyphicon-fire"></span>熱門</h4>
     <div id="glider-container-trending" slide-amount='0'>
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
@@ -19,7 +19,7 @@
       <div id="user_login_glide_area">    
 
         <!-- # Liked mixes -->
-        <h4 class='mix-title'>喜愛列表</h4>
+        <h4 class='mix-title'><span class="glyphicon glyphicon-heart"></span> 喜愛列表</h4>
         <div id="glider-container-favor" slide-amount='0'>
           <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
           <div id="mix-window-wrapper">
@@ -30,7 +30,7 @@
           <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
         </div>
         <!-- # Feed mixes -->
-        <h4 class='mix-title'>量身推薦</h4>
+        <h4 class='mix-title'><span class="glyphicon glyphicon-thumbs-up"></span> 量身推薦</h4>
         <div id="glider-container-recommended" slide-amount='0'>
           <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
           <div id="mix-window-wrapper">
@@ -43,7 +43,7 @@
       </div>
     <% end %>    
 
-    <h4 class='mix-title'>最新</h4>
+    <h4 class='mix-title'><span class="glyphicon glyphicon-refresh"></span>最新</h4>
     <div id="glider-container-new" slide-amount='0'>
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
@@ -54,7 +54,8 @@
       <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
     </div>    
 
-    <h4 class='mix-title' style="display: inline-block;">熱門標籤</h4><span id="hot-tags-toggle-show-and-hide-arrow" class="glyphicon glyphicon-chevron-down"></span><!--div class="clear-both"></div -->
+    <h4 class='mix-title' style="display: inline-block;"><span class="glyphicon glyphicon-tags"></span> 熱門標籤</h4>
+    <span id="hot-tags-toggle-show-and-hide-arrow" class="glyphicon glyphicon-chevron-down"></span><!--div class="clear-both"></div -->
     <div id="hot-tags-container">
       <hr/>
       <%= render 'shared/hot_tags', tags_ary: @tags_ary %>

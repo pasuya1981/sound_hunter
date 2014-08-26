@@ -16,7 +16,7 @@
 h4 { font-size: 14px; }
 
 #header-nav-bar-bg {
-  @include header-bg-gradient;
+  background-color: #ddd;
   width: 100%; height: 60px;
   #nav-bar-container {
     position: relative;
@@ -33,7 +33,8 @@ h4 { font-size: 14px; }
       .form-group { display: inline; margin-right: 10px;}
     }
     #user-pane-container {
-      a { color: white; font-family: 'ariel';}
+      #login-btn, #logout-btn { position: relative; top: 7px; }
+      a { color: white; font-size: 30px; }
     }
   }
 }
