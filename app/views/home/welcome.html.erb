@@ -7,7 +7,7 @@
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
         <% @trending_mixes.each do |mix| %>
-          <%= render 'mixes/mix', mix: mix %>
+          <%= render 'mixes/mix_sm_block', mix: mix %>
         <% end %>
       </div>
       <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
@@ -24,7 +24,7 @@
           <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
           <div id="mix-window-wrapper">
             <% @favorite_mixes.each do |mix| %>
-              <%= render 'mixes/mix', mix: mix %>
+              <%= render 'mixes/mix_sm_block', mix: mix %>
             <% end %>
           </div>
           <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
@@ -35,7 +35,7 @@
           <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
           <div id="mix-window-wrapper">
             <% @recommended_mixes.each do |mix| %>
-              <%= render 'mixes/mix', mix: mix %>
+              <%= render 'mixes/mix_sm_block', mix: mix %>
             <% end %>
           </div>
           <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>
@@ -48,7 +48,7 @@
       <div id="glider-pan-left"><span class="glyphicon glyphicon-chevron-left"></span></div>
       <div id="mix-window-wrapper">
         <% @new_mixes.each do |mix| %>
-          <%= render 'mixes/mix', mix: mix %>
+          <%= render 'mixes/mix_sm_block', mix: mix %>
         <% end %>
       </div>
       <div id="glider-pan-right"><span class="glyphicon glyphicon-chevron-right"></span></div>

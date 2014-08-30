@@ -15,6 +15,7 @@ class MixesController < ApplicationController
     remember_search_action smart_type, sort_type
     word_in_ary = keyword.strip.split
     mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
+    
     init_view_data_with mix_set_search_result
 
     respond_to do |format|
@@ -29,7 +30,6 @@ class MixesController < ApplicationController
     return unless next_page_path.present?
     mix_set_search_result = EightTracksParser.query_next_page next_page_path
     init_view_data_with mix_set_search_result
-    # render :index
     respond_to do |format|
       format.html { redirect_to home_path }
       format.js 
@@ -97,11 +97,12 @@ class MixesController < ApplicationController
   private
 
   def search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
-    mix_set_search_result = EightTracksParser.get_mix_set_by_smart_type(smart_type_in_sym, 
-                                                                        parames={ user_id: nil, 
-                                                                                  keyword: word_in_ary, 
-                                                                                  sort: sort_type_in_sym
-                                                                                })
+    puts "the sort type is: #{sort_type_in_sym.to_s}".blue
+    mix_set_search_result = 
+    EightTracksParser.get_mix_set_by_smart_type(smart_type_in_sym, 
+                                                user_id: nil, 
+                                                keyword: word_in_ary, 
+                                                sort: sort_type_in_sym)
     return mix_set_search_result
   end
 
@@ -142,7 +143,7 @@ class MixesController < ApplicationController
   end
 
   def parse_sort_type(sort_type)
-    sort_type = :popular if sort_type == '熱門'
+    sort_type = :hot if sort_type == '熱門'
     sort_type = :recent  if sort_type == '最新'
     sort_type
   end

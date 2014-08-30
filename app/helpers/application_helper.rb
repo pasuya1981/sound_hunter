@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  
+  def humanize secs # Source: http://stackoverflow.com/questions/4136248/how-to-generate-a-human-readable-time-range-using-ruby-on-rails
+    [[60, '秒'], [60, '分'], [24, '時'], [1000, '日']].map{ |count, name|
+      if secs > 0
+        secs, n = secs.divmod(count)
+        puts "The secs: #{secs}"
+        puts "The n is: #{n}"
+        "#{n.to_i} #{name}"
+      end
+    }.compact.reverse.join(' ')
+  end
+
   def bootstrap_class_for flash_type
 # Bootstrap 3.0 alert CSS syntaxs
 # <div class="alert alert-success" role="alert">...</div>

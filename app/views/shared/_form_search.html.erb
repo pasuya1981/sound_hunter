@@ -7,3 +7,13 @@
   <%= f.input :words, label: false, placeholder: '按ENTER搜尋..', input_html: { class: "search_input", id: 'words_input' } %>
   <%= f.button :submit, '搜尋', class: 'btn-search-submit', style: 'display: none;' %>
 <% end %>
+
+<script type='text/javascript'>
+  var keywordInput = $("#words_input");
+  keywordInput.focus(function(event) {
+  	$(this).removeAttr('placeholder');
+  });
+  keywordInput.focusout(function(event) {
+  	$(this).attr('placeholder', '按ENTER搜尋..');
+  });
+</script>

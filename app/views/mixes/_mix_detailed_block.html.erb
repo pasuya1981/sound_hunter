@@ -1,0 +1,32 @@
+<% preview_hash   = mix.info[:preview] %>
+<% duration      = preview_hash[:duration] %>
+<% tracks_count  = preview_hash[:tracks_count] %>
+<% cover_urls    = preview_hash[:cover_urls] %>
+<% tags_list     = preview_hash[:tag_list_cache].split.map {|tag| tag.gsub(/,|\./, '').gsub(/#/, '')} %>
+<% play_counts   = preview_hash[:plays_count] %>
+<% likes_count   = preview_hash[:likes_count] %>
+<% mix_id        = preview_hash[:id]  %>
+
+<section id="detailed-mix-wrapper">
+  <section id="photo-area">
+  	<%= image_tag(cover_urls) %>
+  </section>
+  <section id="text-area">
+  	<span>長度: <%= humanize duration.to_i %></span>
+  	<span>曲目: <%= tracks_count %></span>
+  	<span>標籤: 
+  	  <% tags_list.each do |tag| %>
+        <%= tag %>
+      <% end %>
+  	</span>
+  	<span>愛心: <%= likes_count %></span>
+  	<span>播放次數: <%= play_counts %></span>
+  	
+  </section>
+  <div style="clear: both"></div>
+</section>
+
+
+
+
+

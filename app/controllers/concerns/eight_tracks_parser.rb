@@ -111,11 +111,13 @@ module EightTracksParser
     end
   end
 
-  def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: :popular})
+  def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: :hot})
     # Error Catch flow
+    puts "Type: #{type}".green
+    puts "Params: #{parames}".red
     base_uri = "http://8tracks.com/mix_sets/"
     validate_arguments(type, parames)
-    type = type.to_sym unless type.kind_of?(Symbol)
+    type = type.to_sym
     # Parse params to correct uri
     base_uri = base_uri + type.to_s
     base_uri << ':' unless type.to_s == 'all'
@@ -139,7 +141,6 @@ module EightTracksParser
     base_uri << ".xml?"
     base_uri = base_uri + include_query
     base_uri << "&api_key=#{api_key}&api_version=3"
-
     # Connect to 8tracks server
     uri_to_nokogiri_xml(base_uri) do |status, nokogiri_xml|
       validate_status_and_nokogiri_xml(status, nokogiri_xml)
