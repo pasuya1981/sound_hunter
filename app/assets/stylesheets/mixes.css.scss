@@ -20,15 +20,29 @@ h4 { font-size: 14px; }
   //background-color: blue;
   #mixe-show-detailed-left-column { 
     width: 850px; float: left; 
-    background-color: red;
+    //background-color: red;
     #detailed-mix-wrapper {
       margin-bottom: 20px;
-      #photo-area { width: 250px; height: 250px; float: left; }
-      #text-area { 
+      .photo-area { 
+        position: relative;
+        width: 250px; height: 250px; float: left; 
+        .img-container { position: absolute; top: 0; left: 0  }
+        .hidden-content-container {
+          position: absolute; top: 0; left: 0;
+          width: 250px; height: 250px;
+        }
+        .hidden-background {
+          position: absolute; top: 0; left: 0;
+          width: 250px; height: 250px;
+          background-color: white; opacity: .7;
+        }
+      }
+      #text-area {
         width: 600px; height: 250px; float: right; 
-        //background-color: green;
+        padding-left: 10px;
         border-bottom: 1px solid LightGray; 
-        span { display: block; }
+        &>span { display: block; color: #4c4c4c; }
+        span.divider-bar { position: relative; top: 4px; color: #999999; }
       }
     }
   }

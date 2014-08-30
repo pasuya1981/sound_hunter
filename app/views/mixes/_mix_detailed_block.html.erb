@@ -5,28 +5,70 @@
 <% tags_list     = preview_hash[:tag_list_cache].split.map {|tag| tag.gsub(/,|\./, '').gsub(/#/, '')} %>
 <% play_counts   = preview_hash[:plays_count] %>
 <% likes_count   = preview_hash[:likes_count] %>
+<% first_published_at = preview_hash[:first_published_at] %>
 <% mix_id        = preview_hash[:id]  %>
+<% mix_title = preview_hash[:name] %>
+<% puts "Preview hash printing..".red %>
+<% puts preview_hash %>
 
 <section id="detailed-mix-wrapper">
-  <section id="photo-area">
-  	<%= image_tag(cover_urls) %>
+  <section class="photo-area">
+
+    <section class="img-container"><%= image_tag(cover_urls) %></section>
+
+    <section class="hidden-background"></section>
+
+    <section class="hidden-content-container">
+      I am hidden content....<br>
+      <a data-remote="true" href="<%= play_path( play: { mix_id: mix_id } ) %>" title="Play Mix <%= mix_id %>"><span>Play the Mix</span></a>
+    </section>
+  	
   </section>
   <section id="text-area">
-  	<span>長度: <%= humanize duration.to_i %></span>
-  	<span>曲目: <%= tracks_count %></span>
+    <h4><%= mix_title %></h4>
+
+  	<span>長度: <%= humanize duration.to_i %> <span class="divider-bar">|</span> 曲目: <%= tracks_count %></span>
+  	<span>愛心: <%= likes_count %> <span class="divider-bar">|</span> 播放次數: <%= play_counts %></span>
+
   	<span>標籤: 
   	  <% tags_list.each do |tag| %>
         <%= tag %>
       <% end %>
   	</span>
-  	<span>愛心: <%= likes_count %></span>
-  	<span>播放次數: <%= play_counts %></span>
+
+  	<span>建立日期: <%= first_published_at.gsub(/T.*/,'') %></span>
   	
   </section>
   <div style="clear: both"></div>
 </section>
 
+<script type="text/javascript">
+  $(document).ready(function() {
 
+  	var hiddenBackGround = $(".hidden-background");
+  	var photoArea = $(".photo-area");
+  	$(".hidden-background").fadeOut(0);
+  	$(".hidden-content-container").fadeOut(0);
+  	photoArea.hover(function(event) {
+  	  if ( $(this).find(".hidden-background").css('display') == 'none' ) {
+  	  	$(this).find(".hidden-background").fadeIn(0);
+  	    $(this).find(".hidden-content-container").fadeIn(0);
+  	  }
+  	  
+  	}, function() {
+  	  if ( $(this).find(".hidden-background").css('display') != 'none' ) {
+  	  	$(this).find(".hidden-background").fadeOut(0);
+  	    $(this).find(".hidden-content-container").fadeOut(0);
+  	  }
+  	  
+  	});
+
+  	$(".photo-area").off("ajax:beforeSend");
+  	$(".photo-area").on("ajax:beforeSend", function (status, xhr, settings) {
+  	  xhr.abort();
+  	});
+  });
+</script>
 
 
 

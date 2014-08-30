@@ -5,8 +5,6 @@ module ApplicationHelper
     [[60, '秒'], [60, '分'], [24, '時'], [1000, '日']].map{ |count, name|
       if secs > 0
         secs, n = secs.divmod(count)
-        puts "The secs: #{secs}"
-        puts "The n is: #{n}"
         "#{n.to_i} #{name}"
       end
     }.compact.reverse.join(' ')

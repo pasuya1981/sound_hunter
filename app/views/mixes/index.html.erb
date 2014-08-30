@@ -1,6 +1,11 @@
 
 <div id="mixes-show-detailed-wrapper">
   <div id="mixe-show-detailed-left-column">
+    
+    <% @mixes.each do |mix| %>
+      <%= render 'mix_detailed_block', mix: mix %>
+    <% end %>
+
     <ul class="pager">
       <% if @previous_page_path %>
         <li class="previous"><%= link_to("上一頁", 
@@ -13,10 +18,6 @@
                                      remote: true) %></li>
       <% end %>
     </ul>
-    
-    <% @mixes.each do |mix| %>
-      <%= render 'mix_detailed_block', mix: mix %>
-    <% end %>
   </div>
   <div id="mixe-show-detailed-right-column">mixe-show-detailed-right-column</div>
   
