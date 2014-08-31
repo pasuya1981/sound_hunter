@@ -33,6 +33,7 @@
       <!-- Modal Body goes here -->
       <div class="modal-body">
 
+        <% # TODO: FIx the bug when use not log in cause issue: NoMethodError - undefined method `each' for nil:NilClass: %>
         <% session[:collection_hash].each do |collection_name, collection_inside_hash| %>
           <section class="collection-list-wrapper">
             <section class="collection-list">
@@ -65,6 +66,8 @@
     // Form submission
     $("#add-collection-form-wrapper").find("#form-button").click(function(event) {
       //alert("value is: " + $("#form-body").find("input").val());
+
+      // TODO: Add collection
     });
 
     // Modal instance
