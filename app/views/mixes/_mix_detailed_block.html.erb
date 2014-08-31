@@ -29,9 +29,11 @@
                                 'data-toggle' => 'tooltip', 
                                 'data-placement' => 'bottom', 
                                 title: '加到我的收集'), 
-                   '#', 
+                   add_collection_path(mix_id: mix_id), 
                    class: "mix-show-plus-btn",
                    'mix-id' =>  mix_id,
+                   style: user_logged_in? ? "pointer-events: auto" : "pointer-events: none",
+                   method: :post,
                    remote: true ) %>
     </section>
   	

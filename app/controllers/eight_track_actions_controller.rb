@@ -1,7 +1,13 @@
-class FavoriteController < ApplicationController
+class EightTrackActionsController < ApplicationController
   before_action :get_return_to_url
+
   def new
   	# favor_kind includes 'mix', 'track', 'user'
+  end
+
+  def add_collection
+    mix_id = params[:mix_id]
+    EightTracksParser.add_collection()
   end
 
   def toggle_like
