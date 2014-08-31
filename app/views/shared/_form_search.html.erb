@@ -9,6 +9,12 @@
 <% end %>
 
 <script type='text/javascript'>
+
+  $("form").submit( function (event) {
+    var keyword = $(this).find('#words_input').val();
+    if (keyword.length < 1) alert("請輸入關鍵字");
+  });
+
   var keywordInput = $("#words_input");
   keywordInput.focus(function(event) {
   	$(this).removeAttr('placeholder');

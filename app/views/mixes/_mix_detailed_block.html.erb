@@ -8,8 +8,8 @@
 <% first_published_at = preview_hash[:first_published_at] %>
 <% mix_id        = preview_hash[:id]  %>
 <% mix_title = preview_hash[:name] %>
-<% puts "Preview hash printing..".red %>
-<% puts preview_hash %>
+<% #puts "Preview hash printing..".red %>
+<% #puts preview_hash %>
 
 <section id="detailed-mix-wrapper">
   <section class="photo-area">
@@ -19,15 +19,27 @@
     <section class="hidden-background"></section>
 
     <section class="hidden-content-container">
-      I am hidden content....<br>
-      <a data-remote="true" href="<%= play_path( play: { mix_id: mix_id } ) %>" title="Play Mix <%= mix_id %>"><span>Play the Mix</span></a>
+      
+      <a data-remote="true" href="<%= play_path( play: { mix_id: mix_id } ) %>" title="Play Mix <%= mix_id %>">
+        <span data-toggle="tooltip" data-placement="bottom" title="播放音樂" class="show-page-play-btn glyphicon glyphicon-play"></span>
+      </a>
+      <% # TODO: Add mix to collection. %>
+      <%= link_to( content_tag( :span, nil,  
+                                class: "glyphicon glyphicon-plus-sign", 
+                                'data-toggle' => 'tooltip', 
+                                'data-placement' => 'bottom', 
+                                title: '加到我的收集'), 
+                   '#', 
+                   class: "mix-show-plus-btn",
+                   'mix-id' =>  mix_id,
+                   remote: true ) %>
     </section>
   	
   </section>
   <section id="text-area">
     <h4><%= mix_title %></h4>
 
-  	<span>長度: <%= humanize duration.to_i %> <span class="divider-bar">|</span> 曲目: <%= tracks_count %></span>
+  	<span>長度: <%= humanize duration.to_i %>&nbsp;&nbsp;<span class="badge"><%= tracks_count %></span></span>
   	<span>愛心: <%= likes_count %> <span class="divider-bar">|</span> 播放次數: <%= play_counts %></span>
 
   	<span>標籤: 
@@ -45,19 +57,20 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
+    // Tooltip
+  	$(".glyphicon-plus-sign").tooltip();
+  	$(".glyphicon-play").tooltip();
+
   	var hiddenBackGround = $(".hidden-background");
   	var photoArea = $(".photo-area");
-  	$(".hidden-background").fadeOut(0);
   	$(".hidden-content-container").fadeOut(0);
   	photoArea.hover(function(event) {
-  	  if ( $(this).find(".hidden-background").css('display') == 'none' ) {
-  	  	$(this).find(".hidden-background").fadeIn(0);
+  	  if ( $(this).find(".hidden-content-container").css('display') == 'none' ) {
   	    $(this).find(".hidden-content-container").fadeIn(0);
   	  }
   	  
   	}, function() {
-  	  if ( $(this).find(".hidden-background").css('display') != 'none' ) {
-  	  	$(this).find(".hidden-background").fadeOut(0);
+  	  if ( $(this).find(".hidden-content-container").css('display') != 'none' ) {
   	    $(this).find(".hidden-content-container").fadeOut(0);
   	  }
   	  
