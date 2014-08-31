@@ -32,6 +32,7 @@ h4 { font-size: 14px; }
           border: 1px solid #cccccc; border-radius: 2px;
           width: 70px; height: 37px; background-color: #000000;
           .show-page-play-btn, .mix-show-plus-btn { color: white; font-size: 30px; }
+          .bs-modal-sm { width: 500px; }
         }
       }
       #text-area {
@@ -44,6 +45,32 @@ h4 { font-size: 14px; }
     }
   }
   #mixe-show-detailed-right-column { width: 350px; height: 300px; float: right; background-color: LightPink; }
+}
+
+// Modal CSS
+#myModal {
+  .modal-body {
+    .collection-list-wrapper {
+      width: 95%; height: 30px; margin: 3px;
+      position: relative;
+
+      .collection-list { 
+        position: relative; 
+        min-width: 30px; height: 100%; background-color: white;  
+        .collection-add-btn { 
+          position: absolute; top: 0; left: 0; width: 20px; height: 30px;
+          font-size: 18px; color: #333333;
+        }
+        .collection-name { 
+          position: absolute; left: 0; top: 0;
+          font-size: 20px; background-color: white; z-index: 1; 
+        }
+      }
+    }
+  }
+  .modal-footer {
+    #modal-hide-trigger { font-size: 20px; cursor: pointer; }
+  }
 }
 
 #header-nav-bar-bg {

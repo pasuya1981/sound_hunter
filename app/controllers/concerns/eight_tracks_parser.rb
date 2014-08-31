@@ -19,6 +19,29 @@ module EightTracksParser
     node_name.gsub(/-/, '_').to_sym
   end
 
+  def get_collection_list_hash(username, mix_id)
+    base_uri = "http://8tracks.com/users/#{username}/editable_collections.xml?api_version=3&api_key=#{api_key}"
+
+    if mix_id.present?
+      base_uri << "&mix_id=#{mix_id}"
+    end
+
+    collection_hash = {}
+    uri_to_nokogiri_xml base_uri do |status, nokogiri_xml|
+      #puts "Fuck the nokogiri, #{nokogiri_xml}".green
+      nokogiri_xml.xpath('//collection').each do |collection|
+        id = collection.xpath('./id').first.content
+        smart_id = collection.xpath('./smart-id').first.content
+        name = collection.xpath('./name').first.content
+        slug = collection.xpath('./slug').first.content
+        mixes_count = collection.xpath('./mixes-count').first.content
+        web_path = collection.xpath('./web-path').first.content
+        collection_hash[name] = {id: id, smart_id: smart_id, slug: slug, mixes_count: mixes_count, web_path: web_path  }
+      end
+    end
+    collection_hash
+  end
+
   def toggle_like_for_kind_and_id(kind, id, user_token) # kind = "mix" or "track", see DOC "http://8tracks.com/developers/api_v3#like"
     kind = kind == 'mix' ? 'mixes' : 'tracks'
     base_uri = "http://8tracks.com/#{kind}/#{id}/toggle_like.xml?api_version=3&api_key=#{api_key}&user_token=#{user_token}"
@@ -324,6 +347,7 @@ module EightTracksParser
     base_uri = URI::escape base_uri if chinese_collector.size > 0
     puts "See base uri: #{base_uri}".red
     response = open(base_uri).read
+    puts "The pure response #{response}".red
     xml = Nokogiri::XML(response)
     status = xml.css('status').first.content 
     yield(status, xml) if block_given?  

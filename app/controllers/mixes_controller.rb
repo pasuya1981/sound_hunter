@@ -14,14 +14,20 @@ class MixesController < ApplicationController
 			@keyword = @keyword.split.join('-')
 		end
 
-		puts "The keyword happens to be: #{@keyword}".green
 
 		if @keyword.size > 0
-			remember_search_action smart_type, sort_type
-			word_in_ary = @keyword.strip.split
-			mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
-			init_view_data_with mix_set_search_result
+		  remember_search_action smart_type, sort_type
+		  word_in_ary = @keyword.strip.split
+		  mix_set_search_result = search_mix_set(smart_type_in_sym, word_in_ary, sort_type_in_sym)
+		  init_view_data_with mix_set_search_result
 		end
+
+		if user_logged_in?
+		  mix_id = nil
+		  @collection_hash = EightTracksParser.get_collection_list_hash(session[:username], mix_id)
+		end
+
+
 
 		respond_to do |format|
 			format.html

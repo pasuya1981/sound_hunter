@@ -25,18 +25,13 @@
       </a>
 
       <% # TODO: Add mix to collection. %>
-      <%= link_to( content_tag( :span, nil,  
-                                class: "glyphicon glyphicon-plus-sign", 
-                                'data-toggle' => 'tooltip', 
-                                'data-placement' => 'bottom', 
-                                title: '加到我的收集'), 
-                   add_collection_path(mix_id: mix_id), 
-                   class: "mix-show-plus-btn",
-                   'mix-id' =>  mix_id,
-                   style: user_logged_in? ? "pointer-events: auto" : "pointer-events: none",
-                   'data-toggle' => 'modal',
-                   'data-target' => ".bs-example-modal-sm",
-                   remote: false ) %>
+      <%= content_tag( :span, 
+                       nil, 
+                       class: "mix-show-plus-btn glyphicon glyphicon-plus-sign",
+                      'mix-id' => mix_id,
+                      'data-toggle' => 'tooltip', 
+                      'data-placement' => 'bottom',
+                      title: '加到我的收集') %>
     </section>
 
   	
@@ -61,6 +56,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
 
     // Tooltip
   	$(".glyphicon-plus-sign").tooltip();

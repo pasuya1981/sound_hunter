@@ -23,37 +23,95 @@
   
 </div>
 
-<!-- Modal Area -->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-      .........
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">編輯我的收藏</h4>
+      </div>
+      <!-- Modal Body goes here -->
+      <div class="modal-body">
+
+        <% @collection_hash.each do |collection_name, collection_inside_hash| %>
+          <section class="collection-list-wrapper">
+            
+            <section class="collection-list">
+              <section class="collection-add-btn"><span class="glyphicon glyphicon-plus"></span></section>
+              <span class="collection-name"><%= collection_name  %></span>
+            </section>
+          </section>
+          
+        <% end %>
+
+        <section>
+          Add New Collection..
+        </section>
+      </div>
+      <div class="modal-footer">
+        <span id="modal-hide-trigger">CloseX</span>
+      </div>
     </div>
   </div>
 </div>
 
-$(document).ready(function() {
-  
-  /* TODO: Adding collection */
-  //$(".mix-show-plus-btn").click(function (event) {
-  //  event.preventDefault();
-  //  var mixID = $(this).attr('mix-id');
-  //  $.addCollection(mixID);
-  //});
+<script>
 
+  $(document).ready(function() {
 
-  $(".content-exchange-box").off('ajax:beforeSend');
-  $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
-    xhr.abort();
+    // Modal instance
+    var modal = $("#myModal");
+    var modal_hide_trigger = $("#modal-hide-trigger");
+
+    // Modal Dismiss
+    modal_hide_trigger.click(function(event) { modal.modal('hide'); });
+
+    modal_hide_trigger.hover(function() {
+      $(this).css('color', '#808080');
+    }, function() {
+      $(this).css('color', '#333333');
+    });
+
+    // Modal Collection Animation
+    $(".collection-list").hover(function() {
+      /* Stuff to do when the mouse enters the element */
+      var collection_name = $(this).find(".collection-name");
+      $(this).css('background-color', 'LightGray');
+      collection_name.animate({left: '20px'}, 200);
+      collection_name.css('background-color', 'LightGray');
+
+    }, function() {
+      /* Stuff to do when the mouse leaves the element */
+      var collection_name = $(this).find(".collection-name");
+      $(this).css('background-color', 'white');
+      
+      collection_name.css('background-color', 'white');
+      collection_name.stop();// Prevent rapidly animation.
+    });
+    $(".collection-list").mouseleave(function(event) {
+      $(this).find(".collection-name").animate({left: '0px'}, 100);
+    });
+
+    // Modal Show off
+    $(".mix-show-plus-btn").click(function (event) {
+      
+      modal.attr('mix-id', $(this).attr('mix-id'));
+      modal.modal();
+    });
+    
+    
+    $(".content-exchange-box").off('ajax:beforeSend');
+    $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
+      xhr.abort();
+    });
+    $(".pager").off('ajax:beforeSend');
+    $(".pager").on('ajax:beforeSend', function (status, xhr, settings) {
+      xhr.abort();
+    });
+    // pagination ajax may send twice requext
+    //$(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
+    //  xhr.abort();
+    //});
   });
-  $(".pager").off('ajax:beforeSend');
-  $(".pager").on('ajax:beforeSend', function (status, xhr, settings) {
-    xhr.abort();
-  });
-  // pagination ajax may send twice requext
-  //$(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
-  //  xhr.abort();
-  //});
-});
-
 </script>
