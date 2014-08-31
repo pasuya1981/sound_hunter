@@ -23,6 +23,7 @@
       <a data-remote="true" href="<%= play_path( play: { mix_id: mix_id } ) %>" title="Play Mix <%= mix_id %>">
         <span data-toggle="tooltip" data-placement="bottom" title="播放音樂" class="show-page-play-btn glyphicon glyphicon-play"></span>
       </a>
+
       <% # TODO: Add mix to collection. %>
       <%= link_to( content_tag( :span, nil,  
                                 class: "glyphicon glyphicon-plus-sign", 
@@ -33,9 +34,11 @@
                    class: "mix-show-plus-btn",
                    'mix-id' =>  mix_id,
                    style: user_logged_in? ? "pointer-events: auto" : "pointer-events: none",
-                   method: :post,
-                   remote: true ) %>
+                   'data-toggle' => 'modal',
+                   'data-target' => ".bs-example-modal-sm",
+                   remote: false ) %>
     </section>
+
   	
   </section>
   <section id="text-area">
