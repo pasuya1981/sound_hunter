@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/add_collection', to: 'eight_track_actions#add_collection', as: :add_collection
+  post '/add_collection', to: 'eight_track_actions#add_collection', as: :add_collection
   get '/showmix', to: 'mixes#show', as: :show_mix
   get '/play(/:mix_id)', to: 'player#play', as: :play
 

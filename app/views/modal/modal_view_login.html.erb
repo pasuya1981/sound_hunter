@@ -7,8 +7,8 @@
   <hr>
   <span id="remove-btn" class="glyphicon glyphicon-remove-circle"></span>
     <%= simple_form_for(User.new, url: {controller: :session, action: :create }, 
-    							  html: { class: 'form-horizontal', autocomplete: 'off' }, 
-    							  remote: true) do |f| %>
+    							      html: { class: 'form-horizontal', autocomplete: 'off' }, 
+    							      remote: true) do |f| %>
       <%= f.input :username, label: false, placeholder: '輸入帳號' %>						  
       <%= f.input :email, label: false, placeholder: '電郵地址' %>
       <%= f.input :password, label: false, placeholder: '密碼' %>

@@ -35,18 +35,21 @@
 
         <% session[:collection_hash].each do |collection_name, collection_inside_hash| %>
           <section class="collection-list-wrapper">
-            
             <section class="collection-list">
               <section class="collection-add-btn"><span class="glyphicon glyphicon-plus"></span></section>
               <span class="collection-name"><%= collection_name  %></span>
             </section>
           </section>
-          
         <% end %>
 
-        <section>
-          Add New Collection..
-        </section>
+        <div id="add-collection-form-wrapper">
+          <section id="form-body">
+            <input type="text" name="collection" value="" placeholder="新的收藏名稱">
+          </section>
+          <section id="form-button">
+            建立新的收藏
+          </section>
+        </div>
       </div>
       <div class="modal-footer">
         <span id="modal-hide-trigger">CloseX</span>
@@ -58,6 +61,11 @@
 <script>
 
   $(document).ready(function() {
+
+    // Form submission
+    $("#add-collection-form-wrapper").find("#form-button").click(function(event) {
+      //alert("value is: " + $("#form-body").find("input").val());
+    });
 
     // Modal instance
     var modal = $("#myModal");

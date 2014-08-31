@@ -345,7 +345,7 @@ module EightTracksParser
       base_uri.chars.each_with_index { |char, index| chinese_collector << "Find CJK: #{char}. At index: #{index}" if check_char(base_uri, index) }
     end
     base_uri = URI::escape base_uri if chinese_collector.size > 0
-    puts "See base uri: #{base_uri}".red
+    puts "See base uri: #{base_uri}".blue
     response = open(base_uri).read
     puts "The pure response #{response}".red
     xml = Nokogiri::XML(response)

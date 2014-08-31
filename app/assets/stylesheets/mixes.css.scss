@@ -67,6 +67,21 @@ h4 { font-size: 14px; }
         }
       }
     }
+    #add-collection-form-wrapper {
+      width: 520px; height: 45px; 
+      #form-body input, #form-button { padding: 3px; font-size: 16px;  border: 1px solid LightGray; height: 45px; }
+      #form-body input { 
+        outline: none;
+        width: 380px;  float: left; 
+        color: DarkGray;
+        &:focus { border-color: DarkGray; box-shadow: 0 0 0 0; }
+      }
+      #form-button { 
+        width: 120px; float: right; 
+        color: DarkGray;
+      }
+    }
+    #submit-btn { width: 40px; display: inline; } 
   }
   .modal-footer {
     #modal-hide-trigger { font-size: 20px; cursor: pointer; }
