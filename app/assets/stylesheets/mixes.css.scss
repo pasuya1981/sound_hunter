@@ -31,7 +31,7 @@ h4 { font-size: 14px; }
           position: absolute; bottom: 10px; left: 10px;
           border: 1px solid #cccccc; border-radius: 2px;
           width: 70px; height: 37px; background-color: #000000;
-          .show-page-play-btn, .mix-show-plus-btn { color: white; font-size: 30px; }
+          .show-page-play-btn, .mix-show-plus-btn { color: white; font-size: 30px; cursor: pointer; }
           .bs-modal-sm { width: 500px; }
         }
       }

@@ -28,13 +28,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">編輯我的收藏</h4>
       </div>
       <!-- Modal Body goes here -->
       <div class="modal-body">
 
-        <% @collection_hash.each do |collection_name, collection_inside_hash| %>
+        <% session[:collection_hash].each do |collection_name, collection_inside_hash| %>
           <section class="collection-list-wrapper">
             
             <section class="collection-list">
@@ -97,6 +96,7 @@
     $(".mix-show-plus-btn").click(function (event) {
       
       modal.attr('mix-id', $(this).attr('mix-id'));
+      $("#myModalLabel").html("將 " + $(this).attr('mix-title') + " 加入收藏");
       modal.modal();
     });
     

@@ -24,7 +24,7 @@ class MixesController < ApplicationController
 
 		if user_logged_in?
 		  mix_id = nil
-		  @collection_hash = EightTracksParser.get_collection_list_hash(session[:username], mix_id)
+		  session[:collection_hash] = EightTracksParser.get_collection_list_hash(session[:username], mix_id)
 		end
 
 
