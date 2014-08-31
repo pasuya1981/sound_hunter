@@ -135,9 +135,6 @@ module EightTracksParser
   end
 
   def get_mix_set_by_smart_type(type=nil, parames={user_id: nil, keyword: [], sort: :hot})
-    # Error Catch flow
-    puts "Type: #{type}".green
-    puts "Params: #{parames}".red
     base_uri = "http://8tracks.com/mix_sets/"
     validate_arguments(type, parames)
     type = type.to_sym
@@ -345,9 +342,7 @@ module EightTracksParser
       base_uri.chars.each_with_index { |char, index| chinese_collector << "Find CJK: #{char}. At index: #{index}" if check_char(base_uri, index) }
     end
     base_uri = URI::escape base_uri if chinese_collector.size > 0
-    puts "See base uri: #{base_uri}".blue
     response = open(base_uri).read
-    puts "The pure response #{response}".red
     xml = Nokogiri::XML(response)
     status = xml.css('status').first.content 
     yield(status, xml) if block_given?  

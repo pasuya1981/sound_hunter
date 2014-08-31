@@ -20,109 +20,126 @@
     </ul>
   </div>
   <div id="mixe-show-detailed-right-column">mixe-show-detailed-right-column</div>
-  
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">編輯我的收藏</h4>
-      </div>
-      <!-- Modal Body goes here -->
-      <div class="modal-body">
-
-        <% # TODO: FIx the bug when use not log in cause issue: NoMethodError - undefined method `each' for nil:NilClass: %>
-        <% session[:collection_hash].each do |collection_name, collection_inside_hash| %>
-          <section class="collection-list-wrapper">
-            <section class="collection-list">
-              <section class="collection-add-btn"><span class="glyphicon glyphicon-plus"></span></section>
-              <span class="collection-name"><%= collection_name  %></span>
-            </section>
-          </section>
-        <% end %>
-
-        <div id="add-collection-form-wrapper">
-          <section id="form-body">
-            <input type="text" name="collection" value="" placeholder="新的收藏名稱">
-          </section>
-          <section id="form-button">
-            建立新的收藏
-          </section>
+<!-- If user logged in, create add collection modal DOM -->
+<% if user_logged_in? %>
+  <!-- Modal -->
+  <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">編輯我的收藏</h4>
         </div>
-      </div>
-      <div class="modal-footer">
-        <span id="modal-hide-trigger">CloseX</span>
+        <!-- Modal Body Start -->
+        <div class="modal-body">
+          <% collection_hash = session[:collection_hash] %>
+          <% collection_hash.each do |collection_name, collection_inside_hash| %>
+          <% collection_id = collection_hash[collection_name][:id] %>
+            <section class="collection-list-wrapper">
+              <section class="collection-list">
+                <section class="collection-add-btn"><span>+</span></section>
+                <span class="collection-name" collection-id="<%= collection_id %>"><%= collection_name  %></span>
+              </section>
+            </section>
+          <% end %>
+
+          <div id="add-collection-form-wrapper">
+            <section id="form-body">
+              <input type="text" name="collection" value="" placeholder="新的收藏名稱">
+            </section>
+            <section id="form-button">
+              建立新的收藏
+            </section>
+          </div>
+        </div>
+        <!-- Modal body END -->
+        <div class="modal-footer">
+          <span id="modal-hide-trigger">CloseX</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <script>
-
   $(document).ready(function() {
-
-    // Form submission
-    $("#add-collection-form-wrapper").find("#form-button").click(function(event) {
-      //alert("value is: " + $("#form-body").find("input").val());
-
-      // TODO: Add collection
-    });
-
-    // Modal instance
-    var modal = $("#myModal");
-    var modal_hide_trigger = $("#modal-hide-trigger");
-
-    // Modal Dismiss
-    modal_hide_trigger.click(function(event) { modal.modal('hide'); });
-
-    modal_hide_trigger.hover(function() {
-      $(this).css('color', '#808080');
-    }, function() {
-      $(this).css('color', '#333333');
-    });
-
-    // Modal Collection Animation
-    $(".collection-list").hover(function() {
-      /* Stuff to do when the mouse enters the element */
-      var collection_name = $(this).find(".collection-name");
-      $(this).css('background-color', 'LightGray');
-      collection_name.animate({left: '20px'}, 200);
-      collection_name.css('background-color', 'LightGray');
-
-    }, function() {
-      /* Stuff to do when the mouse leaves the element */
-      var collection_name = $(this).find(".collection-name");
-      $(this).css('background-color', 'white');
+    var myModal = $("#myModal");
+    if (myModal.length > 0) { 
+      initMyModal(); 
+    } else if (myModal.length == 0) {
+      $(".mix-show-plus-btn").css("pointer-events", "none");
+    }
+    function addCollectionFormSubmitLogic () {
       
-      collection_name.css('background-color', 'white');
-      collection_name.stop();// Prevent rapidly animation.
-    });
-    $(".collection-list").mouseleave(function(event) {
-      $(this).find(".collection-name").animate({left: '0px'}, 100);
-    });
+      $("#form-button").click(function (event) {
+        // New collection button pressed logic.
 
-    // Modal Show off
-    $(".mix-show-plus-btn").click(function (event) {
-      
-      modal.attr('mix-id', $(this).attr('mix-id'));
-      $("#myModalLabel").html("將 " + $(this).attr('mix-title') + " 加入收藏");
-      modal.modal();
-    });
-    
-    
-    $(".content-exchange-box").off('ajax:beforeSend');
-    $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
-      xhr.abort();
-    });
-    $(".pager").off('ajax:beforeSend');
-    $(".pager").on('ajax:beforeSend', function (status, xhr, settings) {
-      xhr.abort();
-    });
-    // pagination ajax may send twice requext
-    //$(".panel-primary").on('ajax:beforeSend', function (status, xhr, settings) {
-    //  xhr.abort();
-    //});
+      });
+      $(".collection-list").click(function (event) {
+        // Collection list pressed logic.
+        var collectionID = $(this).find(".collection-name").attr("collection-id");
+        var mixID = $(this).parents("#myModal").attr("mix-id");
+        
+        // Send add collection POST request to rails server.
+        $.post('<%= add_collection_path %>', { 'mix_id' : mixID, 'collection_id': collectionID }, function(data, textStatus, xhr) {
+          console.log("Add collection and get data: " + data);
+          console.log("The textStatus: " + textStatus);
+        });
+      });
+    }
+    function initMyModal () {
+      // Modal instance
+      var modal = $("#myModal");
+      var modal_hide_trigger = $("#modal-hide-trigger");  
+
+      // Modal Dismiss
+      modal_hide_trigger.click(function(event) { modal.modal('hide'); });  
+
+      modal_hide_trigger.hover(function() {
+        $(this).css('color', '#808080');
+      }, function() {
+        $(this).css('color', '#333333');
+      });  
+
+      // Modal Collection Animation
+      $(".collection-list").hover(function() {
+        // Mouse in
+        var collection_name = $(this).find(".collection-name");
+        $(this).css('background-color', 'LightGray');
+        collection_name.animate({left: '20px'}, 200);
+        collection_name.css('background-color', 'LightGray');  
+      }, function() {
+        // Mouse out
+        var collection_name = $(this).find(".collection-name");
+        $(this).css('background-color', 'white');
+        
+        collection_name.css('background-color', 'white');
+        collection_name.stop();// Prevent rapid animation.
+      });
+      $(".collection-list").mouseleave(function(event) {
+        $(this).find(".collection-name").animate({left: '0px'}, 100);
+      });  
+
+      // Click plus button on the mix cover img would trigger Modal View.
+      $(".mix-show-plus-btn").click(function (event) {
+        modal.attr('mix-id', $(this).attr('mix-id'));
+        var mixTitle = $(this).parents("#detailed-mix-wrapper").find("h4").text();
+        $("#myModalLabel").html("將 " + mixTitle + " 加入收藏");
+        modal.modal();
+      });
+    }
+    function preventDoubleXHR (argument) {
+      $(".content-exchange-box").off('ajax:beforeSend');
+      $(".content-exchange-box").on('ajax:beforeSend', function (status, xhr, settings) {
+        xhr.abort();
+      });
+      $(".pager").off('ajax:beforeSend');
+      $(".pager").on('ajax:beforeSend', function (status, xhr, settings) {
+        xhr.abort();
+      });
+    }
+    addCollectionFormSubmitLogic();
+    preventDoubleXHR();
   });
 </script>

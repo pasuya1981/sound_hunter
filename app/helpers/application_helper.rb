@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  
+  include SessionHelper
   def humanize secs # Source: http://stackoverflow.com/questions/4136248/how-to-generate-a-human-readable-time-range-using-ruby-on-rails
     [[60, '秒'], [60, '分'], [24, '時'], [1000, '日']].map{ |count, name|
       if secs > 0
@@ -22,36 +22,7 @@ module ApplicationHelper
               danger:  'alert-danger' }[flash_type.to_sym] || 'alert-info'
   end
 
-  def get_user_token
-    session[:user_token]
-  end
-
-  def user_avatar_url
-    return '' unless user_logged_in?
-    User.find_by(tracks_user_token: session[:user_token]).tracks_user_avatar_url
-  end
-
-  def user_logged_in?
-    session[:user_token].present?
-  end
-
-  def current_user?
-    token = session[:user_token]
-    return false if token.nil?
-    User.find_by(tracks_user_token: toke).present?
-  end
-
-  def current_user_name
-    return '' unless user_logged_in?
-    session[:username]
-  end
-
-  def clear_user_token
-    session[:username]   = nil
-    session[:user_token] = nil
-    session[:avatar_url] = nil
-    session[:tracks_user_id] = nil
-  end
+  
 
   def dynamic_action_name
     action_name = controller.action_name
@@ -59,12 +30,7 @@ module ApplicationHelper
     return 'create_eight_tracks_account' if action_name =~ /signup/i
   end
 
-  def user_session_setup_for(user_model_instance)
-    session[:username]   = user_model_instance.username
-    session[:user_token] = user_model_instance.tracks_user_token
-    session[:avatar_url] = user_model_instance.tracks_user_avatar_url
-    session[:tracks_user_id] = user_model_instance.tracks_user_id
-  end
+  
 
   # Bootstrap 3.0 style label
   def random_label_for(tag_hash)

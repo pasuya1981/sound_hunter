@@ -56,7 +56,8 @@ h4 { font-size: 14px; }
 
       .collection-list { 
         position: relative; 
-        min-width: 30px; height: 100%; background-color: white;  
+        min-width: 30px; height: 100%; background-color: white;
+        cursor: pointer;
         .collection-add-btn { 
           position: absolute; top: 0; left: 0; width: 20px; height: 30px;
           font-size: 18px; color: #333333;
@@ -79,6 +80,7 @@ h4 { font-size: 14px; }
       #form-button { 
         width: 120px; float: right; 
         color: DarkGray;
+        cursor: pointer;
       }
     }
     #submit-btn { width: 40px; display: inline; } 

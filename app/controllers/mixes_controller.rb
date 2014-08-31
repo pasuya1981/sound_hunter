@@ -27,8 +27,6 @@ class MixesController < ApplicationController
 		  session[:collection_hash] = EightTracksParser.get_collection_list_hash(session[:username], mix_id)
 		end
 
-
-
 		respond_to do |format|
 			format.html
 			format.js { @keyword }

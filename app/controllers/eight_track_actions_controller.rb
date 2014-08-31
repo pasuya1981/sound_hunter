@@ -6,8 +6,12 @@ class EightTrackActionsController < ApplicationController
   end
 
   def add_collection
+    session_helper_test
+    ori_url = request.original_url
     mix_id = params[:mix_id]
-    EightTracksParser.add_collection()
+    collection_id = params[:collection_id]
+    render text: "The request original url: #{ori_url}. The params: #{params}"
+    
   end
 
   def toggle_like
