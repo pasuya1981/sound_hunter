@@ -9,17 +9,20 @@ class EightTrackActionsController < ApplicationController
     mix_id = params[:mix_id]
     
     behavior = params[:behavior]
+    json_data = nil
 
     if behavior == 'add'
       collection_id = params[:collection_id]
       # Add collection base URI
-      response = 
+      json_data = 
       EightTracksParser.add_collection(mix_id, collection_id, session[:user_email], session[:user_password]); 
     elsif behavior == 'create'
       collection_name = params[:collection_name]
-      response = 
+      json_data = 
       EightTracksParser.create_collection(mix_id, collection_name, session[:user_email], session[:user_password])
-    end       
+    end
+
+    render json: json_data
   end
 
   def toggle_like

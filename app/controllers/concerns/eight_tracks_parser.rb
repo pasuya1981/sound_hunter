@@ -22,18 +22,19 @@ module EightTracksParser
   def create_collection(mix_id, collection_name, user_email, user_password)
 
     # "collection[name]=New%20Collection&mix_id=14&login=remitest&password=password" https://8tracks.com/collections.json
-    base_uri = "https://8tracks.com/collections"
+    base_uri = "https://8tracks.com/collections.xml"
     base_uri << "?collection[name]=#{collection_name}&mix_id=#{mix_id}&login=#{user_email}&password=#{user_password}"
     base_uri << "&api_key=#{api_key}"
 
     if check_CKJ(base_uri) || base_uri =~ /\s/
       base_uri = URI::escape base_uri
     end
-    
+
     parsed_uri = URI.parse base_uri
-
     response = Net::HTTP.post_form(parsed_uri, api_version: '3')
-
+    json_string = Hash.from_xml(response.body).to_json
+    json_data = JSON.parse(json_string)
+    return json_data
   end
 
   def add_collection(mix_id, collection_id, user_email, user_password)
@@ -44,6 +45,9 @@ module EightTracksParser
     base_uri << "&collection_mix[collection_id]=#{collection_id}&collection_mix[mix_id=#{mix_id}"
     parse_uri = URI.parse base_uri
     response = Net::HTTP.post_form(parse_uri, "api_version" => 3) # this method needs at least 2 arguments.
+    json_string = Hash.from_xml(response.body).to_json
+    json_data = JSON.parse(json_string)
+    return json_data
   end
 
   def get_collection_list_hash(username, mix_id)

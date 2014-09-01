@@ -78,9 +78,16 @@ h4 { font-size: 14px; }
         &:focus { border-color: DarkGray; box-shadow: 0 0 0 0; }
       }
       #form-button { 
-        width: 120px; float: right; 
+        width: 120px; float: right;
+        text-align: center; padding-top: 10px;
         color: DarkGray;
         cursor: pointer;
+        transition: border-color .1s linear, background-color .1s linear,  color .1s linear;
+        &:hover {
+          border-color: white;
+          background-color: #66ccff;
+          color: #333333;
+        }
       }
     }
     #submit-btn { width: 40px; display: inline; } 

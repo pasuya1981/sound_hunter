@@ -46,7 +46,7 @@
 
           <div id="add-collection-form-wrapper">
             <section id="form-body">
-              <input id="new-collection-input" type="text" name="collection" value="" placeholder="新建">
+              <input id="new-collection-input" type="text" name="collection" value="" placeholder="新建收藏">
             </section>
             <section id="form-button">
               建立新的收藏
@@ -71,20 +71,30 @@
       $(".mix-show-plus-btn").css("pointer-events", "none");
     }
     function addCollectionFormSubmitLogic () {
-      
+
+      /* Create New collection. */
       $("#form-button").click(function (event) {
-        // New collection button pressed logic.
+        
         var newCollectionName = $("#new-collection-input").val();
         var mixID = $(this).parents("#myModal").attr("mix-id");
 
         var params = { 'mix_id' : mixID, 'collection_name' : newCollectionName, 'behavior' : 'create' };
 
-        $.post("<%= add_collection_path %>", params, function(data, textStatus, xhr) {
-          /*optional stuff to do after success */
+        $.post("<%= add_collection_path %>", params, function(json_data, textStatus, xhr) {
+          // Optional stuff to do after success
+          var collection = json_data.response.collection;
+          var collectionID = collection["id"];
+          var collectionName = collection["name"];
+          var mixesCount = collection.mixes_count;
+
+          // TODO: Append Collection list.
+
+
+          console.log("Create collection and get data: " + JSON.stringify(json_data, 2));
         });
       });
 
-      // Click existing collectino list logic.
+      /* Add mix to an existing collection. */
       $(".collection-list").click(function (event) {
         
         var collectionID = $(this).find(".collection-name").attr("collection-id");
@@ -93,10 +103,10 @@
         var params = { 'mix_id' : mixID, 'collection_id': collectionID, 'behavior' : 'add' };
         
         // POST action
-        $.post("<%= add_collection_path %>", params, function(data, textStatus, xhr) {
+        $.post("<%= add_collection_path %>", params, function(json_data, textStatus, xhr) {
           
           // Success response
-          console.log("Add collection and get data: " + data);
+          console.log("Add collection and get data: " + JSON.stringify(json_data, 2));
           console.log("The textStatus: " + textStatus);
           myModal.modal('hide');
         });

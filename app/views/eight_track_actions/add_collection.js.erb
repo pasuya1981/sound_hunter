@@ -1,33 +1,4 @@
+// Response from 8tracks server
+// pass to javascritp caller in mixes/index.html.erb
 
-var userEmail = "<%= @user_email %>";
-var userPassword = "<%= @user_password %>";
-
-// This function is in preserved status.
-function xhrPostAddCollection () {
-  /* Base URI */
-  var baseURI = "https://8tracks.com/collections_mixes.json?";
-  options = { 'api_version' : "3", 
-              'api_key' : "2b312afc2b28ba56a745c53b49f9288c05f20150", 
-              'login' : userEmail,
-              'password' : userPassword,
-              'collection_mix[collection_id]' : collectionID,
-              'collection_mix[mix_id]' : mixID }  
-  /* Post Action */
-  var jqxhr = $.post(baseURI, options, function(data, textStatus, xhr) {
-    // first success.
-    console.log("Add collection get data: " + JSON.stringify(data, 2));
-    console.log("Status: " + textStatus);
-  })
-  .done(function () {
-    // second success.
-    console.log("Add collection request done.");
-  })
-  .always(function () {
-    // finished.
-    console.log("Add collection request finished.");
-  })
-  .fail( function () {
-    // error, fail.
-    console.log("Fail To Add collection");
-  });
-}
+"<%= @response %>"
