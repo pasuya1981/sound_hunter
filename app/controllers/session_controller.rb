@@ -14,6 +14,7 @@ class SessionController < ApplicationController
   def create
     email = user_params[:email]
     user = User.find_by(email: email)
+    password = user_params[:password]
      
     respond_to do |format|
       unless make_sure_user_params_are_all_present
@@ -25,7 +26,7 @@ class SessionController < ApplicationController
       end
       
       if user # user is in DB already
-        if !user.authenticate(user_params[:password])
+        if !user.authenticate(password)
           @error = "密碼錯誤"
           format.html { redirect_to login_path }
           format.js { @error }
@@ -49,7 +50,7 @@ class SessionController < ApplicationController
         end
       else # no user in DB, search from 8track server
 
-        user_info_hash = EightTracksParser.log_user_to_8tracks(email, user_params[:password])
+        user_info_hash = EightTracksParser.log_user_to_8tracks(email, password)
         # no account on 8tracks server
         if user_info_hash.nil?
           @error = "帳號或密碼錯誤"
@@ -57,7 +58,7 @@ class SessionController < ApplicationController
           format.js { @error }
           return
         end
-        user_info_hash[:tracks_user_password] = user_params[:password]
+        user_info_hash[:tracks_user_password] = password
         user = new_user_from(user_info_hash)  
 
         if user.save
@@ -74,18 +75,6 @@ class SessionController < ApplicationController
           format.js { @error }
         end
       end
-    end
-  end
-
-  def login
-    user_token = get_8_tracks_user_token(user_params[:email], user_params[:password])
-    if user_token.present?
-      session[:user_token] = user_token 
-      redirect_to(home_path, notice: '成功登入')
-    else
-      @user = User.new
-      flash.now[:info] = '申請帳號?'
-      render 'new'
     end
   end
 

@@ -19,6 +19,20 @@ module EightTracksParser
     node_name.gsub(/-/, '_').to_sym
   end
 
+  def add_collection(mix_id, collection_id)
+    # curl --request POST -d "collection_mix[collection_id]=85260302&collection_mix[mix_id]=14&login=remitest&password=password" http://8tracks.com/collections_mixes.json
+
+    base_uri = "https://8tracks.com/collections_mixes.xml?"
+    response =  Net::HTTP.post_form(base_uri,
+                                    api_version: 3,
+                                    api_key: api_key,
+                                    login: "pasuya1981",
+                                    passowrd: "zeke4744",
+                                    "collection_mix[collection_id]" => collection_id,
+                                    "collection_mix[mix_id]" => mix_id)
+    puts "Add collection response: #{response.inspect}".green
+  end
+
   def get_collection_list_hash(username, mix_id)
     base_uri = "http://8tracks.com/users/#{username}/editable_collections.xml?api_version=3&api_key=#{api_key}"
 
