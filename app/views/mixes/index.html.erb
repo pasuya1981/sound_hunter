@@ -75,12 +75,13 @@
       $("#form-button").click(function (event) {
         // New collection button pressed logic.
         var newCollectionName = $("#new-collection-input").val();
-        var collectionID = $(this).find(".collection-name").attr("collection-id");
         var mixID = $(this).parents("#myModal").attr("mix-id");
 
-        console.log("Collection name: " + newCollectionName);
-        console.log("Collection id: " + collectionID);
-        concole.log("Mix ID: " + mixID);
+        var params = { 'mix_id' : mixID, 'collection_name' : newCollectionName, 'behavior' : 'create' };
+
+        $.post("<%= add_collection_path %>", params, function(data, textStatus, xhr) {
+          /*optional stuff to do after success */
+        });
       });
 
       // Click existing collectino list logic.
@@ -88,9 +89,11 @@
         
         var collectionID = $(this).find(".collection-name").attr("collection-id");
         var mixID = $(this).parents("#myModal").attr("mix-id");
+
+        var params = { 'mix_id' : mixID, 'collection_id': collectionID, 'behavior' : 'add' };
         
         // POST action
-        $.post("<%= add_collection_path %>", { 'mix_id' : mixID, 'collection_id': collectionID }, function(data, textStatus, xhr) {
+        $.post("<%= add_collection_path %>", params, function(data, textStatus, xhr) {
           
           // Success response
           console.log("Add collection and get data: " + data);

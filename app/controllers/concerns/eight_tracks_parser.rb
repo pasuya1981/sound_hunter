@@ -19,6 +19,12 @@ module EightTracksParser
     node_name.gsub(/-/, '_').to_sym
   end
 
+  def create_collection(mix_id, collection_name, user_email, user_password)
+
+    # curl --request POST -d "collection_mix[collection_id]=85260302&collection_mix[mix_id]=14&login=remitest&password=password" http://8tracks.com/collections_mixes.jsonh
+    puts "creating collection".red
+  end
+
   def add_collection(mix_id, collection_id, user_email, user_password)
 
     # Create base uri and parse it for POSTing data to 8tracks.

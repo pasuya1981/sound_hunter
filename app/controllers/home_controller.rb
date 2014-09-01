@@ -8,6 +8,7 @@ layout 'mixes'
   end
 
   def welcome
+    
     init_view_data
     #render action: :test_page
   end

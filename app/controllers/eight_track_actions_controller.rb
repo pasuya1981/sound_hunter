@@ -7,10 +7,19 @@ class EightTrackActionsController < ApplicationController
 
   def add_collection
     mix_id = params[:mix_id]
-    collection_id = params[:collection_id]
+    
+    behavior = params[:behavior]
 
-    # Add collection base URI
-    response = EightTracksParser.add_collection(mix_id, collection_id, session[:user_email], session[:user_password]);        
+    if behavior == 'add'
+      collection_id = params[:collection_id]
+      # Add collection base URI
+      response = 
+      EightTracksParser.add_collection(mix_id, collection_id, session[:user_email], session[:user_password]); 
+    elsif behavior == 'create'
+      collection_name = params[:collection_name]
+      response = 
+      EightTracksParser.create_collection(mix_id, collection_name, session[:user_email], session[:user_password])
+    end       
   end
 
   def toggle_like

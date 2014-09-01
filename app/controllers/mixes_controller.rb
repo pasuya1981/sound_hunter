@@ -1,9 +1,8 @@
 class MixesController < ApplicationController
-	before_action :init_trend_tag_session
 	layout 'mixes'
 
 	def index
-		init_trend_tag_session
+		
 		smart_type = keyword_params[:smart_type]
 		sort_type = keyword_params[:sort]
 		smart_type_in_sym = parse_smart_type smart_type
@@ -129,17 +128,6 @@ class MixesController < ApplicationController
 		session[:mix_first_page_path] = @next_page_path.gsub(/\?page=\d/,'?page=1') if @current_page == '1' && @next_page_path.present?
 		@previous_page_path = session[:mix_first_page_path].gsub(/\?page=\d/,"?page=#{@previous_page}") if @previous_page.present?
 		#puts "Next page path: #{@next_page_path}. Previous page path: #{@previous_page_path}"
-	end
-
-	def init_trend_tag_session
-		if session[:trend_tags].nil? || session[:trending_tags_created_at] < 1.hours.ago
-			trend_tags = EightTracksParser.get_trend_tags
-			session[:trend_tags] = trend_tags
-			session[:trending_tags_created_at] = Time.now
-		end
-		if session[:trend_tags].present?
-			@tags_ary = session[:trend_tags].shuffle
-		end
 	end
 
 	def remember_search_action(smart_type, sort_type)
