@@ -5,6 +5,7 @@ module SessionHelper
   	puts "User model instance inspection: #{user_model_instance.inspect}".blue
     session[:username]   = user_model_instance.username
     session[:user_token] = user_model_instance.tracks_user_token
+    session[:user_email] = user_model_instance.email
     session[:avatar_url] = user_model_instance.tracks_user_avatar_url
     session[:tracks_user_id] = user_model_instance.tracks_user_id
   end
@@ -12,6 +13,7 @@ module SessionHelper
   def clear_user_token
   	puts "Clear user session".red
     session[:username]   = nil
+    session[:user_email] = nil
     session[:user_token] = nil
     session[:avatar_url] = nil
     session[:tracks_user_id] = nil

@@ -6,16 +6,11 @@ class EightTrackActionsController < ApplicationController
   end
 
   def add_collection
-    ori_url = request.original_url
     mix_id = params[:mix_id]
     collection_id = params[:collection_id]
-    render text: "The request original url: #{ori_url}. The params: #{params}"
-
-    # TODO: How to get user passwrod?
 
     # Add collection base URI
-    EightTracksParser.add_collection(mix_id, collection_id);
-        
+    response = EightTracksParser.add_collection(mix_id, collection_id, session[:user_email], session[:user_password]);        
   end
 
   def toggle_like

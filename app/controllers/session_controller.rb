@@ -31,6 +31,11 @@ class SessionController < ApplicationController
           format.html { redirect_to login_path }
           format.js { @error }
           return
+        else 
+          # Store password in session ( I don't want do this! )
+          # ( but I need that password in the Add-Collection POST request )
+          # Perhaps password leak from session !!??
+          session[:user_password] = password
         end
         user_session_setup_for(user)
         return_to = session[:return_to_url]

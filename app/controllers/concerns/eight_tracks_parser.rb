@@ -19,18 +19,14 @@ module EightTracksParser
     node_name.gsub(/-/, '_').to_sym
   end
 
-  def add_collection(mix_id, collection_id)
-    # curl --request POST -d "collection_mix[collection_id]=85260302&collection_mix[mix_id]=14&login=remitest&password=password" http://8tracks.com/collections_mixes.json
+  def add_collection(mix_id, collection_id, user_email, user_password)
 
-    base_uri = "https://8tracks.com/collections_mixes.xml?"
-    response =  Net::HTTP.post_form(base_uri,
-                                    api_version: 3,
-                                    api_key: api_key,
-                                    login: "pasuya1981",
-                                    passowrd: "zeke4744",
-                                    "collection_mix[collection_id]" => collection_id,
-                                    "collection_mix[mix_id]" => mix_id)
-    puts "Add collection response: #{response.inspect}".green
+    # Create base uri and parse it for POSTing data to 8tracks.
+    base_uri = "https://8tracks.com/collections_mixes.xml?api_key=#{api_key}"
+    base_uri << "&login=#{user_email}&password=#{user_password}"
+    base_uri << "&collection_mix[collection_id]=#{collection_id}&collection_mix[mix_id=#{mix_id}"
+    parse_uri = URI.parse base_uri
+    response = Net::HTTP.post_form(parse_uri, "api_version" => 3) # this method needs at least 2 arguments.
   end
 
   def get_collection_list_hash(username, mix_id)
