@@ -21,8 +21,19 @@ module EightTracksParser
 
   def create_collection(mix_id, collection_name, user_email, user_password)
 
-    # curl --request POST -d "collection_mix[collection_id]=85260302&collection_mix[mix_id]=14&login=remitest&password=password" http://8tracks.com/collections_mixes.jsonh
-    puts "creating collection".red
+    # "collection[name]=New%20Collection&mix_id=14&login=remitest&password=password" https://8tracks.com/collections.json
+    base_uri = "https://8tracks.com/collections"
+    base_uri << "?collection[name]=#{collection_name}&mix_id=#{mix_id}&login=#{user_email}&password=#{user_password}"
+    base_uri << "&api_key=#{api_key}"
+
+    if check_CKJ(base_uri) || base_uri =~ /\s/
+      base_uri = URI::escape base_uri
+    end
+    
+    parsed_uri = URI.parse base_uri
+
+    response = Net::HTTP.post_form(parsed_uri, api_version: '3')
+
   end
 
   def add_collection(mix_id, collection_id, user_email, user_password)
@@ -353,37 +364,41 @@ module EightTracksParser
 
   def uri_to_nokogiri_xml(base_uri)
     #puts base_uri.red
-    chinese_collector = []
-    base_uri.split.each_with_index do |char, index|
-      base_uri.chars.each_with_index { |char, index| chinese_collector << "Find CJK: #{char}. At index: #{index}" if check_char(base_uri, index) }
-    end
-    base_uri = URI::escape base_uri if chinese_collector.size > 0
+    base_uri = URI::escape base_uri if check_CKJ base_uri
     response = open(base_uri).read
     xml = Nokogiri::XML(response)
     status = xml.css('status').first.content 
     yield(status, xml) if block_given?  
   end
 
-  # Check if string contains Chinese, Japaness or Korean char.
-  def check_char(str, n)
-    list_of_chars = str.unpack("U*")
-    char = list_of_chars[n]
-    #main blocks
-    if char >= 0x4E00 && char <= 0x9FFF
-      return true
+  def check_CKJ(string)
+
+    # Check if string contains Chinese, Japaness or Korean char.
+    def check_char(str, n)
+      list_of_chars = str.unpack("U*")
+      char = list_of_chars[n]
+      #main blocks
+      if char >= 0x4E00 && char <= 0x9FFF
+        return true
+      end
+      #extended block A
+      if char >= 0x3400 && char <= 0x4DBF
+        return true
+      end
+      #extended block B
+      if char >= 0x20000 && char <= 0x2A6DF
+        return true
+      end
+      #extended block C
+      if char >= 0x2A700 && char <= 0x2B73F
+        return true
+      end
+      return false
     end
-    #extended block A
-    if char >= 0x3400 && char <= 0x4DBF
-      return true
-    end
-    #extended block B
-    if char >= 0x20000 && char <= 0x2A6DF
-      return true
-    end
-    #extended block C
-    if char >= 0x2A700 && char <= 0x2B73F
-      return true
-    end
+
+    ckj_box = []
+    string.chars.each_with_index { |char, index| ckj_box << "Find CJK: #{char}. At index: #{index}" if check_char(string, index) }
+    return true if ckj_box.size > 0
     return false
   end
 
