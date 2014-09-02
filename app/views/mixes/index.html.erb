@@ -6,6 +6,9 @@
       <%= render 'mix_detailed_block', mix: mix %>
     <% end %>
 
+
+    <% # nothing %>
+
     <ul class="pager">
       <% if @previous_page_path %>
         <li class="previous"><%= link_to("上一頁", 
@@ -34,15 +37,18 @@
         <!-- Modal Body Start -->
         <div class="modal-body">
           <% collection_hash = session[:collection_hash] %>
-          <% collection_hash.each do |collection_name, collection_inside_hash| %>
-          <% collection_id = collection_hash[collection_name][:id] %>
-            <section class="collection-list-wrapper">
-              <section class="collection-list">
-                <section class="collection-add-btn"><span>+</span></section>
-                <span class="collection-name" collection-id="<%= collection_id %>"><%= collection_name  %></span>
+
+          <div class="collection-list-outside-wrapper">
+            <% collection_hash.each do |collection_name, collection_inside_hash| %>
+              <% collection_id = collection_hash[collection_name][:id] %>
+              <section class="collection-list-wrapper">
+                <section class="collection-list">
+                  <section class="collection-add-btn"><span>+</span></section>
+                  <span class="collection-name" collection-id="<%= collection_id %>"><%= collection_name  %></span>
+                </section>
               </section>
-            </section>
-          <% end %>
+            <% end %>
+          </div>
 
           <div id="add-collection-form-wrapper">
             <section id="form-body">
@@ -64,12 +70,16 @@
 
 <script>
   $(document).ready(function() {
-    var myModal = $("#myModal");
-    if (myModal.length > 0) { 
+
+    var modal = $("#myModal");
+
+    // If user logged in, then we have modal DOM.
+    if (modal.length > 0) { 
       initMyModal(); 
-    } else if (myModal.length == 0) {
+    } else if (modal.length == 0) {
       $(".mix-show-plus-btn").css("pointer-events", "none");
     }
+
     function addCollectionFormSubmitLogic () {
 
       /* Create New collection. */
@@ -88,9 +98,20 @@
           var mixesCount = collection.mixes_count;
 
           // TODO: Append Collection list.
+          var collectionListWrapperCopy = $(".collection-list-wrapper").first().clone();
+          var collectionNameNode = collectionListWrapperCopy.find("span .collection-name");
+          collectionNameNode.attr("collection-id", collectionID).html(collectionName);
 
+          $(".collection-list-outside-wrapper").append(collectionListWrapperCopy);
 
-          console.log("Create collection and get data: " + JSON.stringify(json_data, 2));
+          modal.modal('hide');
+
+          // TODO: Add animation on the collection list.
+          initCollectionListAnimation();
+
+          //console.log("Modified Collection List Node: " + collectionListWrapperCopy.html());
+          //console.log("Create collection and get data: " + JSON.stringify(json_data, 2));
+
         });
       });
 
@@ -112,21 +133,26 @@
         });
       });
     }
+
     function initMyModal () {
       // Modal instance
       var modal = $("#myModal");
       var modal_hide_trigger = $("#modal-hide-trigger");  
 
       // Modal Dismiss
-      modal_hide_trigger.click(function(event) { modal.modal('hide'); });  
+      modal_hide_trigger.click(function (event) { modal.modal('hide'); });  
 
       modal_hide_trigger.hover(function() {
         $(this).css('color', '#808080');
       }, function() {
         $(this).css('color', '#333333');
-      });  
+      });
+      initCollectionListAnimation();
+    }
 
+    function initCollectionListAnimation () {
       // Modal Collection Animation
+      var modal = $("#myModal");
       $(".collection-list").hover(function() {
         // Mouse in
         var collection_name = $(this).find(".collection-name");
@@ -143,11 +169,13 @@
       });
       $(".collection-list").mouseleave(function(event) {
         $(this).find(".collection-name").animate({left: '0px'}, 100);
-      });  
+      });   
+    }
 
-      // Click plus button on the mix cover img would trigger Modal View.
+    // Click plus button on the mix cover img trigger Modal View.
+    function attachShowModalToPlusIcon () {
       $(".mix-show-plus-btn").click(function (event) {
-        modal.attr('mix-id', $(this).attr('mix-id'));
+        $("#myModal").attr('mix-id', $(this).attr('mix-id'));
         var mixTitle = $(this).parents("#detailed-mix-wrapper").find("h4").text();
         $("#myModalLabel").html("將 " + mixTitle + " 加入收藏");
         modal.modal();
@@ -164,6 +192,7 @@
       });
     }
     addCollectionFormSubmitLogic();
+    attachShowModalToPlusIcon();
     preventDoubleXHR();
   });
 </script>
