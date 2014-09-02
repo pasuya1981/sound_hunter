@@ -89,6 +89,7 @@
         var mixID = $(this).parents("#myModal").attr("mix-id");
 
         var params = { 'mix_id' : mixID, 'collection_name' : newCollectionName, 'behavior' : 'create' };
+        
 
         $.post("<%= add_collection_path %>", params, function(json_data, textStatus, xhr) {
           // Optional stuff to do after success
